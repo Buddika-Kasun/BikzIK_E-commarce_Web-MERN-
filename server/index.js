@@ -24,3 +24,16 @@ app.use(helmet({
     // If Backend and Frontend use the different domain then error not occurred
     crossOriginEmbedderPolicy: false, 
 }));
+
+const PORT = 8080 || process.env.PORT;
+
+app.get("/", (req, res) => {
+    // Server to client
+    res.json({
+        message: `Server is running on port ${PORT}`,
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
