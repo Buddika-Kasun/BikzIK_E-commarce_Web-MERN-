@@ -1,4 +1,4 @@
-const verifyEmailTemplate = (name, url) => {
+const verifyEmailTemplate = ({name, url}) => {
     return `
         <p>Dear ${name}</p>
         <p>Thank you for register Binkeyit.</p>
