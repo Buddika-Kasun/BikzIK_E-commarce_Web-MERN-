@@ -3,6 +3,7 @@ import UserModel from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import verifyEmailTemplate from '../utils/verifyEmailTemplate.js';
 import { generateRefreshToken, generateAccessToken } from '../utils/generateTokens.js';
+import uploadImageCloudinary from '../utils/uploadImageCloudinary.js';
 
 export const registerUserController = async(req, res) => {
     try{
@@ -213,10 +214,36 @@ export const logoutUserController = async(req, res) => {
     }
 };
 
-export const uploadAvatar = (req, res) => {
+export const uploadAvatarController = async(req, res) => {
     try{
 
-        
+        const userId = req.userId; // auth middleware
+        const image = req.file; // multer middleware
+
+        if(!image) {
+            return res.status(400).json({
+                message: 'No image provided.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const upload = await uploadImageCloudinary(image);
+
+        const updateUser = await UserModel.findByIdAndUpdate(
+            userId,
+            { avatar: upload.url}
+        );
+
+        return res.json({
+            message: 'Avatar uploaded successfully.',
+            error: false,
+            success: true,
+            data: {
+                _id: userId,
+                avatar: upload.url,
+            },
+        });
 
     }
     catch(err){
