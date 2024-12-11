@@ -1,7 +1,7 @@
-import sendEmail from '../configs/sendEmail';
-import UserModel from '../models/user.model';
+import sendEmail from '../configs/sendEmail.js';
+import UserModel from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
-import verifyEmailTemplate from '../utils/verifiyEmailTemplate';
+import verifyEmailTemplate from '../utils/verifyEmailTemplate.js';
 
 const registerUserController = async(req, res) => {
     try{
@@ -38,7 +38,7 @@ const registerUserController = async(req, res) => {
         const newUser = new UserModel(payload);
         const save = await newUser.save();
 
-        const verifyEmailURL = `${process.env.FRONTEND_URL}/verify-email?code=${save._id}`
+        const verifyEmailURL = `${process.env.FRONTEND_URL}/verify-email?code=${save?._id}`
 
         const verifyEmail = await sendEmail({
             sendTo: email,
@@ -66,3 +66,5 @@ const registerUserController = async(req, res) => {
         });
     }
 }
+
+export default registerUserController;
