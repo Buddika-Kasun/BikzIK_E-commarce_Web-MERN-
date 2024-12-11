@@ -17,13 +17,12 @@ export const generateRefreshToken = async(userId) => {
 
     const refreshToken = await jwt.sign(
         { id: userId },
-        process.env.ACCESS_TOKEN_SECRET,
+        process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: '7d' }
     );
 
     const updateRefreshToken = await UserModel.updateOne(
         {_id: userId},
-        process.env.REFRESH_TOKEN_SECRET,
         { refresh_token: refreshToken}
     );
 
