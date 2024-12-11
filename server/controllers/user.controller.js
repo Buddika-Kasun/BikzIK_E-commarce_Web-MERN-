@@ -3,7 +3,7 @@ import UserModel from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import verifyEmailTemplate from '../utils/verifyEmailTemplate.js';
 
-const registerUserController = async(req, res) => {
+export const registerUserController = async(req, res) => {
     try{
 
         const { name, email, password } = req.body;
@@ -65,6 +65,40 @@ const registerUserController = async(req, res) => {
             success: false,
         });
     }
-}
+};
 
-export default registerUserController;
+export const verifyEmailController = async(req, res) => {
+    try{
+
+        const { code } = req.body;
+
+        const user = await UserModel.findOne({_id: code});
+
+        if(!user) {
+            return res.status(404).json({
+                message: 'User not found.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const updateUser = await UserModel.updateOne({_id: code}, {
+            verify_email: true,
+        });
+
+        return res.json({
+            message: 'Email verified successfully.',
+            error: false,
+            success: true,
+        });
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
