@@ -212,3 +212,19 @@ export const logoutUserController = async(req, res) => {
         });
     }
 };
+
+export const uploadAvatar = (req, res) => {
+    try{
+
+        
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
