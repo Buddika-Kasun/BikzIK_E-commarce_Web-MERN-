@@ -176,4 +176,39 @@ export const loginUserController = async(req, res) => {
             success: false,
         });
     }
-}
+};
+
+export const logoutUserController = async(req, res) => {
+    try{
+
+        const userId = req.userId;
+
+        const cookieOption = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None"
+        };
+
+        res.clearCookie('accessToken', cookieOption);
+        res.clearCookie('refreshToken', cookieOption);
+
+        const removeRefreshToken = await UserModel.findByIdAndUpdate(
+            userId,
+            { refresh_token: "" }
+        );
+
+        return res.json({
+            message: 'Logged out successfully.',
+            error: false,
+            success: true,
+        });
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
