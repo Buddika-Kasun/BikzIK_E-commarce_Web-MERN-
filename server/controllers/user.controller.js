@@ -2,6 +2,7 @@ import sendEmail from '../configs/sendEmail.js';
 import UserModel from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import verifyEmailTemplate from '../utils/verifyEmailTemplate.js';
+import { generateRefreshToken, generateAccessToken } from '../utils/generateTokens.js';
 
 export const registerUserController = async(req, res) => {
     try{
@@ -102,3 +103,77 @@ export const verifyEmailController = async(req, res) => {
         });
     }
 };
+
+export const loginUserController = async(req, res) => {
+    try{
+
+        const { email, password } = req.body;
+
+        if(!email ||!password) {
+            return res.status(400).json({
+                message: 'Please fill all required fields.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const user = await UserModel.findOne({email: email});
+
+        if(!user) {
+            return res.status(404).json({
+                message: 'User not found.',
+                error: true,
+                success: false,
+            });
+        }
+
+        if(user.status !== 'Active'){
+            return res.status(401).json({
+                message: 'User is not active. So contact the admin',
+                error: true,
+                success: false,
+            });
+        }
+
+        const isMatchPassword = await bcryptjs.compare(password, user.password);
+
+        if(!isMatchPassword) {
+            return res.status(401).json({
+                message: 'Invalid credentials.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const accessToken = await generateAccessToken(user._id);
+        const refreshToken = await generateRefreshToken(user._id);
+
+        const cookieOption = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None"
+        };
+
+        res.cookie('accessToken', accessToken, cookieOption);
+        res.cookie('refreshToken', refreshToken, cookieOption);
+
+        return res.json({
+            message: 'Logged in successfully.',
+            error: false,
+            success: true,
+            data: {
+                accessToken,
+                refreshToken,
+            },
+        });
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+}
