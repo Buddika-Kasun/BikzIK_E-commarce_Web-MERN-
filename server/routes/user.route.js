@@ -12,6 +12,6 @@ const userRouter = new Router();
 userRouter.post('/register', registerUserController);
 userRouter.post('/verify-email', verifyEmailController);
 userRouter.post('/login', loginUserController);
-userRouter.get('/logout', auth, logoutUserController)
+userRouter.get('/logout', auth, logoutUserController);
 
 export default userRouter;
