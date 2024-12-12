@@ -425,7 +425,52 @@ export const verifyForgotPasswordOtpController = async(req, res) => {
 export const resetForgotPasswordController = async(req, res) => {
     try{
 
+        const { email, newPassword, confirmPassword } = req.body;
 
+        if(!email || !newPassword || !confirmPassword) {
+            return res.status(400).json({
+                message: 'Provide required fields.(email, newPassword, confirmPassword)',
+                error: true,
+                success: false,
+            });
+        }
+
+        const user = await UserModel.findOne({email});
+
+        if(!user) {
+            return res.status(404).json({
+                message: 'User not found.',
+                error: true,
+                success: false,
+            });
+        }
+
+        if(newPassword !== confirmPassword) {
+            return res.status(400).json({
+                message: 'Password and confirm password do not match.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const salt = await bcryptjs.genSalt(10);
+        const hashPassword = await bcryptjs.hash(newPassword, salt);
+
+        const updateUser = await UserModel.findByIdAndUpdate(
+            user._id,
+            {
+                password: hashPassword,
+                forgot_password_otp: "",
+                forgot_password_expiry: "",
+            },
+            { new: true }
+        );
+
+        return res.json({
+            message: 'Password reset successfully.',
+            error: false,
+            success: true,
+        });
 
     }
     catch(err){
