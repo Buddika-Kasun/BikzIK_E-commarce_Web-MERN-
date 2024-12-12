@@ -4,6 +4,8 @@ import bcryptjs from 'bcryptjs';
 import verifyEmailTemplate from '../utils/verifyEmailTemplate.js';
 import { generateRefreshToken, generateAccessToken } from '../utils/generateTokens.js';
 import uploadImageCloudinary from '../utils/uploadImageCloudinary.js';
+import generateOTP from '../utils/generateOTP.js';
+import forgotPasswordOtpTemplate from '../utils/forgotPasswordOtpTemplate.js';
 
 export const registerUserController = async(req, res) => {
     try{
@@ -285,6 +287,60 @@ export const updateProfileController = async(req, res) => {
             error: false,
             success: true,
             data: updateUser,
+        });
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+export const forgotPasswordController = async(req, res) => {
+    try{
+
+        const { email } = req.body;
+
+        const user = await UserModel.findOne({email: email});
+
+        if(!user) {
+            return res.status(404).json({
+                message: 'User not found.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const otp = generateOTP();
+        const expireTime = new Date(Date.now() + 60 * 60 * 1000); // 1hour
+
+        const updateUser = await UserModel.findByIdAndUpdate(
+            user._id,
+            {
+                forgot_password_otp: otp,
+                forgot_password_expiry: expireTime,
+            },
+            { new: true }
+        );
+
+        await sendEmail({
+            sendTo: user.email,
+            subject: 'Forgot Password from Binkeyit',
+            html: forgotPasswordOtpTemplate({
+                    name: user.name,
+                    otp: otp,
+                    expireTime: expireTime,
+                }),
+        });
+
+        return res.json({
+            message: 'OTP sent successfully. Check your email.',
+            error: false,
+            success: true,
         });
 
     }
