@@ -6,6 +6,7 @@ import {
     loginUserController,
     logoutUserController,
     registerUserController,
+    resetForgotPasswordController,
     updateProfileController,
     uploadAvatarController,
     verifyEmailController,
@@ -22,5 +23,6 @@ userRouter.put('/upload-avatar', auth, upload.single('avatar'), uploadAvatarCont
 userRouter.put('/update-user', auth, updateProfileController);
 userRouter.post('/forgot-password', forgotPasswordController);
 userRouter.post('/verify-forgot-password-otp', verifyForgotPasswordOtpController);
+userRouter.put('/reset-password', resetForgotPasswordController);
 
 export default userRouter;
