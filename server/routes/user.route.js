@@ -9,6 +9,7 @@ import {
     updateProfileController,
     uploadAvatarController,
     verifyEmailController,
+    verifyForgotPasswordOtpController,
 } from '../controllers/user.controller.js';
 
 const userRouter = new Router();
@@ -20,5 +21,6 @@ userRouter.get('/logout', auth, logoutUserController);
 userRouter.put('/upload-avatar', auth, upload.single('avatar'), uploadAvatarController);
 userRouter.put('/update-user', auth, updateProfileController);
 userRouter.post('/forgot-password', forgotPasswordController);
+userRouter.post('/verify-password-otp', verifyForgotPasswordOtpController);
 
 export default userRouter;
