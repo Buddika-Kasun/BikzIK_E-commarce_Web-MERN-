@@ -385,7 +385,7 @@ export const verifyForgotPasswordOtpController = async(req, res) => {
             });
         }
 
-        const currentTime = new Date.now();
+        const currentTime = Date.now();
 
         if(currentTime > user.forgot_password_expiry) {
             return res.status(401).json({
@@ -409,6 +409,23 @@ export const verifyForgotPasswordOtpController = async(req, res) => {
             error: false,
             success: true,
         });
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+// Reset forgot password
+export const resetForgotPasswordController = async(req, res) => {
+    try{
+
+
 
     }
     catch(err){

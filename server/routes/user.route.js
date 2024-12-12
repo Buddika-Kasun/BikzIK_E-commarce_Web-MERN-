@@ -21,6 +21,6 @@ userRouter.get('/logout', auth, logoutUserController);
 userRouter.put('/upload-avatar', auth, upload.single('avatar'), uploadAvatarController);
 userRouter.put('/update-user', auth, updateProfileController);
 userRouter.post('/forgot-password', forgotPasswordController);
-userRouter.post('/verify-password-otp', verifyForgotPasswordOtpController);
+userRouter.post('/verify-forgot-password-otp', verifyForgotPasswordOtpController);
 
 export default userRouter;
