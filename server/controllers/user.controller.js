@@ -255,3 +255,45 @@ export const uploadAvatarController = async(req, res) => {
         });
     }
 };
+
+export const updateProfileController = async(req, res) => {
+    try{
+
+        const userId = req.userId; // auth middleware
+        const { name, email, password, mobile } = req.body;
+
+        const hashPassword = "";
+
+        if(password){
+            const salt = await bcryptjs.genSalt(10);
+            hashPassword = await bcryptjs.hash(password, salt);
+        }
+
+        const updateUser = await UserModel.findByIdAndUpdate(
+            userId,
+            {
+                ...(name && {name: name}),
+                ...(email && {email: email}),
+                ...(mobile && {mobile: mobile}),
+                ...(password && {password: hashPassword}),
+            },
+            { new: true }
+        );
+
+        return res.json({
+            message: "Update successful",
+            error: false,
+            success: true,
+            data: updateUser,
+        });
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
