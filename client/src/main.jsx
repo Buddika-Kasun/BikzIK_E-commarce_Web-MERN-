@@ -6,7 +6,7 @@ import { RouterProvider } from 'react-router-dom'
 import router from './routes/index.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <StrictMode>  {/* if this is comment or remove then render only 1 time, now render 2 time for dev purpose */}
     <RouterProvider router={router} />
   </StrictMode>,
 )
