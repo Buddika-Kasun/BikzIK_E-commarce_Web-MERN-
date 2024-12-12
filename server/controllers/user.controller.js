@@ -6,8 +6,9 @@ import { generateRefreshToken, generateAccessToken } from '../utils/generateToke
 import uploadImageCloudinary from '../utils/uploadImageCloudinary.js';
 import generateOTP from '../utils/generateOTP.js';
 import forgotPasswordOtpTemplate from '../utils/forgotPasswordOtpTemplate.js';
+import jwt from 'jsonwebtoken';
 
-// Register new user
+// Register new user controller
 export const registerUserController = async(req, res) => {
     try{
 
@@ -72,7 +73,7 @@ export const registerUserController = async(req, res) => {
     }
 };
 
-// Verify user email
+// Verify user email controller
 export const verifyEmailController = async(req, res) => {
     try{
 
@@ -109,7 +110,7 @@ export const verifyEmailController = async(req, res) => {
     }
 };
 
-// Login user
+// Login user controller
 export const loginUserController = async(req, res) => {
     try{
 
@@ -184,7 +185,7 @@ export const loginUserController = async(req, res) => {
     }
 };
 
-// Logout the user
+// Logout the user controller
 export const logoutUserController = async(req, res) => {
     try{
 
@@ -220,7 +221,7 @@ export const logoutUserController = async(req, res) => {
     }
 };
 
-// Upload avatar
+// Upload avatar controller
 export const uploadAvatarController = async(req, res) => {
     try{
 
@@ -263,7 +264,7 @@ export const uploadAvatarController = async(req, res) => {
     }
 };
 
-// Update name, mobile, email and password
+// Update name, mobile, email and password controller
 export const updateProfileController = async(req, res) => {
     try{
 
@@ -306,7 +307,7 @@ export const updateProfileController = async(req, res) => {
     }
 };
 
-// Forgot Password without login
+// Forgot Password without login controller
 export const forgotPasswordController = async(req, res) => {
     try{
 
@@ -361,7 +362,7 @@ export const forgotPasswordController = async(req, res) => {
     }
 };
 
-// Verify forgot password OTP
+// Verify forgot password OTP controller
 export const verifyForgotPasswordOtpController = async(req, res) => {
     try{
 
@@ -421,7 +422,7 @@ export const verifyForgotPasswordOtpController = async(req, res) => {
     }
 };
 
-// Reset forgot password
+// Reset forgot password controller
 export const resetForgotPasswordController = async(req, res) => {
     try{
 
@@ -470,6 +471,62 @@ export const resetForgotPasswordController = async(req, res) => {
             message: 'Password reset successfully.',
             error: false,
             success: true,
+        });
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+// Refresh token controller
+export const refreshTokenController = async(req, res) => {
+    try{
+
+        const refreshToken = req.cookies.refreshToken || req?.header?.authorization?.split(" ")[1];
+
+        if(!refreshToken) {
+            return res.status(401).json({
+                message: 'Refresh token is missing.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const verifyToken = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        if(!verifyToken){
+            return res.status(401).json({
+                message: 'Refresh token is expired.',
+                error: true,
+                success: false,
+            });
+        }
+
+        const userId = verifyToken?._id
+
+        const newAccessToken = await generateAccessToken(userId);
+
+        const cookieOption = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None"
+        };
+
+        res.cookie('accessToken', newAccessToken, cookieOption);
+
+        return res.json({
+            message: 'Access token refreshed successfully.',
+            error: false,
+            success: true,
+            data: {
+                accessToken: newAccessToken,
+            },
         });
 
     }
