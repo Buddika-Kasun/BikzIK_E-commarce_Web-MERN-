@@ -7,6 +7,7 @@ import uploadImageCloudinary from '../utils/uploadImageCloudinary.js';
 import generateOTP from '../utils/generateOTP.js';
 import forgotPasswordOtpTemplate from '../utils/forgotPasswordOtpTemplate.js';
 
+// Register new user
 export const registerUserController = async(req, res) => {
     try{
 
@@ -71,6 +72,7 @@ export const registerUserController = async(req, res) => {
     }
 };
 
+// Verify user email
 export const verifyEmailController = async(req, res) => {
     try{
 
@@ -107,6 +109,7 @@ export const verifyEmailController = async(req, res) => {
     }
 };
 
+// Login user
 export const loginUserController = async(req, res) => {
     try{
 
@@ -181,6 +184,7 @@ export const loginUserController = async(req, res) => {
     }
 };
 
+// Logout the user
 export const logoutUserController = async(req, res) => {
     try{
 
@@ -216,6 +220,7 @@ export const logoutUserController = async(req, res) => {
     }
 };
 
+// Upload avatar
 export const uploadAvatarController = async(req, res) => {
     try{
 
@@ -258,6 +263,7 @@ export const uploadAvatarController = async(req, res) => {
     }
 };
 
+// Update name, mobile, email and password
 export const updateProfileController = async(req, res) => {
     try{
 
@@ -300,6 +306,7 @@ export const updateProfileController = async(req, res) => {
     }
 };
 
+// Forgot Password without login
 export const forgotPasswordController = async(req, res) => {
     try{
 
