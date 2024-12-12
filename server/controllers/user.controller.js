@@ -337,7 +337,7 @@ export const forgotPasswordController = async(req, res) => {
 
         await sendEmail({
             sendTo: user.email,
-            subject: 'Forgot Password from Binkeyit',
+            subject: 'Forgot Password from BikzIK',
             html: forgotPasswordOtpTemplate({
                     name: user.name,
                     otp: otp,

@@ -68,11 +68,11 @@ const forgotPasswordOtpTemplate = ({ name, otp, expireTime }) => {
   
           <p>This OTP is valid for ${formattedExpireTime}.</p>
   
-          <p>Please enter this OTP on the Binkeyit website to proceed with resetting your password.</p>
+          <p>Please enter this OTP on the BikzIK website to proceed with resetting your password.</p>
   
           <div class="footer">
             Thanks,<br>
-            The Binkeyit Team
+            The BikzIK Team
           </div>
         </div>
       </body>

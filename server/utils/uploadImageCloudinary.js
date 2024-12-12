@@ -6,7 +6,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
     //secure: true,
     //use_ssl: true,
-    //cname: 'binkeyit.com'
+    //cname: 'BikzIK.com'
 });
 
 const uploadImageCloudinary = async(image) => {
@@ -15,8 +15,8 @@ const uploadImageCloudinary = async(image) => {
 
     const uploadImage = await new Promise((resolve, reject) => {
         cloudinary.uploader.upload_stream({
-            folder: 'binkeyit',
-            //public_id: `binkeyit_${Date.now()}`,
+            folder: 'BikzIK',
+            //public_id: `BikzIK_${Date.now()}`,
             //format: 'jpg',
             //width: 800,
             //height: 600,
