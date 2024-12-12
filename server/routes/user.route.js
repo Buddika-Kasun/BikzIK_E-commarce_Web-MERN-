@@ -2,6 +2,7 @@ import { Router } from 'express';
 import auth from '../middlewares/auth.js';
 import upload from '../middlewares/multer.js';
 import { 
+    forgotPasswordController,
     loginUserController,
     logoutUserController,
     registerUserController,
@@ -18,5 +19,6 @@ userRouter.post('/login', loginUserController);
 userRouter.get('/logout', auth, logoutUserController);
 userRouter.put('/upload-avatar', auth, upload.single('avatar'), uploadAvatarController);
 userRouter.put('/update-user', auth, updateProfileController);
+userRouter.post('/forgot-password', forgotPasswordController);
 
 export default userRouter;
