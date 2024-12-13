@@ -1,19 +1,25 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import Search from './Search';
 import { FaRegUserCircle } from "react-icons/fa";
 import useMobile from '../hooks/useMobile';
 import { FaArrowLeft } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Header = () => {
 
     const [ isMobile ] = useMobile();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const isSearchPage = location.pathname === "/search";
 
+    const redirectToLoginPage = () => {
+        navigate("/login");
+    };
+
     return (
-        <header className='h-28 lg:h-20 shadow-md sticky top-0 flex flex-col justify-center'>
+        <header className='h-28 lg:h-20 shadow-md sticky top-0 flex flex-col justify-center bg-white'>
 
             {
                 !(isSearchPage && isMobile) && (
@@ -31,8 +37,8 @@ const Header = () => {
                                 />
                                 <img 
                                     src={logo} 
-                                    height={80}
-                                    width={80}
+                                    height={70}
+                                    width={70}
                                     alt='Logo' 
                                     className='lg:hidden'
                                 />
@@ -46,11 +52,22 @@ const Header = () => {
 
                         {/* Login & My cart */}
                         <div>
+                            {/* Mobile show user icon */}
                             <button className='text-neutral-600 lg:hidden'>
                                 <FaRegUserCircle size={40} />
                             </button>
-                            <div className='hidden lg:block'>
-                                login & cart
+
+                            {/* Desktop show login */}
+                            <div className='hidden lg:flex items-center gap-8'>
+                                <button onClick={redirectToLoginPage} className='text-lg px-2'>Login</button>
+                                <button className='flex items-center gap-2 bg-secondary-200 hover:bg-green-700 text-white py-2 px-3 rounded-md'>
+                                    <div className='animate-bounce'>
+                                        <FaCartShopping size={22} />
+                                    </div>
+                                    <div className='font-semibold'>
+                                        <p>My Cart</p>
+                                    </div>
+                                </button>
                             </div>
                         </div>
 
