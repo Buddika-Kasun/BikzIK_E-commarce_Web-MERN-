@@ -45,7 +45,6 @@ const RegisterPage = () => {
         ...SummaryApi.register,
         data: data,
       });
-      console.log(res);
 
       if(res.data.error) {
         toast.error(res.data.message);
@@ -69,13 +68,12 @@ const RegisterPage = () => {
       AxiosToastError(err);
     }
 
-
   };
 
   return (
     <section className="w-full">
       <div className="bg-white my-4 p-7 rounded w-full max-w-lg mx-auto">
-        <p className="text-lg w-full text-center">Welcome to BikzIK</p>
+        <p className="text-lg w-full text-center font-bold">Welcome to BikzIK</p>
 
         {/* Register form */}
         <form className="grid gap-5 mt-4" onSubmit={handleSubmit}>
