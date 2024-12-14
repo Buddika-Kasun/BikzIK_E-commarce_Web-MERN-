@@ -5,7 +5,7 @@ import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 import { Link, useNavigate } from "react-router-dom";
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordRequestPage = () => {
   const [data, setData] = useState({
     email: "",
   });
@@ -100,4 +100,4 @@ const ForgotPasswordPage = () => {
   );
 };
 
-export default ForgotPasswordPage;
+export default ForgotPasswordRequestPage;

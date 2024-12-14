@@ -4,7 +4,7 @@ import Home from '../pages/Home';
 import SearchPage from '../pages/SearchPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
-import ForgotPasswordPage from '../pages/ForgotPasswordPage';
+import ForgotPasswordRequestPage from '../pages/ForgotPasswordRequestPage';
 import OtpVerifyPage from '../pages/OtpVerifyPage';
 
 const router = createBrowserRouter([
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'forgot-password',
-                element: <ForgotPasswordPage />
+                element: <ForgotPasswordRequestPage />
             },
             {
                 path: 'verify-otp',
