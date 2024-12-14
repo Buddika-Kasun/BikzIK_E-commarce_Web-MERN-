@@ -72,7 +72,7 @@ const RegisterPage = () => {
 
   return (
     <section className="w-full">
-      <div className="bg-white my-4 p-7 rounded w-full max-w-lg mx-auto">
+      <div className="bg-white my-4 p-7 rounded w-full max-w-lg mx-auto shadow-lg">
         <p className="text-lg w-full text-center font-bold">Welcome to BikzIK</p>
 
         {/* Register form */}
