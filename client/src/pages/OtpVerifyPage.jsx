@@ -47,7 +47,12 @@ const OtpVerifyPage = () => {
 
         setOtp(["","","","","",""]);
 
-        //navigate("/verify-otp");
+        navigate("/reset-password", {
+          state: {
+            email: location?.state?.email,
+            data: res.data
+          },
+        });
       }
     }
     catch(err){
@@ -61,10 +66,10 @@ const OtpVerifyPage = () => {
       <div className="bg-white my-4 p-7 rounded w-full max-w-lg mx-auto shadow-lg">
         <p className="text-lg w-full text-center font-bold">OTP Verification</p>
 
-        {/* Forgot password form */}
+        {/* OTP verification form */}
         <form className="grid gap-5 mt-4" onSubmit={handleSubmit}>
 
-          {/* Email */}
+          {/* OTP */}
           <div className="grid">
             <label className="form-label" htmlFor="otp">
               Enter your OTP
@@ -108,7 +113,7 @@ const OtpVerifyPage = () => {
           </button>
         </form>
 
-        {/* Login link */}
+        {/* Reset password page link */}
         <p>Already know the password ? &nbsp;
             <Link to={'/login'} className="font-semibold text-green-600 hover:text-green-700">Login</Link>
         </p>
