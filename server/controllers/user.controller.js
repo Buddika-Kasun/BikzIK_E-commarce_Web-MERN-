@@ -152,6 +152,10 @@ export const loginUserController = async(req, res) => {
             });
         }
 
+        const updateUser = await UserModel.findByIdAndUpdate(user?.id, {
+            last_login_date: new Date(),
+        });
+
         const accessToken = await generateAccessToken(user._id);
         const refreshToken = await generateRefreshToken(user._id);
 
