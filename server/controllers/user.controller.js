@@ -539,3 +539,29 @@ export const refreshTokenController = async(req, res) => {
         });
     }
 };
+
+// Get login user details
+export const getUserDetailsController = async(req, res) => {
+    try{
+
+        const userId = req.userId; // auth middleware
+
+        const user = await UserModel.findById(userId).select('-password -refresh_token');
+
+        return res.json({
+            message: "User details fetched successfully",
+            error: false,
+            success: true,
+            data: user,
+        });
+
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
