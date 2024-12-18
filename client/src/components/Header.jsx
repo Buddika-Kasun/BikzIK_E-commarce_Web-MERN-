@@ -5,12 +5,20 @@ import { FaRegUserCircle } from "react-icons/fa";
 import useMobile from '../hooks/useMobile';
 import { FaArrowLeft } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+import { useSelector } from 'react-redux';
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
+import { useState } from 'react';
+import UserMenu from './UserMenu';
 
 const Header = () => {
 
     const [ isMobile ] = useMobile();
     const location = useLocation();
     const navigate = useNavigate();
+
+    const [openUserMenu, setOpenUserMenu] = useState(false); 
+
+    const user = useSelector((state) => state.user);console.log(user);
 
     const isSearchPage = location.pathname === "/search";
 
@@ -59,7 +67,42 @@ const Header = () => {
 
                             {/* Desktop show login */}
                             <div className='hidden lg:flex items-center gap-8'>
-                                <button onClick={redirectToLoginPage} className='text-lg px-2'>Login</button>
+                                {
+                                    user?._id ? (
+
+                                        <div className='relative'>
+                                            <button
+                                                className='flex items-center gap-2 cursor-pointer'
+                                                onClick={() => setOpenUserMenu((prev) => !prev)}
+                                            >
+                                                <p>Account</p>
+                                                <div>
+                                                    {
+                                                        !openUserMenu ? (
+                                                            <GoTriangleDown />
+                                                        ) : (
+                                                            <GoTriangleUp />
+                                                        )
+                                                    }
+                                                </div>
+                                            </button>
+                                            {
+                                                openUserMenu && (
+                                                    <div className='absolute right-0 top-12'>
+                                                        <div className='bg-white rounded p-4 min-w-44 lg:shadow-lg'>
+                                                            <UserMenu />
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+
+                                    ) : (
+
+                                        <button onClick={redirectToLoginPage} className='text-lg px-2'>Login</button>
+
+                                    )
+                                }
                                 <button className='flex items-center gap-2 bg-secondary-200 hover:bg-green-700 text-white py-2 px-3 rounded-md'>
                                     <div className='animate-bounce'>
                                         <FaCartShopping size={22} />
