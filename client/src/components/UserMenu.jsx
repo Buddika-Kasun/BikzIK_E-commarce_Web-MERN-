@@ -34,18 +34,18 @@ const UserMenu = ({close}) => {
     };
 
     return (
-        <div>
+        <div className="w-full text-xl lg:text-sm relative">
             <div className="font-semibold">My Account</div>
-            <div className="text-sm">{user.name || user.mobile}</div>
+            <div className="mb-4 py-2 lg:mb-0 lg:py-0">{user.name || user.mobile}</div>
 
             <Divider />
 
-            <div className="text-sm grid gap-1">
-                <Link to={"/"} className="rounded px-2 py-1 hover:bg-slate-200">My Orders</Link>
-                <Link to={"/"} className="rounded px-2 py-1 hover:bg-slate-200">Save Address</Link>
+            <div className="grid gap-2 lg:gap-1 pt-4 lg:pt-0">
+                <Link to={"/"} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">My Orders</Link>
+                <Link to={"/"} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">Save Address</Link>
                 <button
                     onClick={handleLogout}
-                    className="bg-red-100 rounded p-1 mt-2 hover:bg-red-200"
+                    className="bg-red-200 lg:bg-red-100 rounded p-1 mt-2 hover:bg-red-200 absolute bottom-5 w-full lg:relative lg:bottom-0"
                 >
                     Log Out
                 </button>
