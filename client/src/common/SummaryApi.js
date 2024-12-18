@@ -24,6 +24,10 @@ const SummaryApi = {
     refresh_token: {
         url: '/api/user/refresh-token',
         method: 'POST',
+    },
+    user_details: {
+        url: '/api/user/user-details',
+        method: 'GET',
     }
 };
 
