@@ -18,12 +18,25 @@ const Header = () => {
 
     const [openUserMenu, setOpenUserMenu] = useState(false); 
 
-    const user = useSelector((state) => state.user);console.log(user);
+    const user = useSelector((state) => state.user);
 
     const isSearchPage = location.pathname === "/search";
 
     const redirectToLoginPage = () => {
         navigate("/login");
+    };
+
+    const handleClose = () => {
+        setOpenUserMenu(false);
+    };
+
+    const handleMobileUser = () => {
+        if(!user._id){
+            navigate("/login");
+            return
+        }
+
+        setOpenUserMenu(!openUserMenu);
     };
 
     return (
@@ -61,7 +74,23 @@ const Header = () => {
                         {/* Login & My cart */}
                         <div>
                             {/* Mobile show user icon */}
-                            <button className='text-neutral-600 lg:hidden'>
+                            <button
+                                className='text-neutral-600 lg:hidden flex items-center gap-1'
+                                onClick={handleMobileUser}
+                            >
+                                {
+                                    user?._id && (
+                                        <div>
+                                            {
+                                                !openUserMenu ? (
+                                                    <GoTriangleDown size={22} />
+                                                ) : (
+                                                    <GoTriangleUp size={22} />
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                }  
                                 <FaRegUserCircle size={40} />
                             </button>
 
@@ -75,7 +104,7 @@ const Header = () => {
                                                 className='flex items-center gap-2 cursor-pointer'
                                                 onClick={() => setOpenUserMenu((prev) => !prev)}
                                             >
-                                                <p>Account</p>
+                                                <p>{user?.name}</p>
                                                 <div>
                                                     {
                                                         !openUserMenu ? (
@@ -90,7 +119,7 @@ const Header = () => {
                                                 openUserMenu && (
                                                     <div className='absolute right-0 top-12'>
                                                         <div className='bg-white rounded p-4 min-w-44 lg:shadow-lg'>
-                                                            <UserMenu />
+                                                            <UserMenu close={handleClose}/>
                                                         </div>
                                                     </div>
                                                 )
@@ -99,7 +128,7 @@ const Header = () => {
 
                                     ) : (
 
-                                        <button onClick={redirectToLoginPage} className='text-lg px-2'>Login</button>
+                                        <button onClick={redirectToLoginPage} className=' px-2'>Login</button>
 
                                     )
                                 }
@@ -118,7 +147,7 @@ const Header = () => {
                 )
             }
 
-            <div className='container mx-auto lg:hidden flex items-center'>
+            <div className='container mx-auto lg:hidden flex items-center relative'>
                 {
                     isSearchPage && (
                         <Link to={"/"} className="flex items-center justify-center p-2 mr-1 rounded-full border-2 border-neutral-400 text-neutral-500 bg-gray-100 active:text-black active:border-black">
@@ -126,6 +155,13 @@ const Header = () => {
                         </Link>
                     )
                 }
+                {
+                    openUserMenu && (
+                        <div className='bg-slate-100 py-4 flex absolute left-0 top-0 w-full h-[calc(100vh-75px)] container z-10 border-2 border-t-slate-300'>
+                            <UserMenu close={handleClose}/>
+                        </div>
+                    )
+                } 
                 <Search />
             </div>
 
