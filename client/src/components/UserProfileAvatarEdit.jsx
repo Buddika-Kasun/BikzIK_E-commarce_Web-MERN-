@@ -46,6 +46,7 @@ const UserProfileAvatarEdit = ({close}) => {
 
         if(!image){
             toast.error("Please select an new avatar!");
+            //setLoading(false);
             return;
         }
 
@@ -94,7 +95,7 @@ const UserProfileAvatarEdit = ({close}) => {
                 >
                     <IoClose size={25} />
                 </button>
-                <div className="bg-red-400 flex w-56 h-56 items-center justify-center rounded overflow-hidden border relative">
+                <div className={`bg-red-400 flex w-56 h-56 items-center justify-center rounded overflow-hidden border relative ${loading && 'cursor-wait'}`}>
                     {
                         previewUrl ? (
                             <img 
@@ -123,18 +124,26 @@ const UserProfileAvatarEdit = ({close}) => {
                                 accept="image/*"
                                 className="hidden"
                                 onChange={handleEditAvatar}
+                                disabled={loading}
                             />
-                            <div className="absolute bottom-0 right-0 bg-white bg-opacity-60 flex p-1 rounded-tl-md cursor-pointer">
+                            <div className={`absolute bottom-0 right-0 bg-white bg-opacity-60 flex p-1 rounded-tl-md ${loading ? 'cursor-wait' : 'cursor-pointer'}`}>
                                     <FaUserEdit size={20} />
                             </div>
                         </label>
                     </form>
                 </div>
                 <button
-                    className="text-sm border rounded-full px-4 py-1 bg-slate-200 hover:bg-slate-300 cursor-pointer"
+                    className={`text-sm border rounded-full px-4 py-1 bg-slate-200 ${!loading ? 'hover:bg-slate-300 cursor-pointer' : 'cursor-wait'}`}
                     onClick={handleUploadAvatar}
+                    disabled={loading}
                 >
-                    Upload
+                    {
+                        loading ? (
+                            "Uploading..."
+                        ) : (
+                            "Upload"
+                        )
+                    }
                 </button>
             </div>
         </section>
