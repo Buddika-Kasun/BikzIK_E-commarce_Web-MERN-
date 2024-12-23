@@ -91,7 +91,20 @@ const Header = () => {
                                         </div>
                                     )
                                 }  
-                                <FaRegUserCircle size={40} />
+
+                                <div className='flex items-center justify-center w-14 aspect-square border-2 border-neutral-300 rounded-full overflow-hidden'>
+                                {
+                                    user?.avatar ? (
+                                        <img
+                                            src={user.avatar}
+                                            alt='Avatar'
+                                            className='w-full h-full'
+                                        />
+                                    ) : (
+                                        <FaRegUserCircle size={48} />
+                                    )
+                                }
+                                </div>
                             </button>
 
                             {/* Desktop show login */}
