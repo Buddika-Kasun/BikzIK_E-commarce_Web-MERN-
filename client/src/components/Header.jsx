@@ -40,7 +40,7 @@ const Header = () => {
     };
 
     return (
-        <header className='h-28 lg:h-20 shadow-md sticky top-0 flex flex-col justify-center bg-white'>
+        <header className='h-28 lg:h-20 shadow-md sticky top-0 flex flex-col justify-center bg-white z-50'>
 
             {
                 !(isSearchPage && isMobile) && (
