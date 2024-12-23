@@ -95,7 +95,7 @@ const UserProfileAvatarEdit = ({close}) => {
                 >
                     <IoClose size={25} />
                 </button>
-                <div className={`bg-red-400 flex w-56 h-56 items-center justify-center rounded overflow-hidden border relative ${loading && 'cursor-wait'}`}>
+                <div className={`flex w-56 h-56 items-center justify-center rounded overflow-hidden border relative ${loading && 'cursor-wait'}`}>
                     {
                         previewUrl ? (
                             <img 
