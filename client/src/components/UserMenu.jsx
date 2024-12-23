@@ -6,6 +6,7 @@ import Axios from '../utils/Axios';
 import SummaryApi from "../common/SummaryApi";
 import toast from 'react-hot-toast';
 import AxiosToastError from "../utils/AxiosToastError";
+import { HiExternalLink } from "react-icons/hi";
 
 const UserMenu = ({close}) => {
 
@@ -35,14 +36,17 @@ const UserMenu = ({close}) => {
 
     return (
         <div className="w-full text-xl lg:text-sm relative">
-            <div className="font-semibold">My Account</div>
-            <div className="mb-4 py-2 lg:mb-0 lg:py-0">{user.name || user.mobile}</div>
+            <div className="font-semibold mb-1">My Account</div>
+            <div className="mb-4 py-2 lg:mb-0 lg:py-0 flex gap-2">
+                <span className="max-w-52 text-ellipsis line-clamp-1">{user.name || user.mobile}</span>
+                <Link to={'/dashboard/profile'} className="hover:text-primary-100 text-2xl lg:text-lg"><HiExternalLink /></Link>
+            </div>
 
             <Divider />
 
             <div className="grid gap-2 lg:gap-1 pt-4 lg:pt-0">
-                <Link to={"/"} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">My Orders</Link>
-                <Link to={"/"} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">Save Address</Link>
+                <Link to={"/dashboard/orders"} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">My Orders</Link>
+                <Link to={"/dashboard/address"} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">Save Address</Link>
                 <button
                     onClick={handleLogout}
                     className="bg-red-200 lg:bg-red-100 rounded p-1 mt-2 hover:bg-red-200 absolute bottom-5 w-full lg:relative lg:bottom-0"
