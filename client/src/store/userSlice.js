@@ -15,10 +15,13 @@ const userSlice = createSlice({
         },
         clearUser: () => {
             return initialValue;
+        },
+        updateAvatar: (state, action) => {
+            state.avatar = action.payload
         }
     }
 });
 
-export const { setUser,clearUser } = userSlice.actions;
+export const { setUser, clearUser, updateAvatar } = userSlice.actions;
 
 export default userSlice.reducer;
