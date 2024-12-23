@@ -46,7 +46,7 @@ const UserProfileAvatarEdit = ({close}) => {
 
         if(!image){
             toast.error("Please select an new avatar!");
-            //setLoading(false);
+            setLoading(false);
             return;
         }
 
