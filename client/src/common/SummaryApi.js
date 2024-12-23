@@ -32,6 +32,10 @@ const SummaryApi = {
     logout: {
         url: '/api/user/logout',
         method: 'GET',
+    },
+    upload_avatar: {
+        url: 'api/user/upload-avatar',
+        method: 'PUT',
     }
 };
 
