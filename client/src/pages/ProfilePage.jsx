@@ -74,7 +74,7 @@ const ProfilePage = () => {
                                 className="w-full h-full"
                             />
                         ) : (
-                            <FaRegUserCircle size={85} />
+                            <FaRegUserCircle className="w-full h-full" />
                         )
                     }
                 </div>
