@@ -51,8 +51,55 @@ const UserMenu = ({close}) => {
             <Divider />
 
             <div className="grid gap-2 lg:gap-1 pt-4 lg:pt-0">
-                <Link to={"/dashboard/orders"} onClick={handleClose} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">My Orders</Link>
-                <Link to={"/dashboard/address"} onClick={handleClose} className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200">Save Address</Link>
+
+                <Link
+                    to={"/dashboard/category"}
+                    onClick={handleClose}
+                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                >
+                    Category
+                </Link>
+
+                <Link
+                    to={"/dashboard/sub-category"}
+                    onClick={handleClose}
+                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                >
+                   Sub Category
+                </Link>
+
+                <Link
+                    to={"/dashboard/upload-product"}
+                    onClick={handleClose}
+                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                >
+                    Upload Product
+                </Link>
+
+                <Link
+                    to={"/dashboard/admin-products"}
+                    onClick={handleClose}
+                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                >
+                    Products
+                </Link>
+
+                <Link
+                    to={"/dashboard/orders"}
+                    onClick={handleClose}
+                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                >
+                    My Orders
+                </Link>
+                
+                <Link
+                    to={"/dashboard/address"}
+                    onClick={handleClose}
+                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                >
+                    Save Address
+                </Link>
+                
                 <button
                     onClick={handleLogout}
                     className="bg-red-200 lg:bg-red-100 rounded p-1 mt-2 hover:bg-red-200 absolute bottom-5 w-full lg:relative lg:bottom-0"
