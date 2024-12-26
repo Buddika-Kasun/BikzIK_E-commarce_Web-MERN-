@@ -87,7 +87,7 @@ const UserProfileAvatarEdit = ({close}) => {
     }, [previewUrl]);
 
     return (
-        <section className="fixed top-0 bottom-0 left-0 right-0 bg-neutral-900 bg-opacity-60 flex items-center justify-center">
+        <section className="fixed top-0 bottom-0 left-0 right-0 bg-neutral-900 bg-opacity-60 flex items-center justify-center z-50">
             <div className="bg-white max-w-sm w-full rounded p-4 flex flex-col items-center justify-center gap-2">
                 <button
                     className="w-fit ml-auto hover:text-red-400"
