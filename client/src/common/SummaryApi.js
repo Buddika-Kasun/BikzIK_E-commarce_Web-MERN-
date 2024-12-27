@@ -1,6 +1,7 @@
 export const baseURL = "http://localhost:8080";
 
 const SummaryApi = {
+    // User API endpoints
     register: {
         url: '/api/user/register',
         method: 'POST',
@@ -41,6 +42,16 @@ const SummaryApi = {
         url: 'api/user/update-user',
         method: 'PUT',
     },
+
+    // Category API endpoints
+    add_category: {
+        url: 'api/category/add',
+        method: 'POST',
+    },
+    upload_image: {
+        url: 'api/file/upload',
+        method: 'POST',
+    }
 };
 
 export default SummaryApi;
