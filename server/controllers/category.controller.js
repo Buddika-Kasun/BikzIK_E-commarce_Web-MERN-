@@ -45,3 +45,34 @@ export const addCategoryController = async(req, res) => {
         });
     }
 };
+
+// Get all categories controller
+export const getAllCategoriesController = async(req, res) => {
+    try{
+
+        const categories = await CategoryModel.find();
+
+        if(!categories) {
+            return res.status(404).json({
+                message: "No categories found",
+                error: true,
+                success: false,
+            });
+        }
+
+        return res.status(200).json({
+            message: "Categories fetched successfully",
+            error: false,
+            success: true,
+            data: categories,
+        });
+
+    }
+    catch(err){
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
