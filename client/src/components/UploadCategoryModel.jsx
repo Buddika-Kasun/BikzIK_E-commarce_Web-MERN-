@@ -7,11 +7,11 @@ import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 
-const UploadCategoryModel = ({close, fetchData}) => {
+const UploadCategoryModel = ({close, fetchData, mode}) => {
 
     const [data, setData] = useState({
-        name: "",
-        image: ""
+        name: mode.category?.name || "",
+        image: mode.category?.image || "",
     });
 
     const [previewUrl, setPreviewUrl] = useState("");
@@ -53,30 +53,59 @@ const UploadCategoryModel = ({close, fetchData}) => {
 
         try{
             setLoading(true);
+            
+            let uploadedImageUrl = data.image;
+            
+            if (previewUrl) {
+                const imgResponse = await uploadImage(data.image);
+                uploadedImageUrl = imgResponse.data.data.url;
+            }
 
-            const imgResponse = await uploadImage(data.image);
-    
-            const uploadedImageUrl = imgResponse.data.data.url;
-    
             const payload = {
                 name: data.name,
-                image: uploadedImageUrl
+                image: uploadedImageUrl,
             };
 
-            const response = await Axios({
-                ...SummaryApi.add_category,
-                data: payload
-            });
+            let response;
 
+            if (mode.status === "create") {
+                response = await Axios({
+                    ...SummaryApi.add_category,
+                    data: payload
+                });
+            }
+            
+            if (mode.status === "update") {
+
+                const newPayload = {
+                    ...payload,
+                    categoryId: mode.category._id,
+                }
+
+                response = await Axios({
+                    ...SummaryApi.update_category,
+                    data: newPayload
+                });
+            }
+            
             if(response.data.success) {
-                toast.success("Category added successfully!");
+
+                if(mode.status === "create") {
+                    toast.success("Category added successfully!");
+                }
+                else if(mode.status === "update") {
+                    toast.success("Category updated successfully!");
+                }
+
                 setData({
                     name: "",
                     image: ""
                 });
+
                 close();
                 fetchData();
             }
+    
 
         }
         catch(error){
@@ -93,7 +122,11 @@ const UploadCategoryModel = ({close, fetchData}) => {
         <section className="fixed top-0 right-0 bottom-0 left-0 bg-neutral-900 bg-opacity-60 p-4 flex items-center justify-center z-50">
             <div className="bg-white max-w-4xl w-full p-4 rounded-md">
                 <div className="flex items-center justify-center">
-                    <h2 className="font-semibold">Category</h2>
+                    <h2 className="font-semibold">
+                        {
+                            mode.status === "create"? "Add Category" : "Edit Category"
+                        }
+                    </h2>
                     <button
                         className="w-fit ml-auto hover:text-red-400"
                         onClick={close}
@@ -126,7 +159,7 @@ const UploadCategoryModel = ({close, fetchData}) => {
                                         data.image ? (
                                             <img
                                                 src={data.image} 
-                                                className="w-full h-full object-scale-down"
+                                                className="w-full h-full" // object-scale-down"
                                             />
                                         ) : (
                                             <label htmlFor="uploadCategoryImage" className="w-full h-full">
@@ -150,7 +183,7 @@ const UploadCategoryModel = ({close, fetchData}) => {
                                     )
                                 }
                                 {
-                                    (previewUrl || data.img) && (
+                                    (previewUrl || data.image) && (
                                         <label htmlFor="editImage">
                                             <div
                                                 className={`absolute bottom-0 right-0 bg-white bg-opacity-60 flex p-1 rounded-tl-md ${data.name ? 'opacity-100 cursor-pointer' : 'opacity-50'}`}
@@ -179,9 +212,17 @@ const UploadCategoryModel = ({close, fetchData}) => {
                     >
                         {
                             loading ? (
-                                'Adding...'
+                                mode.status === "create" ? (
+                                    "Creating..."
+                                ) : (
+                                    "Updating..."
+                                )
                             ) : (
-                                'Add Category'
+                                mode.status === "create"? (
+                                    "Create Category"
+                                ) : (
+                                    "Update Category"
+                                )
                             )
                         }
                     </button>
