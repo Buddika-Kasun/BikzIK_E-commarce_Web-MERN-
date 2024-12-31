@@ -7,7 +7,7 @@ import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 
-const UploadCategoryModel = ({close}) => {
+const UploadCategoryModel = ({close, fetchData}) => {
 
     const [data, setData] = useState({
         name: "",
@@ -75,6 +75,7 @@ const UploadCategoryModel = ({close}) => {
                     image: ""
                 });
                 close();
+                fetchData();
             }
 
         }
@@ -174,7 +175,7 @@ const UploadCategoryModel = ({close}) => {
                     </div>
                     <button
                         disabled={!data.name || !data.image}
-                        className={`rounded-md py-1 mt-4 ${(data.name && data.image) ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' : 'bg-slate-300'} ${loading ? 'cursor-auto' : 'cursor-default' }`}
+                        className={`rounded-md py-1 mt-4 ${(data.name && data.image) ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' : 'bg-slate-300'} ${loading ? 'cursor-wait' : 'cursor-default' }`}
                     >
                         {
                             loading ? (
