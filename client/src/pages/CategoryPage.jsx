@@ -10,7 +10,11 @@ const CategoryPage = () => {
 
     const [openUploadCategory, setOpenUploadCategory] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [categoryData, setCategoryData] = useState([]);
+    const [categoriesData, setCategoriesData] = useState([]);
+    const [editCategory, setEditCategory] = useState({
+        open: false,
+        categoryData: "",
+    });
 
     const fetchCategory = async() => {
         try{
@@ -20,7 +24,7 @@ const CategoryPage = () => {
                 ...SummaryApi.get_category,
             });
 
-            setCategoryData(response.data.data);
+            setCategoriesData(response.data.data);
         }
         catch(error){
             console.log(error);
@@ -33,6 +37,13 @@ const CategoryPage = () => {
     useEffect(() => {
         fetchCategory();
     }, []);
+
+    const handleEdit = (categoryData) => {
+        setEditCategory({
+            open: true,
+            categoryData: categoryData,
+        });
+    };
 
     return (
         <section>
@@ -51,14 +62,14 @@ const CategoryPage = () => {
             }
 
             {
-                !categoryData[0] &&  !loading && (
+                !categoriesData[0] &&  !loading && (
                     <NoData />
                 )
             }
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4 max-h-[64vh] mt-2 overflow-auto">
             {
-                categoryData.map((category, index) => (
+                categoriesData.map((category, index) => (
                     <div key={index} className="p-2 flex flex-col items-center gap-2 bg-white rounded-md">
                         <img 
                             src={category.image}
@@ -66,6 +77,17 @@ const CategoryPage = () => {
                             className="w-32 aspect-square rounded-md"
                         />
                         <p>{category.name}</p>
+                        <div className="flex items-center gap-2 w-full">
+                            <button 
+                                className="flex-1 bg-green-100 hover:bg-green-200 text-green-600 text-sm py-1 rounded-md"
+                                onClick={() => handleEdit(category)}
+                            >
+                                Edit
+                            </button>
+                            <button className="flex-1 bg-red-100 hover:bg-red-200 text-red-600 text-sm py-1 rounded-md">
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 ))
             }
@@ -76,6 +98,25 @@ const CategoryPage = () => {
                     <UploadCategoryModel
                         close={() => setOpenUploadCategory(false)}
                         fetchData={fetchCategory}
+                        mode = {{
+                            status: "create",
+                        }}
+                    />
+                )
+            }
+
+            {
+                editCategory.open && (
+                    <UploadCategoryModel
+                        close={() => setEditCategory({
+                            open: false,
+                            categoryData: "",
+                        })}
+                        fetchData={fetchCategory}
+                        mode = {{
+                            status: "update",
+                            category: editCategory.categoryData
+                        }}
                     />
                 )
             }
