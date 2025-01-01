@@ -4,6 +4,9 @@ import Loading from "../components/Loading";
 import NoData from "../components/NoData";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
+import ConfirmBox from "../components/ConfirmBox";
+import AxiosToastError from "../utils/AxiosToastError";
+import toast from "react-hot-toast";
 
 
 const CategoryPage = () => {
@@ -12,6 +15,10 @@ const CategoryPage = () => {
     const [loading, setLoading] = useState(false);
     const [categoriesData, setCategoriesData] = useState([]);
     const [editCategory, setEditCategory] = useState({
+        open: false,
+        categoryData: "",
+    });
+    const [deleteCategory, setDeleteCategory] = useState({
         open: false,
         categoryData: "",
     });
@@ -38,11 +45,49 @@ const CategoryPage = () => {
         fetchCategory();
     }, []);
 
-    const handleEdit = (categoryData) => {
+    const handleEditClick = (categoryData) => {
         setEditCategory({
             open: true,
             categoryData: categoryData,
         });
+    };
+
+    const handleDeleteClick = (categoryData) => {
+        setDeleteCategory({
+            open: true,
+            categoryData: categoryData,
+        });
+    };
+
+    const handleDelete = async() => {
+        try {
+            //setLoading(true);
+
+            const response = await Axios({
+                ...SummaryApi.delete_category,
+                data: {
+                    categoryId: deleteCategory.categoryData._id
+                },
+            });
+
+            if(response.data.success) {
+                toast.success("Category deleted successfully.");
+                
+                fetchCategory();
+                setDeleteCategory({
+                    open: false,
+                    categoryData: "",
+                });
+            }
+
+        }
+        catch(error) {
+            console.log(error);
+            AxiosToastError(error)
+        }
+        finally {
+            //setLoading(false);
+        }
     };
 
     return (
@@ -80,11 +125,14 @@ const CategoryPage = () => {
                         <div className="flex items-center gap-2 w-full">
                             <button 
                                 className="flex-1 bg-green-100 hover:bg-green-200 text-green-600 text-sm py-1 rounded-md"
-                                onClick={() => handleEdit(category)}
+                                onClick={() => handleEditClick(category)}
                             >
                                 Edit
                             </button>
-                            <button className="flex-1 bg-red-100 hover:bg-red-200 text-red-600 text-sm py-1 rounded-md">
+                            <button
+                                className="flex-1 bg-red-100 hover:bg-red-200 text-red-600 text-sm py-1 rounded-md"
+                                onClick={() => handleDeleteClick(category)}
+                            >
                                 Delete
                             </button>
                         </div>
@@ -120,6 +168,24 @@ const CategoryPage = () => {
                     />
                 )
             }
+
+            {
+                deleteCategory.open && (
+                    <ConfirmBox 
+                        confirm={handleDelete}
+                        cancel={() => setDeleteCategory({
+                            open: false,
+                            categoryData: "",
+                        })}
+                        close={() => setDeleteCategory({
+                            open: false,
+                            categoryData: "",
+                        })}
+                        text={`${deleteCategory.categoryData?.name} Category`}
+                    />
+                )
+            }
+
         </section>
     );
 }
