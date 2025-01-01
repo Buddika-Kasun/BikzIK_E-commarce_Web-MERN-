@@ -162,7 +162,7 @@ const Header = () => {
                 )
             }
 
-            <div className='container mx-auto lg:hidden flex items-center relative'>
+            <div className='container mx-auto lg:hidden flex items-center relative mt-2'>
                 {
                     isSearchPage && (
                         <Link to={"/"} className="flex items-center justify-center p-2 mr-1 rounded-full border-2 border-neutral-400 text-neutral-500 bg-gray-100 active:text-black active:border-black">
