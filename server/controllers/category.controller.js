@@ -52,7 +52,7 @@ export const addCategoryController = async(req, res) => {
 export const getAllCategoriesController = async(req, res) => {
     try{
 
-        const categories = await CategoryModel.find();
+        const categories = await CategoryModel.find().sort({ createdAt: -1 });
 
         if(!categories) {
             return res.status(404).json({
