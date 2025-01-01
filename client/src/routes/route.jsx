@@ -15,6 +15,8 @@ import CategoryPage from '../pages/CategoryPage';
 import SubcategoryPage from '../pages/SubcategoryPage';
 import AdminProductsPage from '../pages/AdminProductsPage';
 import UploadProductPage from '../pages/UploadProductPage';
+import AdminPermission from '../layouts/AdminPermission';
+import DashboardPermissions from '../layouts/DashboardPermission';
 
 const router = createBrowserRouter([
     {
@@ -67,19 +69,19 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'category',
-                        element: <CategoryPage />
+                        element: <AdminPermission><CategoryPage /></AdminPermission>
                     },
                     {
                         path: 'sub-category',
-                        element: <SubcategoryPage />
+                        element: <AdminPermission><SubcategoryPage /></AdminPermission>                   
                     },
                     {
                         path: 'upload-product',
-                        element: <UploadProductPage />
+                        element: <AdminPermission><UploadProductPage /></AdminPermission>
                     },
                     {
                         path: 'admin-products',
-                        element: <AdminProductsPage />
+                        element: <AdminPermission><AdminProductsPage /></AdminPermission>
                     }
                 ]
             }
