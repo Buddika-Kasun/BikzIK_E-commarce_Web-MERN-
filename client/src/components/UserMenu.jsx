@@ -7,6 +7,7 @@ import SummaryApi from "../common/SummaryApi";
 import toast from 'react-hot-toast';
 import AxiosToastError from "../utils/AxiosToastError";
 import { HiExternalLink } from "react-icons/hi";
+import isAdmin from "../utils/isAdmin";
 
 const UserMenu = ({close}) => {
 
@@ -24,7 +25,9 @@ const UserMenu = ({close}) => {
                 dispatch(clearUser());
                 localStorage.clear();
                 toast.success(response.data.message);
-                close();
+                if(close) {
+                    close();
+                }
             }
 
         }
@@ -44,7 +47,12 @@ const UserMenu = ({close}) => {
         <div className="w-full text-xl lg:text-sm relative">
             <div className="font-semibold mb-1">My Account</div>
             <div className="mb-4 py-2 lg:mb-0 lg:py-0 flex gap-2">
-                <span className="max-w-52 text-ellipsis line-clamp-1">{user.name || user.mobile}</span>
+                <span className="max-w-52 text-ellipsis line-clamp-1">
+                    {user.name || user.mobile}&nbsp;
+                    <span className="text-sm text-red-600">
+                        {user.role === 'ADMIN' && '(Admin)'}
+                    </span>
+                </span>
                 <Link to={'/dashboard/profile'} onClick={handleClose} className="hover:text-primary-100 text-2xl lg:text-lg"><HiExternalLink /></Link>
             </div>
 
@@ -52,37 +60,43 @@ const UserMenu = ({close}) => {
 
             <div className="grid gap-2 lg:gap-1 pt-4 lg:pt-0">
 
-                <Link
-                    to={"/dashboard/category"}
-                    onClick={handleClose}
-                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
-                >
-                    Category
-                </Link>
+                {
+                    isAdmin(user.role) && (
+                        <>
+                            <Link
+                                to={"/dashboard/category"}
+                                onClick={handleClose}
+                                className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                            >
+                                Category
+                            </Link>
 
-                <Link
-                    to={"/dashboard/sub-category"}
-                    onClick={handleClose}
-                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
-                >
-                   Sub Category
-                </Link>
+                            <Link
+                                to={"/dashboard/sub-category"}
+                                onClick={handleClose}
+                                className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                            >
+                            Sub Category
+                            </Link>
 
-                <Link
-                    to={"/dashboard/upload-product"}
-                    onClick={handleClose}
-                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
-                >
-                    Upload Product
-                </Link>
+                            <Link
+                                to={"/dashboard/upload-product"}
+                                onClick={handleClose}
+                                className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                            >
+                                Upload Product
+                            </Link>
 
-                <Link
-                    to={"/dashboard/admin-products"}
-                    onClick={handleClose}
-                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
-                >
-                    Products
-                </Link>
+                            <Link
+                                to={"/dashboard/admin-products"}
+                                onClick={handleClose}
+                                className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                            >
+                                Products
+                            </Link>
+                        </>
+                    )
+                }
 
                 <Link
                     to={"/dashboard/orders"}
