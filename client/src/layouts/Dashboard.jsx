@@ -9,19 +9,19 @@ const Dashboard = () => {
 
     const navigate = useNavigate();
 
-    
+    /* 
     useEffect(() => {
         if(!user._id) {
             navigate("/login");
         }
-    }, [user._id, navigate]);
+    }, [user._id, navigate]); */
     
 
     return (
-        <section className="">
+        <section className="h-[77vh]">
             <div className="container mx-auto p-3 grid lg:grid-cols-[250px,1fr]">
                 {/* Left Menu */}
-                <div className="p-4 sticky top-24 overflow-auto hidden lg:block border-r-2 border-r-slate-200 max-h-[73vh]">
+                <div className="p-4 sticky top-24 overflow-auto hidden lg:block border-r-2 border-r-slate-200 h-[73vh]">
                     <UserMenu />
                 </div>
 
