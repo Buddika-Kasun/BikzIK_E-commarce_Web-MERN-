@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Divider from "./Divider";
 import { clearUser } from "../store/userSlice";
 import Axios from '../utils/Axios';
@@ -13,6 +13,8 @@ const UserMenu = ({close}) => {
 
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const handleLogout = async() => {
         try{
@@ -28,6 +30,7 @@ const UserMenu = ({close}) => {
                 if(close) {
                     close();
                 }
+                navigate('/login');
             }
 
         }
