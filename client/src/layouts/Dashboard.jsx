@@ -9,13 +9,13 @@ const Dashboard = () => {
 
     const navigate = useNavigate();
 
-    {/*
-        useEffect(() => {
-            if(user._id === "") {
-                navigate("/login");
-            }
-        }, [user._id, navigate]);
-    */}
+    
+    useEffect(() => {
+        if(!user._id) {
+            navigate("/login");
+        }
+    }, [user._id, navigate]);
+    
 
     return (
         <section className="">
