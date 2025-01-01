@@ -207,7 +207,7 @@ const UploadCategoryModel = ({close, fetchData, mode}) => {
                         </div>
                     </div>
                     <button
-                        disabled={!data.name || !data.image}
+                        disabled={!data.name || !data.image || loading}
                         className={`rounded-md py-1 mt-4 ${(data.name && data.image) ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' : 'bg-slate-300'} ${loading ? 'cursor-wait' : 'cursor-default' }`}
                     >
                         {
