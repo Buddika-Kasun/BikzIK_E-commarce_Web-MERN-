@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { useState } from 'react';
 import UserMenu from './UserMenu';
+import Logo from './Logo';
 
 const Header = () => {
 
@@ -49,7 +50,7 @@ const Header = () => {
                         {/* Logo */}
                         <div>
                             <Link to={"/"} className='flex items-center justify-center h-full'>
-                                <img 
+                                {/* <img 
                                     src={logo} 
                                     height={80}
                                     width={80}
@@ -62,7 +63,8 @@ const Header = () => {
                                     width={70}
                                     alt='Logo' 
                                     className='lg:hidden'
-                                />
+                                /> */}
+                                <Logo />
                             </Link>
                         </div>
 
