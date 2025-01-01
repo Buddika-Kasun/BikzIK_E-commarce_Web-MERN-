@@ -16,7 +16,6 @@ import SubcategoryPage from '../pages/SubcategoryPage';
 import AdminProductsPage from '../pages/AdminProductsPage';
 import UploadProductPage from '../pages/UploadProductPage';
 import AdminPermission from '../layouts/AdminPermission';
-import DashboardPermissions from '../layouts/DashboardPermission';
 
 const router = createBrowserRouter([
     {
