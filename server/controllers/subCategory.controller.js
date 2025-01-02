@@ -1,6 +1,6 @@
 import SubCategoryModel from '../models/subCategory.model.js';
 
-// Add new subcategory controller
+// Add new sub category controller
 export const addSubCategoryController = async(req, res) => {
     try {
 
@@ -35,6 +35,37 @@ export const addSubCategoryController = async(req, res) => {
             error: false,
             success: true,
             data: saveSubCategory,
+        });
+
+    }
+    catch(err){
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+// Get all sub categories controller
+export const getAllSubCategoriesController = async(req, res) => {
+    try {
+
+        const subCategories = await SubCategoryModel.find().sort({ createdAt: -1 });
+
+        if(!subCategories) {
+            return res.status(404).json({
+                message: "No subcategories found",
+                error: true,
+                success: false,
+            });
+        }
+
+        return res.status(200).json({
+            message: "Subcategories fetched successfully",
+            error: false,
+            success: true,
+            data: subCategories,
         });
 
     }
