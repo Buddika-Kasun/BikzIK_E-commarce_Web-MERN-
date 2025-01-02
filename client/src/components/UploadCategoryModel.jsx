@@ -102,8 +102,13 @@ const UploadCategoryModel = ({close, fetchData, mode}) => {
                     image: ""
                 });
 
-                close();
-                fetchData();
+                if (close) {
+                    close();
+                }
+                
+                if (fetchData) {
+                    fetchData();
+                }
             }
     
 
