@@ -7,3 +7,5 @@ import {
 const subCategoryRouter = Router();
 
 subCategoryRouter.post('/add', auth, addSubCategoryController);
+
+export default subCategoryRouter;
