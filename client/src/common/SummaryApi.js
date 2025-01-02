@@ -70,6 +70,10 @@ const SummaryApi = {
         url: 'api/subcategory/add',
         method: 'POST',
     },
+    get_subCategory: {
+        url: 'api/subcategory/get',
+        method: 'GET',
+    },
     
 };
 
