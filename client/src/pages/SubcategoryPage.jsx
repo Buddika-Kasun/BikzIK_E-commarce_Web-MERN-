@@ -17,7 +17,7 @@ const SubcategoryPage = () => {
             setLoading(true);
 
             const response = await Axios({
-                ...SummaryApi.get_category,
+                ...SummaryApi.get_subCategory,
             });
 
             setSubCategoriesData(response.data.data);
@@ -31,7 +31,7 @@ const SubcategoryPage = () => {
     }
 
     useEffect(() => {
-        //fetchSubCategory();
+        fetchSubCategory();
     }, []);
 
     return (
