@@ -127,7 +127,7 @@ export const deleteCategoryController = async(req, res) => {
             }
         }).countDocuments();
         
-        if (dependProduct > 0 || dependProduct > 0) {
+        if (dependSubCategory> 0 || dependProduct > 0) {
             return res.status(400).json({
                 message: "Category is already used can't be delete",
                 error: true,
