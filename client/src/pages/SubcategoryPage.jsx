@@ -9,6 +9,9 @@ import { createColumnHelper } from "@tanstack/react-table";
 import ViewImage from "../components/ViewImage";
 import { RiPencilFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
+import ConfirmBox from "../components/ConfirmBox";
+import AxiosToastError from "../utils/AxiosToastError";
+import toast from "react-hot-toast";
 
 const SubcategoryPage = () => {
 
@@ -17,6 +20,10 @@ const SubcategoryPage = () => {
     const [subCategoriesData, setSubCategoriesData] = useState([]);
     const [imageUrl, setImageUrl] = useState("");
     const [editSubCategory, setEditSubCategory] = useState({
+        open: false,
+        subCategoryData: "",
+    });
+    const [deleteSubCategory, setDeleteSubCategory] = useState({
         open: false,
         subCategoryData: "",
     });
@@ -50,6 +57,44 @@ const SubcategoryPage = () => {
             open: true,
             subCategoryData: subCategoryData,
         });
+    };
+
+    const handleDeleteClick = (subCategoryData) => {
+        setDeleteSubCategory({
+            open: true,
+            subCategoryData: subCategoryData,
+        });
+    };
+
+    const handleDelete = async() => {
+        try {
+            //setLoading(true);
+
+            const response = await Axios({
+                ...SummaryApi.delete_subCategory,
+                data: {
+                    subCategoryId: deleteSubCategory.subCategoryData._id
+                },
+            });
+
+            if(response.data.success) {
+                toast.success("Sub category deleted successfully.");
+                
+                fetchSubCategory();
+                setDeleteSubCategory({
+                    open: false,
+                    subCategoryData: "",
+                });
+            }
+
+        }
+        catch(error) {
+            console.log(error);
+            AxiosToastError(error)
+        }
+        finally {
+            //setLoading(false);
+        }
     };
 
     const columns = [
@@ -97,7 +142,10 @@ const SubcategoryPage = () => {
                         >
                             <RiPencilFill size={18} />
                         </button>
-                        <button className="p-1 bg-red-200 rounded-full text-red-500 hover:text-red-700">
+                        <button
+                            className="p-1 bg-red-200 rounded-full text-red-500 hover:text-red-700"
+                            onClick={() => handleDeleteClick(row.original)}
+                        >
                             <MdDelete size={18} />
                         </button>
                     </div>
@@ -165,6 +213,23 @@ const SubcategoryPage = () => {
 
             {
                 imageUrl && <ViewImage url={imageUrl} close={() => setImageUrl("")} />
+            }
+
+            {
+                deleteSubCategory.open && (
+                    <ConfirmBox 
+                        confirm={handleDelete}
+                        cancel={() => setDeleteSubCategory({
+                            open: false,
+                            subCategoryData: "",
+                        })}
+                        close={() => setDeleteSubCategory({
+                            open: false,
+                            subCategoryData: "",
+                        })}
+                        text={`${deleteSubCategory.subCategoryData?.name} Sub Category`}
+                    />
+                )
             }
 
         </section>
