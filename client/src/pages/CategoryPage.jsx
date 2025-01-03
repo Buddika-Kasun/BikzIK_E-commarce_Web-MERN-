@@ -7,6 +7,9 @@ import SummaryApi from "../common/SummaryApi";
 import ConfirmBox from "../components/ConfirmBox";
 import AxiosToastError from "../utils/AxiosToastError";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import fetchCategoryDetails from "../utils/fetchCategoryDetails";
+import { setAllCategory } from "../store/productSlice";
 
 
 const CategoryPage = () => {
@@ -23,7 +26,15 @@ const CategoryPage = () => {
         categoryData: "",
     });
 
-    const fetchCategory = async() => {
+    const allCategory = useSelector(state => state.product.allCategory);
+    const dispatch = useDispatch();
+    
+
+    useEffect(() => {
+        setCategoriesData(allCategory);
+    }, [allCategory]);
+
+    /* const fetchCategory = async() => {
         try{
             setLoading(true);
 
@@ -39,6 +50,29 @@ const CategoryPage = () => {
         finally{
             setLoading(false);
         }
+    }
+
+    useEffect(() => {
+        fetchCategory();
+    }, []); */
+
+    const fetchCategory = async() => {
+        try {
+            setLoading(true);
+
+            const categoryData = await fetchCategoryDetails();
+
+            setCategoriesData(categoryData.data);
+
+            dispatch(setAllCategory(categoryData.data));
+        }
+        catch (error) {
+            AxiosToastError(error);
+        }
+        finally {
+            setLoading(false);
+        }
+
     }
 
     useEffect(() => {
