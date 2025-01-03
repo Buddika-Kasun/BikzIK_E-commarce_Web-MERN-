@@ -1,3 +1,4 @@
+import ProductModel from '../models/product.model.js';
 import SubCategoryModel from '../models/subCategory.model.js';
 
 // Add new sub category controller
@@ -104,6 +105,55 @@ export const updateSubCategoryController = async(req, res) => {
             message: "Subcategory updated successfully",
             error: false,
             success: true,
+        });
+
+    }
+    catch(err){
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+// Delete sub category controller
+export const deleteSubCategoryController = async(req, res) => {
+    try{
+
+        const { subCategoryId } = req.body;
+
+        const dependProduct = await ProductModel.find({
+            subCategory: {
+                $in: [subCategoryId]
+            }
+        }).countDocuments();
+
+        if (dependProduct > 0) {
+            return res.status(400).json({
+                message: "Sub category is already used can't be delete",
+                error: true,
+                success: false,
+            });
+        }
+
+        const deleteSubCategory = await SubCategoryModel.deleteOne({
+            _id: subCategoryId
+        });
+
+        if(!deleteSubCategory) {
+            return res.status(404).json({
+                message: "Sub category not found",
+                error: true,
+                success: false,
+            });
+        }
+
+        return res.status(200).json({
+            message: "Subcategory deleted successfully",
+            error: false,
+            success: true,
+            data: deleteSubCategory,
         });
 
     }
