@@ -14,14 +14,15 @@ const DisplayTable = ({data, columns}) => {
     });
 
     return (
-        <div className="p-2">
-            <table className='w-full'>
-                <thead className='bg-black text-white'>
+        <div className="px-2 mt-2 max-h-[64vh] overflow-auto relative">
+            <table className='w-full relative'>
+                <thead className='bg-black text-white sticky top-[-1px]'>
                 {table.getHeaderGroups().map(headerGroup => (
                     <tr key={headerGroup.id}>
-                        <th>Sr.No</th>
+                        <th className='border'>Sr.No</th>
                     {headerGroup.headers.map(header => (
                         <th key={header.id} className='border'>
+                        {/* whitespace-nowrap */}
                         {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -39,6 +40,7 @@ const DisplayTable = ({data, columns}) => {
                         <td className='border px-2 text-center'>{index + 1}</td>
                     {row.getVisibleCells().map(cell => (
                         <td key={cell.id} className='border px-2'>
+                        {/* whitespace-nowrap */}
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                     ))}
