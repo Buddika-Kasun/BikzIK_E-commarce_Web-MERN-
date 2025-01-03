@@ -13,7 +13,7 @@ const UploadSubCategoryModel = ({close, fetchData, mode}) => {
     const [data, setData] = useState({
         name: mode?.subCategory?.name || "",
         image: mode?.subCategory?.image || "",
-        category: [],
+        category: mode?.subCategory?.category || [],
     });
 
     const [previewUrl, setPreviewUrl] = useState("");
@@ -118,11 +118,11 @@ const UploadSubCategoryModel = ({close, fetchData, mode}) => {
 
                 const newPayload = {
                     ...payload,
-                    categoryId: mode.subCategory._id,
+                    subCategoryId: mode.subCategory._id,
                 }
 
                 response = await Axios({
-                    ...SummaryApi.update_category,
+                    ...SummaryApi.update_subCategory,
                     data: newPayload
                 });
             }
@@ -130,10 +130,10 @@ const UploadSubCategoryModel = ({close, fetchData, mode}) => {
             if(response.data.success) {
 
                 if(mode.status === "create") {
-                    toast.success("Category added successfully!");
+                    toast.success("Sub Category added successfully!");
                 }
                 else if(mode.status === "update") {
-                    toast.success("Category updated successfully!");
+                    toast.success("Sub Category updated successfully!");
                 }
 
                 setData({
@@ -141,8 +141,8 @@ const UploadSubCategoryModel = ({close, fetchData, mode}) => {
                     image: ""
                 });
 
-                close();
-                fetchData();
+                if (close) close();
+                if (fetchData) fetchData();
             }
     
 
