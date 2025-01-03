@@ -77,7 +77,11 @@ const SummaryApi = {
     update_subCategory: {
         url: 'api/subcategory/update',
         method: 'PUT',
-    },    
+    },
+    delete_subCategory: {
+        url: 'api/subcategory/delete',
+        method: 'DELETE',
+    },   
 };
 
 export default SummaryApi;
