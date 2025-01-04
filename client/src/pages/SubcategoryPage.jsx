@@ -12,6 +12,9 @@ import { MdDelete } from "react-icons/md";
 import ConfirmBox from "../components/ConfirmBox";
 import AxiosToastError from "../utils/AxiosToastError";
 import toast from "react-hot-toast";
+import fetchDetails from "../utils/fetchDetails";
+import { setAllSubCategory } from "../store/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SubcategoryPage = () => {
 
@@ -27,6 +30,10 @@ const SubcategoryPage = () => {
         open: false,
         subCategoryData: "",
     });
+
+    const dispatch = useDispatch();
+    const allSubCategory = useSelector(state => state.product.allSubCategory);
+
     
     const columnHelper = createColumnHelper();
 
@@ -34,11 +41,12 @@ const SubcategoryPage = () => {
         try{
             setLoading(true);
 
-            const response = await Axios({
-                ...SummaryApi.get_subCategory,
-            });
+            const subCategoryData = await fetchDetails({url: 'get_subCategory'});
 
-            setSubCategoriesData(response.data.data);
+            setSubCategoriesData(subCategoryData.data);
+
+            dispatch(setAllSubCategory(subCategoryData.data));
+            
         }
         catch(error){
             console.log(error);
@@ -48,9 +56,13 @@ const SubcategoryPage = () => {
         }
     }
 
-    useEffect(() => {
+    /* useEffect(() => {
         fetchSubCategory();
-    }, []);
+    }, []); */
+
+    useEffect(() => {
+        setSubCategoriesData(allSubCategory);
+    }, [allSubCategory]);
 
     const handleEditClick = (subCategoryData) => {
         setEditSubCategory({
