@@ -126,7 +126,7 @@ const CategoryPage = () => {
 
     return (
         <section>
-            <div className="p-2 pt-4 shadow-md flex justify-between sticky top-20 bg-blue-50 z-30">
+            <div className="p-2 pt-4 shadow-md flex justify-between sticky top-28 lg:top-20 bg-blue-50 z-30">
                 <h2 className="font-semibold">Category</h2>
                 <button
                     className="text-sm border border-green-600 hover:bg-green-600 px-3 py-1 rounded-md text-green-600 hover:text-white "
