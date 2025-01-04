@@ -325,7 +325,7 @@ const UploadProductPage = () => {
                                 }
                             </div>
                             <select
-                                className={`p-1 outline-none bg-blue-100 bg-opacity-60 focus-within:bg-opacity-100 ${data.category.length > 0 && 'border-t'} border-blue-200 focus-within:border-blue-300 rounded-md text-gray-400 w-full`}
+                                className={`p-1 outline-none bg-blue-100 bg-opacity-60 focus-within:bg-opacity-100 ${data.category.length > 0 && 'border-t'} border-blue-200 focus-within:border-blue-300 rounded-md text-gray-400 w-full cursor-pointer`}
                                 onChange={handleAddCategorySelected}
                             >
                                 <option value={""} disabled selected>Select Category</option>
@@ -366,7 +366,7 @@ const UploadProductPage = () => {
                                 }
                             </div>
                             <select
-                                className={`p-1 outline-none bg-blue-100 bg-opacity-60 focus-within:bg-opacity-100 ${data.subCategory.length > 0 && 'border-t'} border-blue-200 focus-within:border-blue-300 rounded-md text-gray-400 w-full`}
+                                className={`p-1 outline-none bg-blue-100 bg-opacity-60 focus-within:bg-opacity-100 ${data.subCategory.length > 0 && 'border-t'} border-blue-200 focus-within:border-blue-300 rounded-md text-gray-400 w-full cursor-pointer`}
                                 onChange={handleAddSubCategorySelected}
                             >
                                 <option value={""} disabled selected>Select Sub Category</option>
