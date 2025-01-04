@@ -81,7 +81,13 @@ const SummaryApi = {
     delete_subCategory: {
         url: 'api/subcategory/delete',
         method: 'DELETE',
-    },   
+    },
+    
+    // Product API endpoints
+    add_product: {
+        url: 'api/product/add',
+        method: 'POST',
+    },
 };
 
 export default SummaryApi;
