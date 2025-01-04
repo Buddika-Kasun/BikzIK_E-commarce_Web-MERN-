@@ -126,7 +126,7 @@ const CategoryPage = () => {
 
     return (
         <section>
-            <div className="p-2 shadow-md flex justify-between">
+            <div className="p-2 pt-4 shadow-md flex justify-between sticky top-20 bg-blue-50 z-30">
                 <h2 className="font-semibold">Category</h2>
                 <button
                     className="text-sm border border-green-600 hover:bg-green-600 px-3 py-1 rounded-md text-green-600 hover:text-white "
@@ -146,7 +146,7 @@ const CategoryPage = () => {
                 )
             }
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4 max-h-[64vh] mt-2 overflow-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4 min-h-[64vh] mt-2">
             {
                 categoriesData.map((category, index) => (
                     <div key={index} className="p-2 flex flex-col items-center gap-2 bg-white rounded-md">
