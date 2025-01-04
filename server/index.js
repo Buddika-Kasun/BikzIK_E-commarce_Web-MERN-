@@ -9,6 +9,7 @@ import userRouter from './routes/user.route.js';
 import categoryRouter from './routes/category.route.js';
 import uploadImageRouter from './routes/uploadImage.route.js';
 import subCategoryRouter from './routes/subCategory.route.js';
+import productRouter from './routes/product.route.js';
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ app.use('/api/user', userRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/file', uploadImageRouter);
 app.use('/api/subcategory', subCategoryRouter);
+app.use('/api/product', productRouter);
 
 // Connect to MongoDB
 connectDB().then(() => {
