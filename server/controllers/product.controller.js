@@ -39,17 +39,63 @@ export const addProductController = async(req, res) => {
 
         const saveProduct = await newProduct.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             message: "Product added successfully",
             error: false,
             success: true,
             data: saveProduct,
         });
 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: "Server error",
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+// Get products controller
+export const getProductsController = async(req, res) => {
+    try {
+
+        let {page, limit, search} = req.body;
+
+        if(!page){
+            page = 1;
+        }
+
+        if(!limit){
+            limit = 10;
+        }
+
+        const query = search ? {
+            $text: {
+                $search: search,
+            }
+        } : {};
+
+        const skip = (page - 1) * limit;
+
+        const [data, totalCount] = await Promise.all([
+            ProductModel.find(query).sort({createdAt: -1}).skip(skip).limit(limit),
+            ProductModel.countDocuments(query),
+        ]);
+
+        return res.json({
+            message: "Products data",
+            error: false,
+            success: true,
+            totalCount: totalCount,
+            totalNoPage: Math.ceil(totalCount - limit),
+            data: data,
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            message: err.message || err,
             error: true,
             success: false,
         });
