@@ -88,7 +88,7 @@ export const getProductsController = async(req, res) => {
             error: false,
             success: true,
             totalCount: totalCount,
-            totalNoPage: Math.ceil(totalCount - limit),
+            totalNoPage: Math.ceil(totalCount / limit),
             data: data,
         });
 
