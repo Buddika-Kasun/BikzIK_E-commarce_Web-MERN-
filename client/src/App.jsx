@@ -7,7 +7,11 @@ import fetchUserDetails from './utils/fetchUserDetails';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from './store/userSlice';
-import { setAllCategory, setAllSubCategory } from './store/productSlice';
+import {
+  setAllCategory,
+  setAllSubCategory,
+  setLoadingCategory
+} from './store/productSlice';
 import Axios from './utils/Axios';
 import SummaryApi from './common/SummaryApi';
 import fetchCategoryDetails from './utils/fetchCategoryDetails';
@@ -26,9 +30,18 @@ function App() {
 
   const fetchCategory = async() => {
     // const categoryData = await fetchCategoryDetails();
-    const categoryData = await fetchDetails({url: 'get_category'});
+    try{
+      dispatch(setLoadingCategory(true));
+      const categoryData = await fetchDetails({url: 'get_category'});
+      dispatch(setAllCategory(categoryData.data));
+    }
+    catch(error){
+      console.log(error);
+    }
+    finally{
+      dispatch(setLoadingCategory(false));
+    }
 
-    dispatch(setAllCategory(categoryData.data));
   }
 
   const fetchSubCategory = async() => {
