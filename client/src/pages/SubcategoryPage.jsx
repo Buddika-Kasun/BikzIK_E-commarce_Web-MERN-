@@ -136,7 +136,7 @@ const SubcategoryPage = () => {
                     <>
                         {
                             row.original.category.map((c, i) => (
-                                <p key={i} className="inline-block px-2 mx-1 bg-slate-200 rounded">{c.name}</p>
+                                <p key={i} className="inline-block px-2 m-1 bg-slate-200 rounded">{c.name}</p>
                             ))
                         }
                     </>
