@@ -10,7 +10,7 @@ const ViewImage = ({url, close}) => {
                 >
                     <IoClose size={25} />
                 </button>
-                <img src={url} alt="Full screen view" className="w-full h-full" />
+                <img src={url} alt="Full screen view" className="w-full max-h-[60vh] object-contain" />
             </div>
         </section>
     );
