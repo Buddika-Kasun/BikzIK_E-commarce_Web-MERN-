@@ -75,9 +75,9 @@ const CategoryPage = () => {
 
     }
 
-    useEffect(() => {
+    /* useEffect(() => {
         fetchCategory();
-    }, []);
+    }, []); */
 
     const handleEditClick = (categoryData) => {
         setEditCategory({
@@ -149,14 +149,14 @@ const CategoryPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4 min-h-[64vh] mt-2">
             {
                 categoriesData.map((category, index) => (
-                    <div key={index} className="p-2 flex flex-col items-center gap-2 bg-white rounded-md">
+                    <div key={index} className="p-2 min-h-[230px] flex flex-col items-center gap-2 bg-white rounded-md relative">
                         <img 
                             src={category.image}
                             alt={category.name}
                             className="w-32 aspect-square rounded-md"
                         />
-                        <p>{category.name}</p>
-                        <div className="flex items-center gap-2 w-full">
+                        <p className="text-ellipsis line-clamp-2 text-center">{category.name}</p>
+                        <div className="flex items-center gap-2 w-full absolute bottom-0 p-2">
                             <button 
                                 className="flex-1 bg-green-100 hover:bg-green-200 text-green-600 text-sm py-1 rounded-md"
                                 onClick={() => handleEditClick(category)}
