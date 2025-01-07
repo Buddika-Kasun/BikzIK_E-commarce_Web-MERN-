@@ -20,7 +20,7 @@ const uploadImageCloudinary = async(image) => {
             //format: 'jpg',
             width: 500,
             height: 500,
-            crop: 'fill',
+            crop: 'fit',
             quality: 100
         }, (error, uploadResult) => {
             if (error) {
