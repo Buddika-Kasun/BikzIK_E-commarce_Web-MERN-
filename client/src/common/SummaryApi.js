@@ -92,6 +92,10 @@ const SummaryApi = {
         url: 'api/product/get',
         method: 'POST',
     },
+    get_product_by_category: {
+        url: 'api/product/get-by-category',
+        method: 'POST',
+    },
     
 };
 
