@@ -22,7 +22,7 @@ const UploadCategoryModel = ({close, fetchData, mode}) => {
     const handleImage = (e) => {
         const imageFile = e.target.files[0];
 
-        if(!imageFile){
+        if(!imageFile && !previewUrl){
             toast.error("Please select an avatar!");
             return;
         }
@@ -214,7 +214,7 @@ const UploadCategoryModel = ({close, fetchData, mode}) => {
 
                                 {
                                     imageUploading &&
-                                    <div className="absolute top-0 right-0 bottom-0 left-0 bg-neutral-900 bg-opacity-60 flex items-center justify-center">
+                                    <div className="absolute top-0 right-0 bottom-0 left-0 bg-neutral-900 bg-opacity-60 flex items-center justify-center cursor-wait">
                                         <Loading />
                                     </div>
                                 }
