@@ -18,10 +18,10 @@ const uploadImageCloudinary = async(image) => {
             folder: 'BikzIK',
             //public_id: `BikzIK_${Date.now()}`,
             //format: 'jpg',
-            //width: 800,
-            //height: 600,
-            //crop: 'fill',
-            //quality: 100
+            width: 500,
+            height: 500,
+            crop: 'fill',
+            quality: 100
         }, (error, uploadResult) => {
             if (error) {
                 reject(error);
