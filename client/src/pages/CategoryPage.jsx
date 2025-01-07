@@ -149,7 +149,7 @@ const CategoryPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4 min-h-[64vh] mt-2">
             {
                 categoriesData.map((category, index) => (
-                    <div key={index} className="p-2 min-h-[230px] flex flex-col items-center gap-2 bg-white rounded-md relative">
+                    <div key={index} className="p-2 min-h-[230px] flex flex-col items-center gap-2 bg-white rounded-md shadow-md relative">
                         <img 
                             src={category.image}
                             alt={category.name}
