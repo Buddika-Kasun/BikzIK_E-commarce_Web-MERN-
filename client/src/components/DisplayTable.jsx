@@ -42,9 +42,9 @@ const DisplayTable = ({data, columns}) => {
                 <tbody>
                 {table.getRowModel().rows.map((row, index) => (
                     <tr key={row.id}>
-                        <td className='border px-2 text-center'>{index + 1}</td>
+                        <td className='border border-gray-300 px-2 text-center'>{index + 1}</td>
                     {row.getVisibleCells().map(cell => (
-                        <td key={cell.id} className='border px-2'>
+                        <td key={cell.id} className='border border-gray-300 px-2'>
                         {/* whitespace-nowrap */}
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
