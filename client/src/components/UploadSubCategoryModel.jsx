@@ -7,6 +7,7 @@ import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 import uploadImage from "../utils/UploadImage";
 import { useSelector } from "react-redux";
+import Loading from "./Loading";
 
 const UploadSubCategoryModel = ({close, fetchData, mode}) => {
 
@@ -18,13 +19,14 @@ const UploadSubCategoryModel = ({close, fetchData, mode}) => {
 
     const [previewUrl, setPreviewUrl] = useState("");
     const [loading, setLoading] = useState(false);
+    const [imageUploading, setImageUpLoading] = useState(false);
 
     const allCategory = useSelector(state => state.product.allCategory);
 
     const handleImage = (e) => {
         const imageFile = e.target.files[0];
 
-        if(!imageFile){
+        if(!imageFile && !previewUrl){
             toast.error("Please select an avatar!");
             return;
         }
@@ -94,8 +96,10 @@ const UploadSubCategoryModel = ({close, fetchData, mode}) => {
             let uploadedImageUrl = data.image;
             
             if (previewUrl) {
+                setImageUpLoading(true);
                 const imgResponse = await uploadImage(data.image);
                 uploadedImageUrl = imgResponse.data.data.url;
+                setImageUpLoading(false);
             }
 
             const payload = {
@@ -240,6 +244,12 @@ const UploadSubCategoryModel = ({close, fetchData, mode}) => {
                                             />
                                         </label>
                                     )
+                                }
+                                {
+                                    imageUploading &&
+                                    <div className="absolute top-0 right-0 bottom-0 left-0 bg-neutral-900 bg-opacity-60 flex items-center justify-center cursor-wait">
+                                        <Loading />
+                                    </div>
                                 }
                             </div>
                             
