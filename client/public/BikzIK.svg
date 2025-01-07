@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+<!-- <svg height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 viewBox="0 0 502 502" xml:space="preserve">
 <g>
 	<g>
@@ -29,4 +29,18 @@
 		<path d="M97,84c-5.522,0-10-4.478-10-10V52c0-5.522,4.478-10,10-10s10,4.478,10,10v22C107,79.522,102.522,84,97,84z"/>
 	</g>
 </g>
+</svg> -->
+
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 500 500">
+  <rect width="500" height="500" fill="none"/>
+  <text x="20%" y="40%" font-size="400" fill="#16A34A" font-family="Arial, sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    B
+  </text>
+  <text x="75%" y="70%" font-size="300" fill="#808080" font-family="Arial, sans-serif" font-weight="bold" text-anchor="middle" dominant-baseline="central">
+    IK
+  </text>
 </svg>
+
+
+
+
