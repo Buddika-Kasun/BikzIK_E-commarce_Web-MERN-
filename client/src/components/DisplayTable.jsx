@@ -7,6 +7,10 @@ import {
 
 const DisplayTable = ({data, columns}) => {
 
+    if (!data || data.length === 0) {
+        return;
+    }
+
     const table = useReactTable({
         data,
         columns,
