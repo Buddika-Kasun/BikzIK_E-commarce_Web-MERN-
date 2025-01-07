@@ -101,3 +101,44 @@ export const getProductsController = async(req, res) => {
         });
     }
 };
+
+// Get product by category controller
+export const getProductsByCategoryController = async(req, res) => {
+    try {
+
+        const { categoryId } = req.body;
+
+        if(!categoryId) {
+            return res.status(400).json({
+                message: "Please provide categoryId",
+                error: true,
+                success: false,
+            });
+        }
+
+        const products = await ProductModel.find({category: {$in: categoryId}}).sort({createdAt: -1}).limit(15);
+
+        if(!products) {
+            return res.status(404).json({
+                message: "No products found for this category",
+                error: true,
+                success: false,
+            });
+        }
+
+        return res.json({
+            message: "Products fetched successfully",
+            error: false,
+            success: true,
+            data: products,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        })
+    }
+};
