@@ -13,11 +13,11 @@ body{
 
 body::-webkit-scrollbar {
     width: 8px;
-    @apply bg-blue-100 rounded-full;
+    @apply bg-slate-200 rounded-full;
 }
 
 body::-webkit-scrollbar-thumb {
-    @apply bg-blue-200 rounded-full
+    @apply bg-green-400 rounded-full;
 }
 
 .form-field{
@@ -34,5 +34,5 @@ body::-webkit-scrollbar-thumb {
 }
 
 .scroll-custom::-webkit-scrollbar-thumb {
-    @apply bg-blue-200 rounded-full
+    @apply bg-green-300 rounded-full
 }
