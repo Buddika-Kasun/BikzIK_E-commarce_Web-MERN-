@@ -142,3 +142,60 @@ export const getProductsByCategoryController = async(req, res) => {
         })
     }
 };
+
+// Get product by category and subcategory controller
+
+export const getProductsByCategoryAndSubcategoryController = async(req, res) => {
+    try {
+
+        const { categoryId, subcategoryId } = req.body;
+        let { page, limit } = req.body;
+
+        if(!categoryId || !subcategoryId) {
+            return res.status(400).json({
+                message: "Please provide both categoryId and subcategoryId",
+                error: true,
+                success: false,
+            });
+        }
+
+        if (page) {
+            page = 1;
+        }
+
+        if (limit) {
+            limit = 10;
+        }
+
+        const query = {
+            category: { $in: categoryId},
+            subCategory: { $in: subcategoryId }
+        }
+
+        const skip = (page - 1) * limit;
+
+        const [data, dataCount] = await Promise.all([
+            ProductModel.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
+            ProductModel.countDocuments(query)
+        ]);
+
+        return res.json({
+            message: "Products list fetched successfully",
+            error: false,
+            success: true,
+            totalCount: dataCount,
+            totalNoPage: Math.ceil(dataCount / limit),
+            page: page,
+            limit: limit,
+            data: data,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
