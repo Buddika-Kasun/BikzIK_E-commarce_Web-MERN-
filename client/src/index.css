@@ -11,10 +11,28 @@ body{
     @apply bg-blue-50 text-neutral-700 cursor-default;
 }
 
+body::-webkit-scrollbar {
+    width: 8px;
+    @apply bg-blue-100 rounded-full;
+}
+
+body::-webkit-scrollbar-thumb {
+    @apply bg-blue-200 rounded-full
+}
+
 .form-field{
     @apply appearance-none outline-none border-[1.5px] border-blue-100 rounded w-full py-1 px-3 text-gray-500 focus:border-blue-300 bg-blue-50 focus:bg-blue-100 focus:shadow-sm;
 }
 
 .form-label{
     @apply text-gray-500 mb-1;
+}
+
+.scroll-custom::-webkit-scrollbar {
+    width: 5px;
+    @apply bg-slate-200 rounded-full;
+}
+
+.scroll-custom::-webkit-scrollbar-thumb {
+    @apply bg-blue-200 rounded-full
 }
