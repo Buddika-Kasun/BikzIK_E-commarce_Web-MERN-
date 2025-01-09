@@ -31,7 +31,7 @@ const Home = () => {
     };
 
     return (
-        <section>
+        <section className='pb-4'>
             {/* Banner */}
             <div className="container mx-auto m-2 p-4 pb-2">
                 <div className={`max-h-48 bg-slate-300 rounded-md ${!bannerDesktop && 'animate-pulse'} overflow-hidden shadow-md`}>
@@ -49,7 +49,7 @@ const Home = () => {
             </div>
 
             {/* Category */}
-            <div className='container px-4 mx-auto grid grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-2'>
+            <div className='container px-4 mx-auto grid grid-cols-3 md:grid-cols-6 lg:grid-cols-10 gap-2'>
                 {
                     loadingCategory ? (
                     new Array(20).fill(null).map((category, index) => {
@@ -69,18 +69,19 @@ const Home = () => {
                             return (
                                 <div
                                     key={index}
-                                    className='bg-white rounded-md p-2 min-h-28 grid gap-2 shadow cursor-pointer'
+                                    className='bg-white rounded-md p-2 min-h-28 flex flex-col gap-2 shadow cursor-pointer'
                                     onClick={() => handleRedirectProductListPage(category._id, category.name)}    
                                 >
-                                    <div className='bg-blue-200 min-h-10 rounded overflow-hidden border border-slate-300'>
+                                    <div className='h-14 lg:h-24 rounded overflow-hidden'>
                                         <img
                                             src={category.image}
                                             alt={category.name}
-                                            className='w-full h-full object-cover'
+                                            className='w-full h-full object-scale-down'
                                         />
                                     </div>
-                                    <div className='rounded font-semibold px-1 text-center w-full'>{category.name}</div>
-
+                                    <div className='rounded font-semibold px-1 w-full text-center text-ellipsis line-clamp-2 text-sm'>
+                                        {category.name}
+                                    </div>
                                 </div>
                             )
                         })
