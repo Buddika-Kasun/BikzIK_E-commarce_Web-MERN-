@@ -1,3 +1,4 @@
+import CategoryModel from "../models/category.model.js";
 import ProductModel from "../models/product.model.js";
 
 // Add new product controller
@@ -174,9 +175,10 @@ export const getProductsByCategoryAndSubcategoryController = async(req, res) => 
 
         const skip = (page - 1) * limit;
 
-        const [data, dataCount] = await Promise.all([
+        const [data, dataCount, categoryName] = await Promise.all([
             ProductModel.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
-            ProductModel.countDocuments(query)
+            ProductModel.countDocuments(query),
+            CategoryModel.findById(categoryId),
         ]);
 
         return res.json({
@@ -188,6 +190,7 @@ export const getProductsByCategoryAndSubcategoryController = async(req, res) => 
             page: page,
             limit: limit,
             data: data,
+            categoryName: categoryName.name,
         });
 
     }
