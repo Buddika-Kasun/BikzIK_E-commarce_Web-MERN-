@@ -175,6 +175,11 @@ const UploadProductPage = () => {
     const  handleSubmit = async(e) => {
         e.preventDefault();
 
+        if (!data.images[0]){
+            toast.error("Please upload at least one image!");
+            return;
+        }
+
         try{
             const response = await Axios({
                 ...SummaryApi.add_product,
