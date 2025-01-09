@@ -77,10 +77,10 @@ const ProductListPage = () => {
     }, [params, allSubCategories]);
 
     return (
-        <section className="sticky top-28 h-[72vh] lg:h-[78vh] overflow-hidden">
+        <section className="sticky top-28">
             <div className="grid grid-cols-[80px,1fr] md:grid-cols-[200px,1fr] lg:grid-cols-[280px,1fr]">
                 {/* Sub category */}
-                <div className='pt-4 pb-2 pr-1 sticky top-0 h-[72vh] lg:h-[78vh]'>
+                <div className='pt-4 pb-2 pr-1 sticky top-28 lg:top-20 h-[72vh] lg:h-[78vh]'>
                     <div className="h-full overflow-y-scroll lg:top-20 p-3 pl-0 flex flex-col gap-2 scroll-custom ">
                         {/* <div
                             key={index}
@@ -117,12 +117,12 @@ const ProductListPage = () => {
 
                 {/* Products */}
                 <div className="">
-                    <div className='shadow-md px-4 py-2 rounded-md sticky top-0 z-10 bg-blue-50'>
+                    <div className='shadow-md px-4 py-2 rounded-md sticky top-28 lg:top-20 z-10 bg-blue-50'>
                         <h1 className='font-semibold'>{subCategoryName}</h1>
                     </div>
                     <div>
 
-                        <div className='grid grid-col-1 md:grid-cols-3 lg:grid-cols-4 p-4 gap-3 h-[70vh] overflow-y-scroll scroll-custom'>
+                        <div className='grid grid-col-1 md:grid-cols-3 lg:grid-cols-4 p-4 gap-3'>
                             {
                                 data.map((product, index) => (
                                     <CardProduct key={index} data={product} />
