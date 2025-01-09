@@ -1,22 +1,29 @@
+import { Link } from 'react-router-dom';
 import { priceDisplay } from '../utils/priceDisplay.js';
+import { validURLConvert } from '../utils/validURLConvert.js';
 
 const CardProduct = ({data}) => {
+
+    const url = `/product/${validURLConvert(data?.name)}-${data?._id}`
+
     return (
-        <div className="border p-2 grid gap-2 max-w-52 lg:min-w-52 rounded">
-            <div className="max-h-32 rounded overflow-hidden">
+        <Link to={url} className="border p-2 grid min-w-48 lg:w-52 h-72 lg:h-[296px] rounded-md shadow-md mb-2 bg-white relative">
+            <div className="h-32 rounded overflow-hidden">
                 <img 
                     src={data?.image[0]}
                     className="w-full h-full object-scale-down lg:scale-125"
                 />
             </div>
-            <div className="bg-green-100 text-green-500 px-2 py-[1px] text-sm rounded-md w-fit">
-                10 min
-            </div>
-            <div className="px-1 font-medium text-ellipsis line-clamp-2">
-                {data?.name}
-            </div>
-            <div className="w-fit px-1">
-                {data?.unit}
+            <div className='h-28'>
+                <div className="bg-green-100 text-green-500 px-2 py-[1px] text-sm rounded-md w-fit h-fit">
+                    10 min
+                </div>
+                <div className="px-1 py-2 font-medium text-ellipsis line-clamp-2">
+                    {data?.name}
+                </div>
+                <div className="w-fit px-1">
+                    {data?.unit}
+                </div>
             </div>
             <div className="flex items-center justify-between gap-2">
                 <div className="font-semibold">
@@ -29,7 +36,7 @@ const CardProduct = ({data}) => {
                 </div>
             </div>
 
-        </div>
+        </Link>
     );
 }
 
