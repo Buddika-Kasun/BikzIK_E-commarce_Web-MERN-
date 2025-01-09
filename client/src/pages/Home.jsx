@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { validURLConvert } from '../utils/validURLConvert';
 import { useNavigate } from "react-router-dom";
 import CategoryWiseProduct from '../components/CategoryWiseProduct';
+import toast from 'react-hot-toast';
 
 
 const Home = () => {
@@ -23,6 +24,11 @@ const Home = () => {
 
             return filterDate ? true : null;
         });
+
+        if (!subCategoryData) {
+            toast.error("No sub category found");
+            return;
+        };
 
         const url = `/${validURLConvert(categoryName)}-${categoryId}/${validURLConvert(subCategoryData?.name)}-${subCategoryData?._id}`;
     
