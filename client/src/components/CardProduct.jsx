@@ -7,7 +7,7 @@ const CardProduct = ({data}) => {
     const url = `/product/${validURLConvert(data?.name)}-${data?._id}`
 
     return (
-        <Link to={url} className="border p-2 grid min-w-48 lg:w-52 h-72 lg:h-[296px] rounded-md shadow-md mb-2 bg-white relative">
+        <Link to={url} className="border p-2 grid min-w-48 lg:w-52 h-72 lg:h-[296px] rounded-md shadow-md mb-2 bg-white hover:shadow-lg relative">
             <div className="h-32 rounded overflow-hidden">
                 <img 
                     src={data?.image[0]}
