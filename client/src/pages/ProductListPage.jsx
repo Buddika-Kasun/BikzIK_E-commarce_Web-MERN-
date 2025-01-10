@@ -7,6 +7,8 @@ import Loading from '../components/Loading';
 import CardProduct from '../components/CardProduct';
 import { useSelector } from 'react-redux';
 import { validURLConvert } from '../utils/validURLConvert';
+import { FaChevronRight } from "react-icons/fa";
+import NoData from '../components/NoData';
 
 const ProductListPage = () => {
     
@@ -15,11 +17,13 @@ const ProductListPage = () => {
     const [totalPage, setTotalPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [displaySubCategory, setDisplaySubCategory] = useState([]);
+    const [categoryName, setCategoryName] = useState('');
+    const [subCategoryName, setSubCategoryName] = useState('');
     
     const allSubCategories = useSelector(state => state.product.allSubCategory);
     
     const params = useParams();
-    const subCategoryName = params?.subCategory?.split('-').slice(0, -1).join(' ');
+    // const subCategoryName = params?.subCategory?.split('-').slice(0, -1).join(' ');
     
     const categoryId = params.category.split('-').slice(-1)[0];
     const subCategoryId = params.subCategory.split('-').slice(-1)[0];
@@ -41,6 +45,8 @@ const ProductListPage = () => {
             if(response.data.success) {
                 setTotalPage(response.data.totalNoPage);
                 setPage(response.data.page);
+                setCategoryName(response.data.categoryName);
+                setSubCategoryName(response.data.subCategoryName);console.log(response.data)
 
                 if (response.data.page == 1) {
                     setData(response.data.data);
@@ -77,11 +83,26 @@ const ProductListPage = () => {
     }, [params, allSubCategories]);
 
     return (
-        <section className="sticky top-28">
+        <section className="">
+
+            <div className='pt-2 text-xs font-semibold items-center gap-1 text-green-600 md:hidden flex sticky top-28 bg-blue-50 z-10'>
+                <Link to={'/'} className='hover:text-black'>Home</Link>
+                <div><FaChevronRight size={10} className='text-gray-600' /></div>
+                <div>{categoryName}</div>
+                <div><FaChevronRight size={10} className='text-gray-600' /></div>
+            </div>
+
             <div className="grid grid-cols-[80px,1fr] md:grid-cols-[200px,1fr] lg:grid-cols-[280px,1fr]">
+
                 {/* Sub category */}
-                <div className='pt-4 pb-2 pr-1 sticky top-28 lg:top-20 h-[72vh] lg:h-[78vh]'>
-                    <div className="h-full overflow-y-scroll lg:top-20 p-3 pl-0 flex flex-col gap-2 scroll-custom ">
+                <div className='pt-2 pb-2 pr-1 sticky top-[135px] lg:top-20 h-[80vh] lg:h-[73vh]'>
+                    <div className='py-1 pb-2 text-xs font-semibold items-center gap-1 text-green-600 hidden md:flex'>
+                        <Link to={'/'} className='hover:text-black'>Home</Link>
+                        <div><FaChevronRight size={10} className='text-gray-600' /></div>
+                        <div>{categoryName}</div>
+                        <div><FaChevronRight size={10} className='text-gray-600' /></div>
+                    </div>
+                    <div className="h-full overflow-y-scroll p-3 pl-0 pt-1 flex flex-col gap-2 scroll-custom">
                         {/* <div
                             key={index}
                             className='border-b-2 border-b-slate-200 p-2 text-ellipsis line-clamp-1 cursor-pointer hover:bg-slate-200 hover:rounded'
@@ -117,7 +138,8 @@ const ProductListPage = () => {
 
                 {/* Products */}
                 <div className="">
-                    <div className='shadow-md px-4 py-2 rounded-md sticky top-28 lg:top-20 z-10 bg-blue-50'>
+                    
+                    <div className='shadow-md px-4 pb-2 pt-1 lg:pt-2 rounded-md sticky top-[135px] lg:top-20 z-10 bg-blue-50'>
                         <h1 className='font-semibold'>{subCategoryName}</h1>
                     </div>
                     <div>
@@ -132,6 +154,10 @@ const ProductListPage = () => {
 
                         {
                             loading && <Loading />
+                        }
+
+                        {
+                            !data[0] && !loading && <NoData />
                         }
 
                     </div>
