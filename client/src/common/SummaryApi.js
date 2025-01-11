@@ -100,6 +100,10 @@ const SummaryApi = {
         url: 'api/product/get-by-category-and-subcategory',
         method: 'POST',
     },
+    get_product_by_id: {
+        url: 'api/product/get-by-id',
+        method: 'POST',
+    },
     
 };
 
