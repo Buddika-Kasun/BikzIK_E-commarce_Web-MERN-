@@ -118,7 +118,7 @@ export const getProductsByCategoryController = async(req, res) => {
             });
         }
 
-        const products = await ProductModel.find({category: {$in: categoryId}}).sort({createdAt: -1}).limit(15);
+        const products = await ProductModel.find({category: {$in: categoryId}}).populate('category', 'name').populate('subCategory', 'name').sort({createdAt: -1}).limit(15);
 
         if(!products) {
             return res.status(404).json({
