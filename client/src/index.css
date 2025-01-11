@@ -30,6 +30,7 @@ body::-webkit-scrollbar-thumb {
 
 .scroll-custom::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
     @apply bg-slate-200 rounded-full;
 }
 
