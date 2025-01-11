@@ -146,7 +146,6 @@ export const getProductsByCategoryController = async(req, res) => {
 };
 
 // Get product by category and subcategory controller
-
 export const getProductsByCategoryAndSubcategoryController = async(req, res) => {
     try {
 
@@ -194,6 +193,49 @@ export const getProductsByCategoryAndSubcategoryController = async(req, res) => 
             data: data,
             categoryName: categoryName.name,
             subCategoryName: subCategory.name,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+// Get product by id controller
+export const getProductByIdController = async(req, res) => {
+    try {
+
+        const { productId } = req.body;
+
+        if(!productId) {
+            return res.status(400).json({
+                message: "Please provide productId",
+                error: true,
+                success: false,
+            });
+        }
+        
+        const product = await ProductModel.findById(productId)
+            .populate('subCategory', 'name')
+            .populate('category', 'name');
+
+        if(!product) {
+            return res.status(404).json({
+                message: "Product not found",
+                error: true,
+                success: false,
+            });
+        }
+        
+        return res.json({
+            message: "Product fetched successfully",
+            error: false,
+            success: true,
+            data: product,
         });
 
     }
