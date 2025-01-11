@@ -104,6 +104,10 @@ const SummaryApi = {
         url: 'api/product/get-by-id',
         method: 'POST',
     },
+    update_product: {
+        url: 'api/product/update',
+        method: 'PUT',
+    },
     
 };
 
