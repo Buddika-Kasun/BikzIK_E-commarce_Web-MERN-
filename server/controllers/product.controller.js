@@ -247,3 +247,44 @@ export const getProductByIdController = async(req, res) => {
         });
     }
 };
+
+// Update product controller
+export const updateProductController = async(req, res) => {
+    try {
+
+        const {_id} = req.body; console.log('Update Product: ', _id);
+
+        if(!_id) {
+            return res.status(400).json({
+                message: "Please provide productId",
+                error: true,
+                success: false,
+            });
+        }
+
+        const updatedProduct = await ProductModel.updateOne({_id: _id}, {...req.body});
+
+        if(!updatedProduct) {
+            return res.status(404).json({
+                message: "Product not found",
+                error: true,
+                success: false,
+            });
+        }
+
+        return res.json({
+            message: "Product updated successfully",
+            error: false,
+            success: true,
+            data: updatedProduct,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
