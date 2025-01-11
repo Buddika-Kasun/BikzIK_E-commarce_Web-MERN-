@@ -108,6 +108,10 @@ const SummaryApi = {
         url: 'api/product/update',
         method: 'PUT',
     },
+    delete_product: {
+        url: 'api/product/delete',
+        method: 'DELETE',
+    },
     
 };
 
