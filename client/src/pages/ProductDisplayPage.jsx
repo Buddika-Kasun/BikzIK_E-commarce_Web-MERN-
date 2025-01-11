@@ -48,7 +48,7 @@ const ProductDisplayPage = () => {
     
     useEffect(() => {
         fetchProduct();
-    }, [params]); console.log(product)
+    }, [params]);
     
     const urlCategory = `/${validURLConvert(product?.category[0]?.name)}-${product?.category[0]?._id}/${validURLConvert(product?.subCategory[0]?.name)}-${product?.subCategory[0]?._id}`;
     const urlSubCategory = `/${validURLConvert(product?.category[0]?.name)}-${product?.category[0]?._id}/${validURLConvert(product?.subCategory[0]?.name)}-${product?.subCategory[0]?._id}`;
