@@ -116,6 +116,7 @@ const AdminProductsPage = () => {
                                 <ProductCardAdmin
                                     key={index}
                                     data={product}
+                                    fetchProducts={fetchProducts}
                                 />
                             )
                         })
