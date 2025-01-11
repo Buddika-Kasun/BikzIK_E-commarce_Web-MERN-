@@ -6,6 +6,7 @@ import SummaryApi from "../common/SummaryApi";
 import CardLoading from "./CardLoading";
 import CardProduct from "./CardProduct";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { validURLConvert } from "../utils/validURLConvert";
 
 
 const CategoryWiseProduct = ({id, name}) => {
@@ -51,11 +52,13 @@ const CategoryWiseProduct = ({id, name}) => {
 
     const loadingCardNumber = new Array(6).fill(null); 
 
+    const url = data[0] ? `/${validURLConvert(data[0]?.category[0]?.name)}-${data[0]?.category[0]?._id}/${validURLConvert(data[0]?.subCategory[0]?.name)}-${data[0]?.subCategory[0]?._id}` : '';
+
     return (
         <div className={`${!loading && !data[0] && 'hidden'}`}>
             <div className='container mx-auto p-4 flex items-center justify-between gap-4'>
                 <h1 className='font-semibold text-lg md:text-xl'>{name}</h1>
-                <Link to='' className='text-green-500 hover:text-green-400'>See All</Link>
+                <Link to={url} className='text-green-500 hover:text-green-400'>See All </Link>
             </div>
             <div className="flex items-center gap-4 overflow-x-scroll lg:overflow-hidden px-4 pb-2 scroll-smooth" ref={containerRef}>
                 {
