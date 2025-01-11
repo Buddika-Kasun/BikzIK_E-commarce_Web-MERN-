@@ -28,7 +28,8 @@ body::-webkit-scrollbar-thumb {
     @apply text-gray-500 mb-1;
 }
 
-.scroll-custom::-webkit-scrollbar {
+.scroll-custom::-webkit-scrollbar,
+.scroll-custom-blue::-webkit-scrollbar {
     width: 5px;
     height: 5px;
     @apply bg-slate-200 rounded-full;
@@ -36,4 +37,8 @@ body::-webkit-scrollbar-thumb {
 
 .scroll-custom::-webkit-scrollbar-thumb {
     @apply bg-green-300 rounded-full
+}
+
+.scroll-custom-blue::-webkit-scrollbar-thumb {
+    @apply bg-blue-200 rounded-full
 }
