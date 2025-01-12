@@ -86,3 +86,45 @@ export const getCartItemController = async(req, res) => {
         });
     }
 };
+
+// Update cart item qty controller
+export const updateCartItemQtyController = async(req, res) => {
+    try {
+
+        const userId = req.userId;
+        
+        const { _id, qty } = req.body;
+
+        if(!_id || qty < 0) {
+            return res.status(400).json({
+                message: "Please provide _id and qty",
+                error: true,
+                success: false,
+            });
+        }
+
+        const updateCartItem = await CartProductModel.updateOne(
+            { 
+                _id: _id 
+            },
+            { 
+                quantity: qty 
+            },
+        );
+
+        return res.json({
+            message: "Cart item quantity updated successfully",
+            error: false,
+            success: true,
+            data: updateCartItem,
+        })
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
