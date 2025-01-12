@@ -116,6 +116,13 @@ const SummaryApi = {
         url: 'api/product/search',
         method: 'POST',
     },
+
+    // Cart API endpoints
+    add_to_cart: {
+        url: 'api/cart/add',
+        method: 'POST',
+    },
+    
     
 };
 
