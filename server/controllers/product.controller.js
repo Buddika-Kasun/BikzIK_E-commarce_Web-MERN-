@@ -80,6 +80,8 @@ export const getProductsController = async(req, res) => {
 
         const skip = (page - 1) * limit;
 
+        await ProductModel.syncIndexes();
+
         const [data, totalCount] = await Promise.all([
             ProductModel.find(query).populate('category','name').populate('subCategory','name').sort({createdAt: -1}).skip(skip).limit(limit),
             ProductModel.countDocuments(query),
@@ -342,14 +344,26 @@ export const searchProductController = async(req, res) => {
         if(!limit) {
             limit = 10;
         }
-
+/*
         const query = search ? {
-            $text: {
-                $search: search,
-            }
+            $or: [
+                {
+                    $text: {
+                        $search: search,
+                    }
+                },
+                {
+                    name: {
+                        $regex: `^${search}`, // Matches strings that start with the search term
+                        $options: 'i' // Case-insensitive search
+                    }
+                }
+            ]
         } : {};
 
         const skip = (page - 1) * limit;
+
+        await ProductModel.syncIndexes();
 
         const [data, totalCount] = await Promise.all([
             ProductModel.find(query).populate('category', 'name').populate('subCategory', 'name').sort({ createdAt: -1 }).skip(skip).limit(limit),
@@ -366,6 +380,50 @@ export const searchProductController = async(req, res) => {
             page: page,
             data: data,
         });
+*/
+        const textQuery = search ? {
+            $text: { $search: search }
+        } : {};
+
+        const regexQuery = search ? {
+            name: {
+                $regex: `^${search}`,
+                $options: 'i',
+            }
+        } : {};
+
+        const skip = (page - 1) * limit;
+
+        const [textData, regexData] = await Promise.all([
+            ProductModel.find(textQuery)
+                .populate('category', 'name')
+                .populate('subCategory', 'name')
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+            ProductModel.find(regexQuery)
+                .populate('category', 'name')
+                .populate('subCategory', 'name')
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+        ]);
+
+        const uniqueData = [
+            ...new Map([...textData, ...regexData].map(product => [product._id.toString(), product])).values()
+        ];
+
+        return res.json({
+            message: "Products data",
+            error: false,
+            success: true,
+            totalCount: uniqueData.length,
+            totalNoPage: Math.ceil(uniqueData.length / limit),
+            limit: limit,
+            page: page,
+            data: uniqueData,
+        });
+
 
     }
     catch (err) {
