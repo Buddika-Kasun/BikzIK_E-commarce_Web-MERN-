@@ -7,6 +7,7 @@ import {
     getProductsByCategoryAndSubcategoryController,
     getProductsByCategoryController,
     getProductsController,
+    searchProductController,
     updateProductController
 } from '../controllers/product.controller.js';
 import { admin } from '../middlewares/admin.js';
@@ -20,5 +21,6 @@ productRouter.post('/get-by-category-and-subcategory', getProductsByCategoryAndS
 productRouter.post('/get-by-id', getProductByIdController);
 productRouter.put('/update', auth, admin, updateProductController);
 productRouter.delete('/delete', auth, admin, deleteProductController);
+productRouter.post('/search', searchProductController);
 
 export default productRouter;
