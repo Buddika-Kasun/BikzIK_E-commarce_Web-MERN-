@@ -16,6 +16,8 @@ import Axios from './utils/Axios';
 import SummaryApi from './common/SummaryApi';
 import fetchCategoryDetails from './utils/fetchCategoryDetails';
 import fetchDetails from './utils/fetchDetails';
+import { setToCart } from './store/cartSlice';
+import { GlobalProvider } from './provider/GlobalProvider';
 
 function App() {
 
@@ -47,7 +49,7 @@ function App() {
   const fetchSubCategory = async() => {
     const subCategoryData = await fetchDetails({url: 'get_subCategory'});
 
-    dispatch(setAllSubCategory(subCategoryData.data));
+    dispatch(setAllSubCategory(subCategoryData?.data));
 
   }
 
@@ -55,10 +57,11 @@ function App() {
     fetchUser();
     fetchCategory();
     fetchSubCategory();
+    //fetchCartItems();
   }, []);
 
   return (
-    <>
+    <GlobalProvider>
       <Header />
 
       <main className='container mx-auto min-h-[77vh]'>
@@ -67,7 +70,7 @@ function App() {
       
       <Footer />
       <Toaster />
-    </>
+    </GlobalProvider>
   );
 }
 
