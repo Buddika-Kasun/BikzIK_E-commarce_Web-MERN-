@@ -122,6 +122,10 @@ const SummaryApi = {
         url: 'api/cart/add',
         method: 'POST',
     },
+    get_cart_items: {
+        url: 'api/cart/get',
+        method: 'GET',
+    },
     
     
 };
