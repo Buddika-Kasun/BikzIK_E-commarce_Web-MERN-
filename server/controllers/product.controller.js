@@ -328,3 +328,51 @@ export const deleteProductController = async(req, res) => {
         });
     }
 };
+
+// Search product
+export const searchProductController = async(req, res) => {
+    try {
+
+        let { search, page, limit } = req.body;
+
+        if(!page) {
+            page = 1;
+        }
+        
+        if(!limit) {
+            limit = 10;
+        }
+
+        const query = search ? {
+            $text: {
+                $search: search,
+            }
+        } : {};
+
+        const skip = (page - 1) * limit;
+
+        const [data, totalCount] = await Promise.all([
+            ProductModel.find(query).populate('category', 'name').populate('subCategory', 'name').sort({ createdAt: -1 }).skip(skip).limit(limit),
+            ProductModel.countDocuments(query),
+        ]);
+
+        return res.json({
+            message: "Products data",
+            error: false,
+            success: true,
+            totalCount: totalCount,
+            totalNoPage: Math.ceil(totalCount / limit),
+            limit: limit,
+            page: page,
+            data: data,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
