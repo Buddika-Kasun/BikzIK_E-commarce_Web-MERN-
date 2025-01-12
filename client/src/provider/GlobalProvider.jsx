@@ -2,6 +2,10 @@ import { createContext, useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import fetchDetails from "../utils/fetchDetails";
 import { setToCart } from "../store/cartSlice";
+import AxiosToastError from "../utils/AxiosToastError";
+import Axios from "../utils/Axios";
+import SummaryApi from "../common/SummaryApi";
+import toast from "react-hot-toast";
 
 export const GlobalContext = createContext(null);
 
@@ -17,6 +21,29 @@ export const GlobalProvider = ({children}) => {
 
         dispatch(setToCart(cartItemsData?.data));
     }
+    
+    const updateQty = async(id, qty) => {
+        try{
+
+            const response = await Axios({
+                ...SummaryApi.update_cart_item_qty,
+                data: {
+                    _id: id,
+                    qty: qty
+                }
+            });
+
+            if (response.data.success) {
+                toast.success("Add product to cart");
+                fetchCartItems();
+            }
+
+        }
+        catch(error){
+            console.log(error);
+            AxiosToastError(error);
+        }
+    }
 
     useEffect(() => {
         fetchCartItems()
@@ -24,7 +51,8 @@ export const GlobalProvider = ({children}) => {
 
     return (
         <GlobalContext.Provider value={{
-            fetchCartItems
+            fetchCartItems,
+            updateQty
         }}>
             {children}
         </GlobalContext.Provider>
