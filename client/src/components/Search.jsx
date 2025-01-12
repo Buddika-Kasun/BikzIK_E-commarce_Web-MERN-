@@ -10,6 +10,8 @@ const Search = () => {
 
     const [isSearchPage, setIsSearchPage] = useState(false);
 
+    const searchTerm = location?.search.slice(3);
+
     useEffect(() => {
         setIsSearchPage(location.pathname === "/search");
     }, [location]);
@@ -19,10 +21,17 @@ const Search = () => {
         navigate("/search");
     }
 
+    const handleOnChange = (e) => {
+        const {value} = e.target;
+
+        const url = `/search?q=${value}`;
+        navigate(url);
+    }
+
   return (
-    <div className="w-full min-w-[80vw] lg:min-w-[420px] border-2 overflow-hidden h-8 lg:h-9 rounded-lg flex items-center text-neutral-400 bg-gray-100 focus-within:border-primary-200 group">
+    <div className="w-full min-w-[80vw] lg:min-w-[420px] border-2 overflow-hidden h-8 lg:h-9 rounded-lg flex items-center text-neutral-400 bg-gray-100 focus-within:border-green-500 group">
         <div>
-            <button className="flex items-center justify-center h-full p-2 cursor-default group-focus-within:text-primary-200">
+            <button className="flex items-center justify-center h-full p-2 cursor-default group-focus-within:text-green-500">
                 <IoSearch size={18} />
             </button>
         </div>
@@ -67,7 +76,9 @@ const Search = () => {
                             type="text"
                             placeholder="Search for products..."
                             autoFocus={true}
-                            className="w-full h-full focus:outline-none bg-transparent flex items-center"
+                            className="w-full h-full focus:outline-none bg-transparent flex items-center text-green-600"
+                            value={searchTerm}
+                            onChange={handleOnChange}
                         />
                     </div>
                 )
