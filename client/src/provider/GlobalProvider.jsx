@@ -18,7 +18,8 @@ export const GlobalProvider = ({children}) => {
 
     const [cartButtonDetails, setCartButtonDetails] = useState({
         totalItems: 0,
-        totalPrice: 0
+        totalPrice: 0,
+        notDiscountPrice: 0,
     });
 
     const cartItem = useSelector((state) => state.cart.cart);
@@ -33,12 +34,18 @@ export const GlobalProvider = ({children}) => {
             return prev + curr.quantity * priceWithDiscount(curr.productId?.price, curr.productId?.discount);
         },0);
 
+        const notDiscountPrice = cartItem.reduce((prev, curr) => {
+            return prev + curr.quantity * curr.productId?.price;
+        },0);
+
         setCartButtonDetails(() => {
             return {
                 totalItems: totItems,
                 totalPrice: totPrice,
+                notDiscountPrice: notDiscountPrice,
             }
         })
+
     }
 
     useEffect(() => {
@@ -63,8 +70,9 @@ export const GlobalProvider = ({children}) => {
             });
 
             if (response.data.success) {
-                toast.success("Add product to cart");
+                //toast.success("Add product to cart");
                 fetchCartItems();
+                return response.data;
             }
 
         }
