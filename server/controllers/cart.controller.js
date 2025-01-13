@@ -68,7 +68,7 @@ export const getCartItemController = async(req, res) => {
 
         const cartItems = await CartProductModel.find({ 
             userId: userId 
-        }).populate("productId", "name price discount");
+        }).populate("productId", "name price discount image unit");
 
         return res.json({
             message: "Cart items retrieved successfully",
