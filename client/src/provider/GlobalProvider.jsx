@@ -22,6 +22,7 @@ export const GlobalProvider = ({children}) => {
         notDiscountPrice: 0,
     });
     const [openCart, setOpenCart] = useState(false);
+    const [login, setLogin] = useState(false);
 
     const cartItem = useSelector((state) => state.cart.cart);
 
@@ -56,7 +57,13 @@ export const GlobalProvider = ({children}) => {
     const fetchCartItems = async() => {
         const cartItemsData = await fetchDetails({url: 'get_cart_items'});
 
-        dispatch(setToCart(cartItemsData?.data));
+        if(cartItemsData) {
+            dispatch(setToCart(cartItemsData?.data));
+        }
+        else {
+            dispatch(setToCart(''));
+        }
+
     }
     
     const updateQty = async(id, qty) => {
@@ -104,8 +111,8 @@ export const GlobalProvider = ({children}) => {
     }
 
     useEffect(() => {
-        fetchCartItems()
-    },[])
+        fetchCartItems();
+    },[login])
 
     return (
         <GlobalContext.Provider value={{
@@ -115,6 +122,7 @@ export const GlobalProvider = ({children}) => {
             cartButtonDetails,
             openCart,
             setOpenCart,
+            setLogin,
         }}>
             {children}
         </GlobalContext.Provider>
