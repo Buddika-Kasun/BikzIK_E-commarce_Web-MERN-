@@ -7,9 +7,10 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import UserMenu from './UserMenu';
 import Logo from './Logo';
+import { priceDisplay } from '../utils/priceDisplay.js'
 
 const Header = () => {
 
@@ -18,8 +19,13 @@ const Header = () => {
     const navigate = useNavigate();
 
     const [openUserMenu, setOpenUserMenu] = useState(false); 
+    const [cartButtonDetails, setCartButtonDetails] = useState({
+        totalItems: 0,
+        totalPrice: 0
+    });
 
     const user = useSelector((state) => state.user);
+    const cartItem = useSelector((state) => state.cart.cart);
 
     const isSearchPage = location.pathname === "/search";
 
@@ -39,6 +45,29 @@ const Header = () => {
 
         setOpenUserMenu(!openUserMenu);
     };
+
+    // Cal total items & total price
+    const calTotals = () => {
+        const totItems = cartItem.reduce((prev, curr) => {
+            return prev + curr.quantity
+        },0);
+
+        const totPrice = cartItem.reduce((prev, curr) => {
+            return prev + curr.quantity * curr.productId?.price
+        },0);
+
+        setCartButtonDetails(() => {
+            return {
+                totalItems: totItems,
+                totalPrice: totPrice,
+            }
+        })
+    }
+
+    useEffect(() => {
+        calTotals();
+        
+    },[cartItem]);
 
     return (
         <header className='h-28 lg:h-20 shadow-md sticky top-0 flex flex-col justify-center bg-white z-50'>
@@ -148,12 +177,24 @@ const Header = () => {
                                     )
                                 }
                                 <button className='flex items-center gap-2 bg-secondary-200 hover:bg-green-700 text-white py-2 px-3 rounded-md'>
+                                    
                                     <div className='animate-bounce'>
                                         <FaCartShopping size={22} />
                                     </div>
-                                    <div className='font-semibold'>
-                                        <p>My Cart</p>
-                                    </div>
+
+                                    {
+                                        cartItem[0] ? (
+                                            <div>
+                                                <div>{cartButtonDetails.totalItems} Item</div>
+                                                <div>{priceDisplay(cartButtonDetails.totalPrice)}</div>
+                                            </div>
+                                        ) : (
+                                            <div className='font-semibold'>
+                                                <p>My Cart</p>
+                                            </div>
+                                        )
+                                    }
+                                    
                                 </button>
                             </div>
                         </div>
