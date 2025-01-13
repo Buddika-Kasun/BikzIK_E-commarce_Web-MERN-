@@ -11,6 +11,8 @@ import imageBestPrice from '../assets/bestPrice.jpg';
 import imageWideAssort from '../assets/wideAssort.png';
 import { priceWithDiscount } from '../utils/priceWithDiscount';
 import { validURLConvert } from '../utils/validURLConvert';
+import AddToCartButton from '../components/AddToCartButton';
+import NotLogin from '../components/NotLogin';
 
 const ProductDisplayPage = () => {
 
@@ -22,8 +24,8 @@ const ProductDisplayPage = () => {
         category: [],
         subCategory: [],
     });
-    const [loading, setLoading] = useState(false);
     const [imageIndex, setImageIndex] = useState(0);
+    const [notLogin, setNotLogin] = useState(false);
 
     const fetchProduct = async() => {
         try{
@@ -55,6 +57,9 @@ const ProductDisplayPage = () => {
     
     return (
         <section className=''>
+
+            {notLogin && <NotLogin close={() => setNotLogin(false)}/>}
+
             <div className='py-2 text-xs font-semibold items-center gap-1 text-green-600 flex sticky top-28 lg:top-20 bg-blue-50 z-10'>
                 <Link to={'/'} className='hover:text-black'>Home</Link>
                 <div><FaChevronRight size={10} className='text-gray-600' /></div>
@@ -166,9 +171,9 @@ const ProductDisplayPage = () => {
                         product?.stock == 0 ? (
                             <p className='text-red-500 font-semibold mt-2'>Out of Stock</p>
                         ) : (
-                            <button className='bg-green-500 hover:bg-green-600 text-white px-8 text-lg font-semibold w-full md:w-fit py-1 mt-4 lg:my-2 rounded-md'>
-                                Add
-                            </button>
+                            <div className='my-2 text-2xl md:text-xl h-10 flex items-center'>
+                                <AddToCartButton data={product} setNotLogin={() => setNotLogin(true)} />
+                            </div>
                         )
                     }
                     <Divider />
