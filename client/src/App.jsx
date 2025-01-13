@@ -18,6 +18,7 @@ import fetchCategoryDetails from './utils/fetchCategoryDetails';
 import fetchDetails from './utils/fetchDetails';
 import { setToCart } from './store/cartSlice';
 import { GlobalProvider } from './provider/GlobalProvider';
+import CartButton from './components/CartButton';
 
 function App() {
 
@@ -72,6 +73,9 @@ function App() {
       
       <Footer />
       <Toaster />
+      <div className='sticky bottom-2 p-2 lg:hidden'>
+        <CartButton />
+      </div>
     </GlobalProvider>
   );
 }
