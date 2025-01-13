@@ -8,8 +8,12 @@ import toast from 'react-hot-toast';
 import AxiosToastError from "../utils/AxiosToastError";
 import { HiExternalLink } from "react-icons/hi";
 import isAdmin from "../utils/isAdmin";
+import { useGlobalContext } from "../provider/GlobalProvider";
 
 const UserMenu = ({close}) => {
+
+    const { setLogin } = useGlobalContext();
+
 
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
@@ -24,12 +28,18 @@ const UserMenu = ({close}) => {
             });
 
             if(response.data.success) {
+
                 dispatch(clearUser());
                 localStorage.clear();
+                setLogin(false);
+
                 toast.success(response.data.message);
+
+
                 if(close) {
                     close();
                 }
+
                 navigate('/login');
             }
 
