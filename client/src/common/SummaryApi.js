@@ -130,7 +130,10 @@ const SummaryApi = {
         url: 'api/cart/update-qty',
         method: 'PUT',
     },
-    
+    delete_cart_item: {
+        url: 'api/cart/delete',
+        method: 'DELETE',
+    },
     
 };
 
