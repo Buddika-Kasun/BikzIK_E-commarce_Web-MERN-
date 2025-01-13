@@ -52,14 +52,18 @@ const AddToCartButton = ({data, setNotLogin}) => {
         }
     };
 
-    const increaseQty = (e) => {
+    const increaseQty = async(e) => {
         e.preventDefault();
         e.stopPropagation();
 
-        updateQty(cartProductDetails?._id, (qty+1));
+        const response = await updateQty(cartProductDetails?._id, (qty+1));
+
+        if(response.success) {
+            toast.success("Item added")
+        }
     };
 
-    const decreaseQty = (e) => {
+    const decreaseQty = async(e) => {
         e.preventDefault();
         e.stopPropagation();
 
@@ -67,7 +71,11 @@ const AddToCartButton = ({data, setNotLogin}) => {
             deleteCartItem(cartProductDetails?._id);
         }
         else {
-            updateQty(cartProductDetails?._id, (qty-1));
+           const response = await updateQty(cartProductDetails?._id, (qty-1));
+           
+            if(response.success) {
+                toast.success("Item removed")
+            }
         }
 
     };
