@@ -21,6 +21,7 @@ export const GlobalProvider = ({children}) => {
         totalPrice: 0,
         notDiscountPrice: 0,
     });
+    const [openCart, setOpenCart] = useState(false);
 
     const cartItem = useSelector((state) => state.cart.cart);
 
@@ -112,6 +113,8 @@ export const GlobalProvider = ({children}) => {
             updateQty,
             deleteCartItem,
             cartButtonDetails,
+            openCart,
+            setOpenCart,
         }}>
             {children}
         </GlobalContext.Provider>
