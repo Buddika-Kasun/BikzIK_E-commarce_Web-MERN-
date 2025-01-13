@@ -26,9 +26,9 @@ const Header = () => {
         totalItems: 0,
         totalPrice: 0
     }); */
-    const [openCart, setOpenCart] = useState(false);
+    // const [openCart, setOpenCart] = useState(false);
 
-    const { cartButtonDetails } = useGlobalContext();
+    const { cartButtonDetails, openCart, setOpenCart } = useGlobalContext();
 
     const user = useSelector((state) => state.user);
     //const cartItem = useSelector((state) => state.cart.cart);
@@ -202,7 +202,7 @@ const Header = () => {
                                     }
                                     
                                 </button> */}
-                                <CartButton onClick={() => setOpenCart(true)} />
+                                <CartButton />
                             </div>
                         </div>
 
