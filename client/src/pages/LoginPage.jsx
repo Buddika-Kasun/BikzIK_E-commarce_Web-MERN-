@@ -8,8 +8,12 @@ import { Link, useNavigate } from "react-router-dom";
 import fetchUserDetails from "../utils/fetchUserDetails";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/userSlice";
+import { useGlobalContext } from "../provider/GlobalProvider";
 
 const LoginPage = () => {
+
+  const { setLogin } = useGlobalContext();
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -49,6 +53,8 @@ const LoginPage = () => {
       if(res.data.success) {
 
         toast.success(res.data.message);
+
+        setLogin(true);
 
         // Store token in local storage
         localStorage.setItem('accessToken', res.data.data.accessToken);
