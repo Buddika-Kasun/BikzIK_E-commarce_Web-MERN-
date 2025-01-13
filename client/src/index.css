@@ -36,9 +36,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .scroll-custom::-webkit-scrollbar-thumb {
-    @apply bg-green-300 rounded-full
+    @apply bg-green-300 rounded-full cursor-pointer;
 }
 
 .scroll-custom-blue::-webkit-scrollbar-thumb {
-    @apply bg-blue-200 rounded-full
+    @apply bg-blue-200 rounded-full cursor-pointer;
 }
