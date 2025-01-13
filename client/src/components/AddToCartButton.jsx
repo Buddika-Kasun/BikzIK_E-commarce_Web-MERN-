@@ -95,7 +95,7 @@ const AddToCartButton = ({data, setNotLogin}) => {
                         >
                             <FaMinus />
                         </button>
-                        <p className='min-w-5 text-sm flex items-center justify-center'>
+                        <p className='min-w-5 font-semibold px-4 lg:px-0 lg:text-sm flex items-center justify-center'>
                             {qty}
                         </p>
                         <button
