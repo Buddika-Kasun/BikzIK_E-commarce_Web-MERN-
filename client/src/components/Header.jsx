@@ -11,6 +11,9 @@ import { useState,useEffect } from 'react';
 import UserMenu from './UserMenu';
 import Logo from './Logo';
 import { priceDisplay } from '../utils/priceDisplay.js'
+import { useGlobalContext } from '../provider/GlobalProvider.jsx';
+import CartButton from './CartButton.jsx';
+import DisplayCart from './DisplayCart.jsx';
 
 const Header = () => {
 
@@ -19,13 +22,16 @@ const Header = () => {
     const navigate = useNavigate();
 
     const [openUserMenu, setOpenUserMenu] = useState(false); 
-    const [cartButtonDetails, setCartButtonDetails] = useState({
+    /* const [cartButtonDetails, setCartButtonDetails] = useState({
         totalItems: 0,
         totalPrice: 0
-    });
+    }); */
+    const [openCart, setOpenCart] = useState(false);
+
+    const { cartButtonDetails } = useGlobalContext();
 
     const user = useSelector((state) => state.user);
-    const cartItem = useSelector((state) => state.cart.cart);
+    //const cartItem = useSelector((state) => state.cart.cart);
 
     const isSearchPage = location.pathname === "/search";
 
@@ -47,7 +53,7 @@ const Header = () => {
     };
 
     // Cal total items & total price
-    const calTotals = () => {
+    /* const calTotals = () => {
         const totItems = cartItem.reduce((prev, curr) => {
             return prev + curr.quantity
         },0);
@@ -67,7 +73,7 @@ const Header = () => {
     useEffect(() => {
         calTotals();
         
-    },[cartItem]);
+    },[cartItem]); */
 
     return (
         <header className='h-28 lg:h-20 shadow-md sticky top-0 flex flex-col justify-center bg-white z-50'>
@@ -176,14 +182,14 @@ const Header = () => {
 
                                     )
                                 }
-                                <button className='flex items-center gap-2 bg-secondary-200 hover:bg-green-700 text-white py-2 px-3 rounded-md'>
+                                {/* <button className='flex items-center gap-2 bg-secondary-200 hover:bg-green-700 text-white py-2 px-3 rounded-md'>
                                     
                                     <div className='animate-bounce'>
                                         <FaCartShopping size={22} />
                                     </div>
 
                                     {
-                                        cartItem[0] ? (
+                                        cartButtonDetails.totalItems > 0 ? (
                                             <div>
                                                 <div>{cartButtonDetails.totalItems} Item</div>
                                                 <div>{priceDisplay(cartButtonDetails.totalPrice)}</div>
@@ -195,7 +201,8 @@ const Header = () => {
                                         )
                                     }
                                     
-                                </button>
+                                </button> */}
+                                <CartButton onClick={() => setOpenCart(true)} />
                             </div>
                         </div>
 
@@ -220,6 +227,12 @@ const Header = () => {
                 } 
                 <Search />
             </div>
+
+            {
+                openCart && (
+                    <DisplayCart close={() => setOpenCart(false)} />
+                )
+            }
 
         </header>
     );
