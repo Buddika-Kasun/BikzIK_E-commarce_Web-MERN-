@@ -17,7 +17,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-    @apply bg-green-400 rounded-full;
+    @apply bg-green-400 rounded-full cursor-pointer;
 }
 
 .form-field{
