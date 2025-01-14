@@ -1,6 +1,6 @@
 import { IoClose } from "react-icons/io5";
 import { BsPatchQuestionFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NotLogin = ({close}) => {
 
@@ -22,12 +22,13 @@ const NotLogin = ({close}) => {
                         <BsPatchQuestionFill className="text-2xl" />
                         Guest Login
                     </h2>
-                    <button
+                    <Link
                         className="w-fit ml-auto hover:text-red-400"
                         onClick={close}
+                        to={'/'}
                     >
                         <IoClose size={25} />
-                    </button>
+                    </Link>
                 </div>
                 <div className="my-5">
                     <p>

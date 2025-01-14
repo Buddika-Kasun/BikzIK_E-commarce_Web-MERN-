@@ -16,6 +16,8 @@ export const GlobalProvider = ({children}) => {
 
     const dispatch = useDispatch();
 
+    const user = useSelector(state => state.user);
+
     const [cartButtonDetails, setCartButtonDetails] = useState({
         totalItems: 0,
         totalPrice: 0,
@@ -23,6 +25,10 @@ export const GlobalProvider = ({children}) => {
     });
     const [openCart, setOpenCart] = useState(false);
     const [login, setLogin] = useState(false);
+
+    useEffect(() => {
+        setLogin(Boolean(user?._id));
+    },[user]);
 
     const cartItem = useSelector((state) => state.cart.cart);
 
@@ -122,6 +128,7 @@ export const GlobalProvider = ({children}) => {
             cartButtonDetails,
             openCart,
             setOpenCart,
+            login,
             setLogin,
         }}>
             {children}
