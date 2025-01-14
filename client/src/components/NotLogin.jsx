@@ -7,10 +7,12 @@ const NotLogin = ({close}) => {
     const navigate = useNavigate();
 
     const redirectToLoginPage = () => {
+        if (close) close();
         navigate("/login");
     };
 
     const redirectToRegisterPage = () => {
+        if (close) close();
         navigate("/register");
     };
 
