@@ -18,6 +18,7 @@ import UploadProductPage from '../pages/UploadProductPage';
 import AdminPermission from '../layouts/AdminPermission';
 import ProductListPage from '../pages/ProductListPage';
 import ProductDisplayPage from '../pages/ProductDisplayPage';
+import CheckoutPage from '../pages/CheckoutPage';
 
 const router = createBrowserRouter([
     {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
             {
                 path: 'product/:product',
                 element: <ProductDisplayPage />
+            },
+            {
+                path: 'checkout',
+                element: <CheckoutPage />
             }
         ]
     }
