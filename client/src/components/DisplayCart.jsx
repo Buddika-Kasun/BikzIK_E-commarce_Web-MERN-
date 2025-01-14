@@ -5,7 +5,7 @@ import { FaCaretRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import AddToCartButton from "./AddToCartButton";
 import { FaCartShopping } from 'react-icons/fa6';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Divider from "./Divider";
 import { priceWithDiscount } from "../utils/priceWithDiscount";
 import NotLogin from "./NotLogin";
@@ -15,6 +15,16 @@ const DisplayCart = ({close}) => {
     const {cartButtonDetails, login} = useGlobalContext();
 
     const cartItems = useSelector(state => state.cart.cart);
+    const user = useSelector(state => state.user);
+
+    const navigate = useNavigate();
+
+    const redirectToCheckoutPage = () => {
+        if (user?._id) {
+            navigate("/checkout");
+            if (close) close();
+        }
+    };
 
     return (
         <section className="bg-neutral-900 bg-opacity-70 fixed top-0 right-0 z-50 bottom-0 left-0">
@@ -131,6 +141,7 @@ const DisplayCart = ({close}) => {
                                             </div>
                                             <button
                                                 className="flex items-center"
+                                                onClick={redirectToCheckoutPage}
                                             >
                                                 Proceed
                                                 <FaCaretRight size={20} />
