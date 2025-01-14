@@ -13,15 +13,15 @@ const addressSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    zipCode: {
+    postalCode: {
         type: String,
         default: ""
     },
     country: {
         type: String,
-        default: ""
+        default: "Sri Lanka"
     },
-    mobile: {
+    contactNo: {
         type: Number,
         default: null
     },
