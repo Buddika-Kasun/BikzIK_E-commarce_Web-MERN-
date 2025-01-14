@@ -39,7 +39,7 @@ const AddToCartButton = ({data, setNotLogin}) => {
 
         }
         catch (error) { 
-            if(error && error.status == 401) {
+            if(error && error.status == 401 || error.response.data.message === "jwt expired") {
                 setNotLogin();
             }
             else {
