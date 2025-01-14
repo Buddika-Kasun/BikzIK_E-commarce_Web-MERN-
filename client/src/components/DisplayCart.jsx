@@ -67,7 +67,9 @@ const DisplayCart = ({close}) => {
                                                                         }
                                                                     </div>
                                                                     <div className="flex flex-col lg:flex-row lg:items-end lg:gap-2">
-                                                                        <p className="text-sm text-gray-400 line-through">{priceDisplay(item?.productId?.price)}</p>
+                                                                        {
+                                                                             item?.productId?.discount && <p className="text-sm text-gray-400 line-through">{priceDisplay(item?.productId?.price)}</p>
+                                                                        }
                                                                         <p className="font-semibold">{priceDisplay(priceWithDiscount(item?.productId?.price, item?.productId?.discount))}</p>
                                                                     </div>
                                                                 </div>
@@ -92,7 +94,10 @@ const DisplayCart = ({close}) => {
                                                 <div className="flex justify-between gap-4">
                                                     <p>Items total :</p>
                                                     <p className="text-sm flex items-center gap-2">
-                                                        <span className="line-through text-gray-400">{priceDisplay(cartButtonDetails.notDiscountPrice)}</span>
+                                                        {
+                                                            cartButtonDetails.totalPrice !== cartButtonDetails.notDiscountPrice &&
+                                                            <span className="line-through text-gray-400">{priceDisplay(cartButtonDetails.notDiscountPrice)}</span>
+                                                        }
                                                         <span>{priceDisplay(cartButtonDetails.totalPrice)}</span>
                                                     </p>
                                                 </div>
