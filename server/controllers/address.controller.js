@@ -50,7 +50,7 @@ export const getAddressesController = async(req, res) => {
 
         //const userAddresses = await UserModel.findById(userId).populate("address_details");
         // 1 or 2
-        const userAddresses = await AddressModel.find({ userId });
+        const userAddresses = await AddressModel.find({ userId }).sort({ createdAt: -1});
 
         return res.json({
             message: "Addresses fetched successfully",
