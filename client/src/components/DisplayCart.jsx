@@ -132,24 +132,24 @@ const DisplayCart = ({close}) => {
                         </div>
 
                         <div className="p-2 bg-blue-50 sticky bottom-0">
-                            <div className="bg-green-700 text-white px-4 py-2 font-semibold lg:text-lg rounded flex items-center gap-4 justify-between">
+                            <div className="bg-green-700 text-white font-semibold lg:text-lg rounded flex items-center gap-4 justify-between">
                                 {
                                     cartItems[0] ? (
-                                        <>
+                                        <button
+                                            className="w-full flex justify-between px-4 py-2"
+                                            onClick={redirectToCheckoutPage}
+                                        >
                                             <div>
                                                 {priceDisplay(cartButtonDetails?.totalPrice)}
                                             </div>
-                                            <button
-                                                className="flex items-center"
-                                                onClick={redirectToCheckoutPage}
-                                            >
+                                            <div className="flex items-center">
                                                 Proceed
                                                 <FaCaretRight size={20} />
-                                            </button>
-                                        </>
+                                            </div>
+                                        </button>
                                     ) : (
                                         <Link
-                                            className="flex items-center w-full justify-center"
+                                            className="flex items-center w-full justify-center px-4 py-2"
                                             onClick={close}
                                             to={'/'}
                                         >
