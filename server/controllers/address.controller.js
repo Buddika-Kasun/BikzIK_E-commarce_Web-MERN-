@@ -70,3 +70,41 @@ export const getAddressesController = async(req, res) => {
         });
     }
 };
+
+// Update address controller
+export const updateAddressController = async(req, res) => {
+    try {
+
+        const userId = req.userId;
+        const { addressId, address, city, state, postal, contact } = req.body;
+
+        const updateAddress = await AddressModel.updateOne(
+            {
+                _id: addressId,
+                userId: userId,
+            }, 
+            {
+                address_line: address,
+                city,
+                state,
+                postalCode: postal,
+                contactNo: contact,
+            }
+        );
+
+        return res.json({
+            message: "Address updated successfully",
+            success: true,
+            error: false,
+            data: updateAddress,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
