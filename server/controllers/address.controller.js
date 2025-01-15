@@ -42,3 +42,31 @@ export const addAddressController = async(req, res) => {
     }
 };
 
+// Get addresses controller
+export const getAddressesController = async(req, res) => {
+    try {
+
+        const userId = req.userId;
+
+        //const userAddresses = await UserModel.findById(userId).populate("address_details");
+        // 1 or 2
+        const userAddresses = await AddressModel.find({ userId });
+
+        return res.json({
+            message: "Addresses fetched successfully",
+            success: true,
+            error: false,
+            //data: userAddresses.address_details,
+            // 1 or 2
+            data: userAddresses,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
