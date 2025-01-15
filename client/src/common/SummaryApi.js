@@ -147,7 +147,11 @@ const SummaryApi = {
     update_address: {
         url: 'api/address/update',
         method: 'PUT',
-    }    
+    },
+    delete_address: {
+        url: 'api/address/delete',
+        method: 'DELETE',
+    }
     
 };
 
