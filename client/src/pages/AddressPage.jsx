@@ -9,6 +9,7 @@ import Axios from '../utils/Axios';
 import SummaryApi from '../common/SummaryApi';
 import toast from 'react-hot-toast';
 import { useGlobalContext } from '../provider/GlobalProvider';
+import NoData from '../components/NoData';
 
 const AddressPage = () => {
 
@@ -78,6 +79,10 @@ const AddressPage = () => {
                 </button>
             </div>
             <div className="grid gap-4 p-4">
+                {
+                    !addressList[0] && <NoData />
+                }
+
                 {
                     addressList?.map((address, index) => {
                         return (
