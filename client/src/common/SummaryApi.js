@@ -144,7 +144,10 @@ const SummaryApi = {
         url: 'api/address/get',
         method: 'GET',
     },
-    
+    update_address: {
+        url: 'api/address/update',
+        method: 'PUT',
+    }    
     
 };
 
