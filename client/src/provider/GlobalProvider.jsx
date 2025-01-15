@@ -7,6 +7,7 @@ import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import toast from "react-hot-toast";
 import { priceWithDiscount } from "../utils/priceWithDiscount";
+import { setAddressList } from "../store/addressSlice";
 
 export const GlobalContext = createContext(null);
 
@@ -56,10 +57,6 @@ export const GlobalProvider = ({children}) => {
 
     }
 
-    useEffect(() => {
-        calTotals();
-    },[cartItem]);
-
     const fetchCartItems = async() => {
         const cartItemsData = await fetchDetails({url: 'get_cart_items'});
 
@@ -82,13 +79,13 @@ export const GlobalProvider = ({children}) => {
                     qty: qty
                 }
             });
-
+            
             if (response.data.success) {
                 //toast.success("Add product to cart");
                 fetchCartItems();
                 return response.data;
             }
-
+            
         }
         catch(error){
             console.log(error);
@@ -116,9 +113,33 @@ export const GlobalProvider = ({children}) => {
         }
     }
 
+    const fetchAddresses = async() => {
+        try{
+            
+            const addressesData = await fetchDetails({ url: 'get_addresses'});
+
+            if(addressesData) {
+                dispatch(setAddressList(addressesData?.data))
+            }
+            else {
+                dispatch(setAddressList([]))
+            }
+
+        }
+        catch(error){
+            console.log(error);
+            AxiosToastError(error);
+        }
+    }
+
+    useEffect(() => {
+        calTotals();
+    },[cartItem]);
+
     useEffect(() => {
         fetchCartItems();
-    },[login])
+        fetchAddresses();
+    },[login]);
 
     return (
         <GlobalContext.Provider value={{
@@ -130,6 +151,7 @@ export const GlobalProvider = ({children}) => {
             setOpenCart,
             login,
             setLogin,
+            fetchAddresses,
         }}>
             {children}
         </GlobalContext.Provider>
