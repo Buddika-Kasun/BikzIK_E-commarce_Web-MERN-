@@ -14,6 +14,7 @@ export const addAddressController = async(req, res) => {
             state,
             postalCode: postal,
             contactNo: contact,
+            userId
         });
 
         const saveAddress = await createAddress.save();
@@ -40,3 +41,4 @@ export const addAddressController = async(req, res) => {
         });
     }
 };
+
