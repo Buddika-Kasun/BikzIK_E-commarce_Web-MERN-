@@ -7,16 +7,16 @@ import AxiosToastError from "../utils/AxiosToastError";
 import { useGlobalContext } from "../provider/GlobalProvider";
 
 
-const AddAddress = ({close}) => {
+const AddAddress = ({close, mode}) => {
 
     const { fetchAddresses } = useGlobalContext();
 
     const [data, setData] = useState({
-        address: "",
-        city: "",
-        state: "",
-        postal: "",
-        contact: ""
+        address: mode?.data?.address_line || "",
+        city: mode?.data?.city || "",
+        state: mode?.data?.state || "",
+        postal: mode?.data?.postalCode || "",
+        contact: mode?.data?.contactNo || ""
     });
 
     const handleChange = (e) => {
@@ -45,12 +45,23 @@ const AddAddress = ({close}) => {
         e.preventDefault();
 
         try{
-            const response = await Axios({
-                ...SummaryApi.add_address,
-                data: data,
-            });
 
-            if(response.data.success){
+            let response;
+
+            if (mode?.status === "create") {
+                response = await Axios({
+                    ...SummaryApi.add_address,
+                    data: data,
+                });
+            }
+            else if (mode?.status === "update") {
+                response = await Axios({
+                    ...SummaryApi.update_address,
+                    data: {...data, addressId: mode?.data?._id},
+                });
+            }
+
+            if(response?.data?.success){
                 //toast.success("Product added successfully!");
                 toast.success(response.data.message);
                 setData({
@@ -81,7 +92,7 @@ const AddAddress = ({close}) => {
             <div className="bg-white max-w-lg w-full h-fit max-h-[90vh] rounded-md overflow-y-auto scroll-custom-blue relative">
                 <div className="p-2 sticky top-0 bg-white z-30">
                     <div className="p-2 shadow-md flex justify-between bg-blue-50">
-                        <h2 className="font-semibold">Add Address</h2>
+                        <h2 className="font-semibold">{mode?.status === "update" ? 'Edit Address' : 'Add Address'}</h2>
                         <button
                             className="w-fit h-full hover:text-red-400"
                             onClick={close}
@@ -179,7 +190,7 @@ const AddAddress = ({close}) => {
                         <button
                             className="bg-blue-500 text-white font-semibold px-4 py-1 mt-2 rounded hover:bg-blue-600"
                         >
-                            Save
+                            {mode?.status === "update" ? 'Update' : 'Save'}
                         </button>
 
                     </form>
