@@ -140,6 +140,11 @@ const SummaryApi = {
         url: 'api/address/add',
         method: 'POST',
     },
+    get_addresses: {
+        url: 'api/address/get',
+        method: 'GET',
+    },
+    
     
 };
 
