@@ -108,3 +108,46 @@ export const updateAddressController = async(req, res) => {
         });
     }
 };
+
+// Delete address controller
+export const deleteAddressController = async(req, res) => {
+    try {
+
+        const userId = req.userId;
+        const { addressId } = req.body;
+
+        const deleteAddress = await AddressModel.deleteOne(
+            {
+                _id: addressId,
+                userId: userId,
+            }
+        ); 
+        // 1 or 2
+        /* const disableAddress = await AddressModel.updateOne(
+            {
+                _id: addressId,
+                userId: userId,
+            }, 
+            {
+                status: false,
+            }
+        ); */
+
+        return res.json({
+            message: "Address deleted successfully",
+            success: true,
+            error: false,
+            data: deleteAddress,
+            // 1 or 2
+            //data: disableAddress,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
