@@ -21,14 +21,14 @@ const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [openUserMenu, setOpenUserMenu] = useState(false); 
+    //const [openUserMenu, setOpenUserMenu] = useState(false); 
     /* const [cartButtonDetails, setCartButtonDetails] = useState({
         totalItems: 0,
         totalPrice: 0
     }); */
     // const [openCart, setOpenCart] = useState(false);
 
-    const { cartButtonDetails, openCart, setOpenCart } = useGlobalContext();
+    const { cartButtonDetails, openCart, setOpenCart, openUserMenu, setOpenUserMenu } = useGlobalContext();
 
     const user = useSelector((state) => state.user);
     //const cartItem = useSelector((state) => state.cart.cart);

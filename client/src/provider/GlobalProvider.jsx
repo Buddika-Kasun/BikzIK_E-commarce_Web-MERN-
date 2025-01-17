@@ -27,6 +27,7 @@ export const GlobalProvider = ({children}) => {
     });
     const [openCart, setOpenCart] = useState(false);
     const [login, setLogin] = useState(false);
+    const [openUserMenu, setOpenUserMenu] = useState(false); 
 
     useEffect(() => {
         setLogin(Boolean(user?._id));
@@ -174,6 +175,8 @@ export const GlobalProvider = ({children}) => {
             setLogin,
             fetchAddresses,
             fetchOrders,
+            openUserMenu,
+            setOpenUserMenu,
         }}>
             {children}
         </GlobalContext.Provider>

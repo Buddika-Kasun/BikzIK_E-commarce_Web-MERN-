@@ -12,7 +12,7 @@ import { useGlobalContext } from "../provider/GlobalProvider";
 
 const UserMenu = ({close}) => {
 
-    const { setLogin } = useGlobalContext();
+    const { setLogin, setOpenUserMenu } = useGlobalContext();
 
 
     const user = useSelector((state) => state.user);
@@ -52,8 +52,9 @@ const UserMenu = ({close}) => {
 
     const handleClose = () => {
         if(close) {
-            close();
+            //close();
         }
+        setOpenUserMenu(false);
     };
 
     return (
@@ -75,7 +76,8 @@ const UserMenu = ({close}) => {
 
                 {
                     isAdmin(user.role) && (
-                        <>
+                        <div className="border border-gray-200 flex flex-col rounded p-1 relative pt-3 mt-2">
+                            <div className="text-xs absolute -top-2 left-0 bg-blue-50 px-2 rounded-md text-gray-400">Admin panel</div>
                             <Link
                                 to={"/dashboard/category"}
                                 onClick={handleClose}
@@ -107,12 +109,19 @@ const UserMenu = ({close}) => {
                             >
                                 Products
                             </Link>
-                        </>
+                            <Link
+                                to={"/dashboard/admin-orders"}
+                                onClick={handleClose}
+                                className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                            >
+                                Orders
+                            </Link>
+                        </div>
                     )
                 }
 
                 <Link
-                    to={"/dashboard/orders"}
+                    to={"/dashboard/my-orders"}
                     onClick={handleClose}
                     className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
                 >
