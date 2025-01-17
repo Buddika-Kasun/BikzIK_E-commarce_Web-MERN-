@@ -13,7 +13,7 @@ import AxiosToastError from "../utils/AxiosToastError";
 
 const CheckoutPage = () => {
 
-    const {cartButtonDetails, login, fetchCartItems} = useGlobalContext();
+    const {cartButtonDetails, login, fetchCartItems, fetchOrders} = useGlobalContext();
 
     const [openAddress, setOpenAddress] = useState(false);
 
@@ -47,6 +47,7 @@ const CheckoutPage = () => {
             if (response.data.success) {
                 toast.success(response.data.message);
                 fetchCartItems();
+                fetchOrders();
                 navigate('/response',{
                     state: {
                         text: 'success',
@@ -57,6 +58,11 @@ const CheckoutPage = () => {
         catch (error) {
             console.log(error);
             AxiosToastError(error);
+            navigate('/response',{
+                state: {
+                    text: 'cancel',
+                }
+            })
         }
     };
 
