@@ -107,3 +107,28 @@ export const getOrdersController = async(req, res) => {
         })
     }
 };
+
+// Get all orders controller
+export const getAllOrdersController = async(req, res) => {
+    try {
+
+        const allOrders = await OrderModel.find({
+            status: { $nin: ["Canceled", "Received"] }
+        }).sort({ createdAt: 1 });
+
+        return res.json({
+            message: "All orders retrieved successfully",
+            success: true,
+            error: false,
+            data: allOrders,
+        });
+
+    }
+    catch(err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
