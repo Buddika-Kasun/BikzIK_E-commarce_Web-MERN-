@@ -8,7 +8,7 @@ import SummaryApi from "../common/SummaryApi";
 import toast from "react-hot-toast";
 import { priceWithDiscount } from "../utils/priceWithDiscount";
 import { setAddressList } from "../store/addressSlice";
-import { setOrders } from "../store/orderSlice";
+import { setAdminOrders, setOrders } from "../store/orderSlice";
 
 export const GlobalContext = createContext(null);
 
@@ -153,6 +153,25 @@ export const GlobalProvider = ({children}) => {
         }
     }
 
+    const fetchAdminOrders = async() => {
+        try {
+
+            const ordersData = await fetchDetails({ url: 'get_all_orders'});
+
+            if(ordersData) {
+                dispatch(setAdminOrders(ordersData?.data));
+            }
+            else {
+                dispatch(setAdminOrders([]));
+            }
+
+        }
+        catch(error) {
+            console.error(error);
+            AxiosToastError(error);
+        }
+    }
+
     useEffect(() => {
         calTotals();
     },[cartItem]);
@@ -162,6 +181,19 @@ export const GlobalProvider = ({children}) => {
         fetchAddresses();
         fetchOrders();
     },[login]);
+
+    useEffect(() => {
+        const fetchInterval = setInterval(() => {
+            fetchAdminOrders(); console.log('Fetching admin orders')
+        }, 5 * 60 * 1000); // 5 minutes in milliseconds
+    
+        // Initial fetch when the component mounts
+        fetchAdminOrders();
+    
+        // Cleanup function to clear the interval when the component unmounts
+        return () => clearInterval(fetchInterval);
+    }, [login]);
+    
 
     return (
         <GlobalContext.Provider value={{
@@ -177,6 +209,7 @@ export const GlobalProvider = ({children}) => {
             fetchOrders,
             openUserMenu,
             setOpenUserMenu,
+            fetchAdminOrders,
         }}>
             {children}
         </GlobalContext.Provider>
