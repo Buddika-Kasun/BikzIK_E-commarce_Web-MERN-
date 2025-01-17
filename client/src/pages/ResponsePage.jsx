@@ -16,7 +16,7 @@ const ResponsePage = () => {
                             <p><GiConfirmed size={30} /></p>
                         </div>
                         <Link
-                            to={'/dashboard/orders'}
+                            to={'/dashboard/my-orders'}
                             className="border-[1.5px] rounded border-green-700 text-green-700 hover:bg-green-700 hover:text-green-200 py-1 px-2 w-fit font-semibold text-sm"
                         >
                             Check my order
