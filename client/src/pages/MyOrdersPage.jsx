@@ -35,7 +35,7 @@ const MyOrdersPage = () => {
     return (
         <section className=''>
             <div className="p-2 pt-4 shadow-md flex justify-between sticky top-28 lg:top-20 bg-blue-50 z-30">
-                <h2 className="font-semibold">Orders</h2>
+                <h2 className="font-semibold">My Orders</h2>
             </div>
             <div className="grid gap-4 p-4">
 
