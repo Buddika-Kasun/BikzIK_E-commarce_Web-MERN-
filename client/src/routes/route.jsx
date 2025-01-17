@@ -19,6 +19,7 @@ import AdminPermission from '../layouts/AdminPermission';
 import ProductListPage from '../pages/ProductListPage';
 import ProductDisplayPage from '../pages/ProductDisplayPage';
 import CheckoutPage from '../pages/CheckoutPage';
+import ResponsePage from '../pages/ResponsePage';
 
 const router = createBrowserRouter([
     {
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
             {
                 path: 'checkout',
                 element: <CheckoutPage />
+            },
+            {
+                path: 'response',
+                element: <ResponsePage />
             }
         ]
     }
