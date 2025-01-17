@@ -8,6 +8,7 @@ import SummaryApi from "../common/SummaryApi";
 import toast from "react-hot-toast";
 import { priceWithDiscount } from "../utils/priceWithDiscount";
 import { setAddressList } from "../store/addressSlice";
+import { setOrders } from "../store/orderSlice";
 
 export const GlobalContext = createContext(null);
 
@@ -132,6 +133,25 @@ export const GlobalProvider = ({children}) => {
         }
     }
 
+    const fetchOrders = async() => {
+        try {
+
+            const ordersData = await fetchDetails({ url: 'get_orders'});
+
+            if(ordersData) {
+                dispatch(setOrders(ordersData?.data));
+            }
+            else {
+                dispatch(setOrders([]));
+            }
+
+        }
+        catch(error) {
+            console.error(error);
+            AxiosToastError(error);
+        }
+    }
+
     useEffect(() => {
         calTotals();
     },[cartItem]);
@@ -139,6 +159,7 @@ export const GlobalProvider = ({children}) => {
     useEffect(() => {
         fetchCartItems();
         fetchAddresses();
+        fetchOrders();
     },[login]);
 
     return (
@@ -152,6 +173,7 @@ export const GlobalProvider = ({children}) => {
             login,
             setLogin,
             fetchAddresses,
+            fetchOrders,
         }}>
             {children}
         </GlobalContext.Provider>
