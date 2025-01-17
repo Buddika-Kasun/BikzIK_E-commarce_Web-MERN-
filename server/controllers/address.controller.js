@@ -50,7 +50,7 @@ export const getAddressesController = async(req, res) => {
 
         //const userAddresses = await UserModel.findById(userId).populate("address_details");
         // 1 or 2
-        const userAddresses = await AddressModel.find({ userId }).sort({ createdAt: -1});
+        const userAddresses = await AddressModel.find({ userId, status: true }).sort({ createdAt: -1});
 
         return res.json({
             message: "Addresses fetched successfully",
@@ -116,14 +116,16 @@ export const deleteAddressController = async(req, res) => {
         const userId = req.userId;
         const { addressId } = req.body;
 
+        /*
         const deleteAddress = await AddressModel.deleteOne(
             {
                 _id: addressId,
                 userId: userId,
             }
-        ); 
+        );
+        */
         // 1 or 2
-        /* const disableAddress = await AddressModel.updateOne(
+        const disableAddress = await AddressModel.updateOne(
             {
                 _id: addressId,
                 userId: userId,
@@ -131,15 +133,15 @@ export const deleteAddressController = async(req, res) => {
             {
                 status: false,
             }
-        ); */
+        );
 
         return res.json({
             message: "Address deleted successfully",
             success: true,
             error: false,
-            data: deleteAddress,
+            //data: deleteAddress,
             // 1 or 2
-            //data: disableAddress,
+            data: disableAddress,
         });
 
     }
