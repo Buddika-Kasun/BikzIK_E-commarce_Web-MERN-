@@ -4,18 +4,61 @@ import { priceDisplay } from "../utils/priceDisplay";
 import AddAddress from "../components/AddAddress";
 import NotLogin from "../components/NotLogin";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
+import Axios from "../utils/Axios";
+import SummaryApi from "../common/SummaryApi";
+import toast from "react-hot-toast";
+import AxiosToastError from "../utils/AxiosToastError";
 
 const CheckoutPage = () => {
 
-    const {cartButtonDetails, login} = useGlobalContext();
+    const {cartButtonDetails, login, fetchCartItems} = useGlobalContext();
 
-    const [openAddress, setOpenAddress] = useState();
+    const [openAddress, setOpenAddress] = useState(false);
 
     const addressList = useSelector(state => state.address.addressList);
+    const cartItems = useSelector(state => state.cart.cart);
 
     const [selectedAddress, setSelectedAddress] = useState(0);
+
+    const navigate = useNavigate();
+
+    const handleCOD = async(e) => {
+        e.preventDefault();
+        try {
+
+            if(addressList.length === 0) { 
+                toast.error("Cannot process without a address!");
+                setOpenAddress(true);
+                return;
+            }
+
+            const response = await Axios({
+                ...SummaryApi.add_order,
+                data: {
+                    productList: cartItems,
+                    shippingAddress: addressList[selectedAddress]?._id,
+                    paymentMethod: "COD",
+                    totalPrice: cartButtonDetails.totalPrice,
+                }
+            });
+
+            if (response.data.success) {
+                toast.success(response.data.message);
+                fetchCartItems();
+                navigate('/response',{
+                    state: {
+                        text: 'success',
+                    }
+                })
+            }
+        }
+        catch (error) {
+            console.log(error);
+            AxiosToastError(error);
+        }
+    };
 
     return (
         <section className="">
@@ -122,7 +165,12 @@ const CheckoutPage = () => {
                                     </div>
                                     <div className="w-full flex flex-col gap-4 py-2">
                                         <button className="py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded">Online Payment</button>
-                                        <button className="py-2 px-4 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold rounded">Cash on Delivery</button>
+                                        <button
+                                            className="py-2 px-4 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold rounded"
+                                            onClick={handleCOD}
+                                        >
+                                            Cash on Delivery
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +181,13 @@ const CheckoutPage = () => {
                 )
             }
             {
-                openAddress && <AddAddress close={() => setOpenAddress(false)} />
+                openAddress && 
+                <AddAddress
+                    close={() => setOpenAddress(false)}
+                    mode = {{
+                        status: "create",
+                    }}
+                />
             }
         </section>
     );
