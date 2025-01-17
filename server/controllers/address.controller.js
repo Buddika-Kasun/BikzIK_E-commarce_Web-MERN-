@@ -153,3 +153,28 @@ export const deleteAddressController = async(req, res) => {
         });
     }
 };
+
+// get address by id
+export const getAddressByIdController = async(req, res) => {
+    try {
+
+        const { addressId } = req.body;
+
+        const userAddress = await AddressModel.findById(addressId);
+
+        return res.json({
+            message: "Address fetched successfully",
+            success: true,
+            error: false,
+            data: userAddress,
+        });
+
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
