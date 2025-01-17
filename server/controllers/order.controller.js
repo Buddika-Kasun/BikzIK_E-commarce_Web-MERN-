@@ -82,3 +82,28 @@ export const addOrderController = async(req, res) => {
         });
     }
 };
+
+// Get order controller
+export const getOrdersController = async(req, res) => {
+    try {
+
+        const userId = req.userId;
+
+        const userOrders = await OrderModel.find({userId: userId}).sort({createdAt: -1});
+
+        return res.json({
+            message: "User orders retrieved successfully",
+            success: true,
+            error: false,
+            data: userOrders,
+        });
+
+    }
+    catch(err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        })
+    }
+};
