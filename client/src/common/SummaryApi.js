@@ -166,6 +166,10 @@ const SummaryApi = {
         url: 'api/order/get',
         method: 'GET',
     },
+    get_all_orders: {
+        url: 'api/order/get-all',
+        method: 'GET',
+    },
     
 };
 
