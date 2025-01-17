@@ -152,11 +152,19 @@ const SummaryApi = {
         url: 'api/address/delete',
         method: 'DELETE',
     },
+    get_address_by_id: {
+        url: 'api/address/get-by-id',
+        method: 'POST',
+    },
 
     // Order API endpoints
     add_order: {
         url: 'api/order/add',
         method: 'POST',
+    },
+    get_orders: {
+        url: 'api/order/get',
+        method: 'GET',
     },
     
 };
