@@ -10,14 +10,21 @@ const orderSchema = new mongoose.Schema({
         required: [true, "Provide orderId"],
         unique: true
     },
-    productId: {
+    /* productId: {
         type: mongoose.Schema.ObjectId,
         ref: "Product"
-    },
-    product_details: {
+    }, */
+    // 1 or
+    product_details: [{
+        // 2
+        productId: mongoose.Schema.ObjectId,
         name: String,
-        image: Array
-    },
+        image: Array,
+        price: Number,
+        discount: Number,
+        unit: String,
+        quantity: Number
+    }],
     paymentId: {
         type: String,
         default: ""
