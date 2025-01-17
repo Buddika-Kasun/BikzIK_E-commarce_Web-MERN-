@@ -20,6 +20,7 @@ import ProductListPage from '../pages/ProductListPage';
 import ProductDisplayPage from '../pages/ProductDisplayPage';
 import CheckoutPage from '../pages/CheckoutPage';
 import ResponsePage from '../pages/ResponsePage';
+import AdminOrdersPage from '../pages/AdminOrdersPage';
 
 const router = createBrowserRouter([
     {
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
                         element: <ProfilePage />
                     },
                     {
-                        path: 'orders',
+                        path: 'my-orders',
                         element: <MyOrdersPage />
                     },
                     {
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
                     {
                         path: 'admin-products',
                         element: <AdminPermission><AdminProductsPage /></AdminPermission>
+                    },
+                    {
+                        path: 'admin-orders',
+                        element: <AdminPermission><AdminOrdersPage /></AdminPermission>
                     }
                 ]
             },
@@ -108,7 +113,7 @@ const router = createBrowserRouter([
             {
                 path: 'response',
                 element: <ResponsePage />
-            }
+            },
         ]
     }
 ]);
