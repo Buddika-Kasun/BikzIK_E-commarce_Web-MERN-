@@ -33,7 +33,7 @@ const Footer = () => {
                             href={social.url} 
                             target='_blank' 
                             rel='noopener noreferrer' 
-                            className='hover:text-primary-100'
+                            className='hover:text-green-600'
                         >
                             {social.icon}
                         </a>
