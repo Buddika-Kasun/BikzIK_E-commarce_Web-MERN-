@@ -113,7 +113,7 @@ export const getAllOrdersController = async(req, res) => {
     try {
 
         const allOrders = await OrderModel.find({
-            status: { $nin: ["Canceled", "Received"] }
+            status: { $nin: ["Cancelled", "Received"] }
         }).sort({ createdAt: 1 });
 
         return res.json({
@@ -169,6 +169,55 @@ export const updateOrderStatusController = async(req, res) => {
 
     }
     catch(err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+// Update order status Canceled controller
+export const adminCancelOrderController = async (req, res) => {
+    try {
+        const { orderId } = req.body;
+
+        // Fetch the order to check its current status
+        const order = await OrderModel.findOne({ orderId: orderId });
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // Check if the current status is one of the restricted statuses
+        if (["Delivered", "Cancelled", "Received"].includes(order.status)) {
+            return res.status(400).json({
+                message: `Order cannot be cancel as it is already ${order.status}.`,
+                success: false,
+                error: true,
+            });
+        }
+
+        // Update the order status to 'Canceled'
+        const updatedOrder = await OrderModel.updateOne(
+            { orderId: orderId },
+            { status: 'Cancelled' }
+        );
+
+        if (updatedOrder.modifiedCount === 0) {
+            return res.status(400).json({
+                message: 'Order status update failed',
+                success: false,
+                error: true,
+            });
+        }
+
+        return res.json({
+            message: 'Order cancelled successfully',
+            success: true,
+            error: false,
+        });
+    } catch (err) {
         return res.status(500).json({
             message: err.message || err,
             error: true,
