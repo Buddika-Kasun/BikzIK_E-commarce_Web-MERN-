@@ -180,15 +180,14 @@ export const GlobalProvider = ({children}) => {
         fetchCartItems();
         fetchAddresses();
         fetchOrders();
+        fetchAdminOrders();
     },[login]);
 
     useEffect(() => {
         const fetchInterval = setInterval(() => {
-            fetchAdminOrders(); console.log('Fetching admin orders')
+            fetchAdminOrders();
+            fetchOrders();
         }, 5 * 60 * 1000); // 5 minutes in milliseconds
-    
-        // Initial fetch when the component mounts
-        fetchAdminOrders();
     
         // Cleanup function to clear the interval when the component unmounts
         return () => clearInterval(fetchInterval);
