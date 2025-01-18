@@ -84,7 +84,7 @@ const Header = () => {
                             
                         {/* Logo */}
                         <div>
-                            <Link to={"/"} className='flex items-center justify-center h-full'>
+                            <Link to={"/"} onClick={() => setOpenUserMenu(false)} className='flex items-center justify-center h-full'>
                                 {/* <img 
                                     src={logo} 
                                     height={80}
