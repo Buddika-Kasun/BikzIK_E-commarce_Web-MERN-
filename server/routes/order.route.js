@@ -5,7 +5,8 @@ import {
     adminCancelOrderController,
     getAllOrdersController,
     getOrdersController,
-    updateOrderStatusController
+    updateOrderStatusController,
+    userCancelOrderController
 } from '../controllers/order.controller.js';
 import { admin } from '../middlewares/admin.js';
 
@@ -16,5 +17,6 @@ orderRouter.get('/get', auth, getOrdersController);
 orderRouter.get('/get-all', auth, admin, getAllOrdersController);
 orderRouter.put('/update-status', auth, admin, updateOrderStatusController);
 orderRouter.put('/admin-cancel', auth, admin, adminCancelOrderController);
+orderRouter.put('/user-cancel', auth, userCancelOrderController);
 
 export default orderRouter;
