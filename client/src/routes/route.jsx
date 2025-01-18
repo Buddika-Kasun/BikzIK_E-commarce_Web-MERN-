@@ -60,6 +60,31 @@ const router = createBrowserRouter([
                 element: <Dashboard />,
                 children: [
                     {
+                        path: 'admin',
+                        children: [
+                            {
+                                path: 'category',
+                                element: <AdminPermission><CategoryPage /></AdminPermission>
+                            },
+                            {
+                                path: 'sub-category',
+                                element: <AdminPermission><SubcategoryPage /></AdminPermission>                   
+                            },
+                            {
+                                path: 'upload-product',
+                                element: <AdminPermission><UploadProductPage /></AdminPermission>
+                            },
+                            {
+                                path: 'products',
+                                element: <AdminPermission><AdminProductsPage /></AdminPermission>
+                            },
+                            {
+                                path: 'orders',
+                                element: <AdminPermission><AdminOrdersPage /></AdminPermission>
+                            }
+                        ]
+                    },
+                    {
                         path: 'profile',
                         element: <ProfilePage />
                     },
@@ -71,7 +96,7 @@ const router = createBrowserRouter([
                         path: 'address',
                         element: <AddressPage />
                     },
-                    {
+                    /* {
                         path: 'category',
                         element: <AdminPermission><CategoryPage /></AdminPermission>
                     },
@@ -90,7 +115,7 @@ const router = createBrowserRouter([
                     {
                         path: 'admin-orders',
                         element: <AdminPermission><AdminOrdersPage /></AdminPermission>
-                    }
+                    } */
                 ]
             },
             {
