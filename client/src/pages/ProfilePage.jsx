@@ -37,7 +37,7 @@ const ProfilePage = () => {
 
             if (response.data.success) {
                 toast.success("User details updated successfully.");
-
+                setOpenAvatarEdit(false);
                 const userData = await fetchUserDetails();
                 dispatch(setUser(userData.data));
             }

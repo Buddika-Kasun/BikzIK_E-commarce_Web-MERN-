@@ -69,7 +69,7 @@ const ProductDisplayPage = () => {
                 <div><FaChevronRight size={10} className='text-gray-600' /></div>
             </div>
             <div className='grid lg:grid-cols-5 px-4 py-2'>
-                <div className='md:hidden'>
+                <div className='lg:hidden'>
                     <p className='bg-green-300 w-fit px-2 rounded-md'>10 Min</p>
                     <h2 className='text-xl font-semibold'>
                         {product.name}
@@ -108,7 +108,7 @@ const ProductDisplayPage = () => {
                             }
                         </div>
                     </div>
-                    <div className='hidden md:block md:mt-4'>
+                    <div className='hidden lg:block lg:mt-4'>
                         <h2 className='font-semibold'>Why shop from BikzIK ?</h2>
                         <div className='flex items-center gap-4 py-2'>
                             <img
@@ -143,7 +143,7 @@ const ProductDisplayPage = () => {
                     </div>
                 </div>
                 <div className='p-2 lg:col-span-3 lg:pl-8'>
-                    <div className='hidden md:block'>
+                    <div className='hidden lg:block'>
                         <p className='bg-green-300 w-fit px-2 rounded-md'>10 Min</p>
                         <h2 className='font-semibold lg:text-3xl'>
                             {product.name}
@@ -197,7 +197,7 @@ const ProductDisplayPage = () => {
                             })
                         }
                     </div>
-                    <div className='md:hidden'>
+                    <div className='lg:hidden'>
                         <Divider />
                         <h2 className='font-semibold mt-4'>Why shop from BikzIK ?</h2>
                         <div className='flex items-center gap-4 py-2'>

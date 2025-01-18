@@ -67,7 +67,7 @@ const UserMenu = ({close}) => {
                         {user.role === 'ADMIN' && '(Admin)'}
                     </span>
                 </span>
-                <Link to={'/dashboard/profile'} onClick={handleClose} className="hover:text-primary-100 text-2xl lg:text-lg"><HiExternalLink /></Link>
+                <Link to={'/dashboard/profile'} onClick={handleClose} className="hover:text-green-500 text-2xl lg:text-lg"><HiExternalLink /></Link>
             </div>
 
             <Divider />
