@@ -5,10 +5,17 @@ import { useEffect, useState } from "react";
 import AxiosToastError from "../utils/AxiosToastError";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
+import toast from "react-hot-toast";
+import { useGlobalContext } from "../provider/GlobalProvider";
+import { useLocation } from "react-router-dom";
 
-const DisplayOrder = ({close, data}) => {
+const DisplayOrder = ({close, data, isAdmin}) => {
+
+    const location = useLocation();
 
     const [address, setAddress] = useState();
+
+    const { fetchOrders, fetchAdminOrders } = useGlobalContext();
 
     const formattedDate = (date) => {
         const newDate = new Date(date).toLocaleDateString('en-GB', {
@@ -35,6 +42,121 @@ const DisplayOrder = ({close, data}) => {
         }
     }
 
+    const color = (status) => {
+        switch (status) {
+            case 'Pending':
+                return 'text-gray-500 border-gray-500';
+            case 'Processing':
+                return 'text-yellow-500 border-yellow-500';
+            case 'Shipped':
+                return 'text-blue-500 border-blue-500';
+            case 'Delivered':
+                return 'text-green-500 border-green-500';
+            case 'Cancelled':
+                return 'text-red-500 border-red-500';
+            default:
+                return 'text-gray-500 border-gray-500';
+        }
+    };
+
+    const bgColor = (status) => {
+        switch (status) {
+            case 'Pending':
+                return 'bg-yellow-400 hover:bg-yellow-500';
+            case 'Processing':
+                return 'bg-blue-400 hover:bg-blue-500';
+            case 'Shipped':
+                return 'bg-green-400 hover:bg-green-500';
+            case 'Delivered':
+                return 'bg-gray-400 hover:bg-gray-500';
+            default:
+                return 'bg-gray-400 hover:bg-gray-500';
+        }
+    };
+    
+
+    const buttonName = (status) => {
+        switch (status) {
+          case 'Pending':
+            return 'Process';
+          case 'Processing':
+            return 'Shipped';
+          case 'Shipped':
+            return 'Delivered';
+          default:
+            return 'Loading...';
+        }
+    };
+
+    const handleChangeStatus = async () => {
+        try {
+
+            const response = await Axios({
+                ...SummaryApi.update_order_status,
+                data: {
+                    orderId: data.orderId,
+                    status: data.status,
+                }
+            });
+
+            if (response.data.success) {
+                toast.success("Order status updated successfully");
+                fetchOrders();
+                fetchAdminOrders();
+                close();
+            }
+
+        }
+        catch (error) {
+            console.log(error);
+            AxiosToastError(error);
+        }
+    };
+
+    const handleChangeCancelAdmin = async() => {
+        try {
+            const response = await Axios({
+                ...SummaryApi.admin_cancel_order,
+                data: {
+                    orderId: data.orderId,
+                }
+            });
+
+            if (response.data.success) {
+                toast.success("Order cancelled");
+                fetchOrders();
+                fetchAdminOrders();
+                close();
+            }
+        }
+        catch (error) {
+            console.log(error);
+            AxiosToastError(error);
+        }
+    };
+
+    const handleChangeCancelUser = async() => {
+        try {
+            const response = await Axios({
+                ...SummaryApi.user_cancel_order,
+                data: {
+                    orderId: data.orderId,
+                }
+            });
+
+            if (response.data.success) {
+                toast.success("Order cancelled");
+                fetchOrders();
+                fetchAdminOrders();
+                close();
+            }
+        }
+        catch (error) {
+            console.log(error);
+            AxiosToastError(error);
+        }
+    };
+
     useEffect(() => {
         fetchAddress();
     }, []);
@@ -57,6 +179,44 @@ const DisplayOrder = ({close, data}) => {
                 <div className="px-4 py-2 flex flex-col lg:flex-row justify-between">
 
                     <div className="px-4 w-full">
+
+                        <div className="flex flex-col px-4 gap-3">
+                                
+                                {
+                                    location.pathname !== "/dashboard/my-orders" && isAdmin && data.status !== 'Delivered' &&
+                                    <div className="flex gap-4">
+                                        <button
+                                            className={`rounded px-4 text-white cursor-pointer bg-red-600 hover:bg-red-700`}
+                                            onClick={handleChangeCancelAdmin}
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                        className={`rounded px-4 text-white cursor-pointer ${bgColor(data.status)}`}
+                                        onClick={handleChangeStatus}
+                                        >
+                                            {buttonName(data.status)}
+                                        </button>
+                                    </div>
+                                }
+                                {
+                                    location.pathname === "/dashboard/my-orders" && data.status === 'Pending' &&
+                                    <button
+                                        className={`rounded px-4 text-white cursor-pointer bg-red-600 hover:bg-red-700 w-fit`}
+                                        onClick={handleChangeCancelUser}
+                                    >
+                                        Cancel
+                                    </button>
+                                }
+                            <div className="flex gap-2">
+                                <h3 className="font-semibold text-lg">Status: </h3>
+                                <p className={`${color(data.status)} bg-white px-2 border rounded-md`}>
+                                    {data.status}
+                                </p>
+                            </div>
+                        </div>
+
+                        <Divider />
 
                         <div className="px-4 pt-2">
                             <h3 className="font-semibold text-lg pb-2">Order ID</h3>
