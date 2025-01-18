@@ -132,3 +132,47 @@ export const getAllOrdersController = async(req, res) => {
         });
     }
 };
+
+// Update order status controller
+export const updateOrderStatusController = async(req, res) => {
+    try {
+
+        const {orderId, status} = req.body;
+
+        let newStatus;
+
+        switch (status) {
+        case 'Pending':
+            newStatus = 'Processing';
+            break;
+        case 'Processing':
+            newStatus = 'Shipped';
+            break;
+        case 'Shipped':
+            newStatus = 'Delivered';
+            break;
+        default:
+            return res.status(400).json({ message: 'Invalid status' });
+        }
+
+        const updatedOrder = await OrderModel.updateOne({orderId: orderId}, {status: newStatus});
+
+        if(!updatedOrder) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+        
+        return res.json({
+            message: 'Order status updated successfully',
+            success: true,
+            error: false,
+        });
+
+    }
+    catch(err) {
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
