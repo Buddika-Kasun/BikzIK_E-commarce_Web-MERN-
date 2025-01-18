@@ -177,7 +177,7 @@ export const updateOrderStatusController = async(req, res) => {
     }
 };
 
-// Update order status Canceled controller
+// Update order status to "Canceled" for admin controller
 export const adminCancelOrderController = async (req, res) => {
     try {
         const { orderId } = req.body;
@@ -225,3 +225,63 @@ export const adminCancelOrderController = async (req, res) => {
         });
     }
 };
+
+// Update order status to "Canceled" for user controller
+export const userCancelOrderController = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const { orderId } = req.body;
+
+        // Find the order to check its current status
+        const order = await OrderModel.findOne({ orderId: orderId, userId: userId });
+
+        // If the order does not exist, return an error
+        if (!order) {
+            return res.status(404).json({ 
+                message: 'Order not found', 
+                error: true, 
+                success: false 
+            });
+        }
+
+        // Check if the order status is not "Pending"
+        if (order.status !== "Pending") {
+            return res.status(400).json({ 
+                message: 'Only pending orders can be canceled', 
+                error: true, 
+                success: false 
+            });
+        }
+
+        // Update the order status to "Canceled"
+        const updatedOrder = await OrderModel.updateOne(
+            { orderId: orderId, userId: userId }, 
+            { status: "Cancelled" }
+        );
+
+        // If the order is not updated (unexpected case), handle it
+        if (updatedOrder.nModified === 0) {
+            return res.status(500).json({
+                message: 'Failed to cancel the order',
+                error: true,
+                success: false,
+            });
+        }
+
+        // Successfully canceled the order
+        return res.json({
+            message: 'Order cancelled successfully',
+            success: true,
+            error: false,
+        });
+
+    } catch (err) {
+        // Handle server errors
+        return res.status(500).json({
+            message: err.message || err,
+            error: true,
+            success: false,
+        });
+    }
+};
+
