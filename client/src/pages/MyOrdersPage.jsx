@@ -32,6 +32,21 @@ const MyOrdersPage = () => {
         });
     };
 
+    const color = (status) => {
+        switch (status) {
+          case 'Pending':
+            return 'text-gray-500';
+          case 'Processing':
+            return 'text-yellow-500';
+          case 'Shipped':
+            return 'text-blue-500';
+          case 'Delivered':
+            return 'text-green-500';
+          default:
+            return 'text-gray-500';
+        }
+    }
+
     return (
         <section className=''>
             <div className="p-2 pt-4 shadow-md flex justify-between sticky top-28 lg:top-20 bg-blue-50 z-30">
@@ -48,9 +63,14 @@ const MyOrdersPage = () => {
                         return (
                             <div key={index} className="border-[1.5px] border-gray-300 px-4 py-2 w-full rounded-md bg-slate-200 overflow-hidden">
                                 <div className="flex justify-between mb-3">
-                                    <div className="font-semibold flex flex-wrap items-center gap-1">
-                                        <p>Order no: </p>
-                                        <p className="text-sm text-ellipsis line-clamp-2">{order.orderId}</p>
+                                    <div className="flex flex-col lg:flex-row justify-between lg:items-center lg:flex-grow lg:pr-10">
+                                        <div className="order-2 lg:order-1 font-semibold flex flex-wrap items-center gap-1">
+                                            <p>Order no: </p>
+                                            <p className="text-sm text-ellipsis line-clamp-2">{order.orderId}</p>
+                                        </div>
+                                        <div className={`order-1 lg:order-2 text-sm font-semibold bg-white rounded-md px-2 w-fit ${color(order.status)}`}>
+                                          {order.status}
+                                        </div>
                                     </div>
                                     <button 
                                         className="text-green-600 hover:text-green-700"
