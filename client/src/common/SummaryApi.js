@@ -174,6 +174,10 @@ const SummaryApi = {
         url: 'api/order/update-status',
         method: 'PUT',
     },
+    admin_cancel_order: {
+        url: 'api/order/admin-cancel',
+        method: 'PUT',
+    },
     
 };
 
