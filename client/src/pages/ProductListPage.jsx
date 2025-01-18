@@ -85,7 +85,7 @@ const ProductListPage = () => {
     return (
         <section className="">
 
-            <div className='pt-2 text-xs font-semibold items-center gap-1 text-green-600 md:hidden flex sticky top-28 bg-blue-50 z-10'>
+            <div className='py-2 text-xs font-semibold items-center gap-1 text-green-600 md:hidden flex sticky top-28 bg-blue-50 z-10'>
                 <Link to={'/'} className='hover:text-black'>Home</Link>
                 <div><FaChevronRight size={10} className='text-gray-600' /></div>
                 <div>{categoryName}</div>
@@ -95,8 +95,8 @@ const ProductListPage = () => {
             <div className="grid grid-cols-[80px,1fr] md:grid-cols-[200px,1fr] lg:grid-cols-[280px,1fr]">
 
                 {/* Sub category */}
-                <div className='pt-2 pb-2 pr-1 sticky top-[135px] lg:top-20 h-[80vh] lg:h-[73vh]'>
-                    <div className='py-1 pb-2 text-xs font-semibold items-center gap-1 text-green-600 hidden md:flex'>
+                <div className=' pb-2 pr-1 sticky top-[135px] md:top-20 h-[80vh] lg:h-[73vh]'>
+                    <div className='py-1 py-2 text-xs font-semibold items-center gap-1 text-green-600 hidden md:flex sticky lg:top-20 md:top-28 bg-blue-50'>
                         <Link to={'/'} className='hover:text-black'>Home</Link>
                         <div><FaChevronRight size={10} className='text-gray-600' /></div>
                         <div>{categoryName}</div>
@@ -139,7 +139,7 @@ const ProductListPage = () => {
                 {/* Products */}
                 <div className="">
                     
-                    <div className='shadow-md px-4 pb-2 pt-1 lg:pt-2 rounded-md sticky top-[135px] lg:top-20 z-10 bg-blue-50'>
+                    <div className='shadow-md px-4 pb-2 pt-1 lg:pt-2 rounded-md sticky top-[144px] md:top-28 lg:top-20 z-10 bg-blue-50'>
                         <h1 className='font-semibold'>{subCategoryName}</h1>
                     </div>
                     <div>

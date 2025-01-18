@@ -74,6 +74,14 @@ const UserMenu = ({close}) => {
 
             <div className="grid gap-2 lg:gap-1 pt-4 lg:pt-0">
 
+                <Link
+                    to={"/"}
+                    onClick={handleClose}
+                    className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
+                >
+                    Home
+                </Link>
+
                 {
                     isAdmin(user.role) && (
                         <div className="border border-gray-200 flex flex-col rounded p-1 relative pt-3 mt-2">

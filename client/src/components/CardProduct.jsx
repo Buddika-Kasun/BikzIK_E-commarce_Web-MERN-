@@ -62,7 +62,7 @@ const CardProduct = ({data}) => {
 
             {notLogin && <NotLogin close={() => setNotLogin(false)}/>}
 
-            <Link to={url} className="border p-2 grid min-w-48 lg:w-52 h-80 lg:h-[296px] rounded-md shadow-md mb-2 bg-white hover:shadow-lg relative">
+            <Link to={url} className="border p-2 grid min-w-48 md:w-52 h-80 md:h-[296px] rounded-md shadow-md mb-2 bg-white hover:shadow-lg relative">
                 <div className="h-32 rounded overflow-hidden">
                     <img 
                         src={data?.image[0]}
