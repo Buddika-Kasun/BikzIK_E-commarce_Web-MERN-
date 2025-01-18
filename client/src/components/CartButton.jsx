@@ -10,7 +10,7 @@ const CartButton = () => {
     const location = useLocation();
 
     return (
-        <div className={`${!login || (location.pathname === '/checkout')  && 'hidden'} lg:block`}>
+        <div className={`${!login || (location.pathname === '/checkout') || location.pathname.includes("/admin/")  && 'hidden'} lg:block`}>
             <button onClick={() => setOpenCart(true)} className='flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2 px-3 rounded-md w-full'>
                 <div className='lg:animate-bounce bg-slate-200 bg-opacity-30 lg:opacity-100 p-2 rounded lg:bg-transparent lg:p-0'>
                     <FaCartShopping size={22} />
