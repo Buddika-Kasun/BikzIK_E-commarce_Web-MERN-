@@ -79,7 +79,7 @@ const UserMenu = ({close}) => {
                         <div className="border border-gray-200 flex flex-col rounded p-1 relative pt-3 mt-2">
                             <div className="text-xs absolute -top-2 left-0 bg-blue-50 px-2 rounded-md text-gray-400">Admin panel</div>
                             <Link
-                                to={"/dashboard/category"}
+                                to={"/dashboard/admin/category"}
                                 onClick={handleClose}
                                 className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
                             >
@@ -87,15 +87,15 @@ const UserMenu = ({close}) => {
                             </Link>
 
                             <Link
-                                to={"/dashboard/sub-category"}
+                                to={"/dashboard/admin/sub-category"}
                                 onClick={handleClose}
                                 className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
                             >
-                            Sub Category
+                                Sub Category
                             </Link>
 
                             <Link
-                                to={"/dashboard/upload-product"}
+                                to={"/dashboard/admin/upload-product"}
                                 onClick={handleClose}
                                 className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
                             >
@@ -103,14 +103,14 @@ const UserMenu = ({close}) => {
                             </Link>
 
                             <Link
-                                to={"/dashboard/admin-products"}
+                                to={"/dashboard/admin/products"}
                                 onClick={handleClose}
                                 className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
                             >
                                 Products
                             </Link>
                             <Link
-                                to={"/dashboard/admin-orders"}
+                                to={"/dashboard/admin/orders"}
                                 onClick={handleClose}
                                 className="rounded px-4 lg:px-2 bg-slate-200 lg:bg-transparent py-1 hover:bg-slate-200"
                             >
