@@ -60,16 +60,16 @@ const LoginPage = () => {
           email: "",
           password: "",
         });
+        
+        // Store token in local storage
+        localStorage.setItem('accessToken', res.data.data.accessToken);
+        localStorage.setItem('refreshToken', res.data.data.refreshToken);
+        
+        navigate("/");
 
         const fetchUser = await fetchUserDetails();
         dispatch(setUser(fetchUser.data));
         
-        
-        navigate("/");
-
-        // Store token in local storage
-        localStorage.setItem('accessToken', res.data.data.accessToken);
-        localStorage.setItem('refreshToken', res.data.data.refreshToken);
       }
     }
     catch(err){
