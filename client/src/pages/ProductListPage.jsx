@@ -96,7 +96,7 @@ const ProductListPage = () => {
 
                 {/* Sub category */}
                 <div className=' pb-2 pr-1 sticky top-[135px] md:top-20 h-[80vh] lg:h-[73vh]'>
-                    <div className='py-1 py-2 text-xs font-semibold items-center gap-1 text-green-600 hidden md:flex sticky lg:top-20 md:top-28 bg-blue-50'>
+                    <div className='py-2 text-xs font-semibold items-center gap-1 text-green-600 hidden md:flex sticky lg:top-20 md:top-28 bg-blue-50'>
                         <Link to={'/'} className='hover:text-black'>Home</Link>
                         <div><FaChevronRight size={10} className='text-gray-600' /></div>
                         <div>{categoryName}</div>

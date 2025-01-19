@@ -10,6 +10,7 @@ import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import toast from "react-hot-toast";
 import AxiosToastError from "../utils/AxiosToastError";
+import { FaChevronRight } from "react-icons/fa";
 
 const CheckoutPage = () => {
 
@@ -69,6 +70,12 @@ const CheckoutPage = () => {
 
     return (
         <section className="">
+            <div className='py-2 text-xs font-semibold items-center gap-1 text-green-600 flex sticky top-[112px] lg:top-20 md:top-28 bg-blue-50'>
+                <Link to={'/'} className='hover:text-black'>Home</Link>
+                <div><FaChevronRight size={10} className='text-gray-600' /></div>
+                <div>Cart</div>
+                <div><FaChevronRight size={10} className='text-gray-600' /></div>
+            </div>
             {
                 login ? (
                     cartButtonDetails?.totalItems === 0 ? (
