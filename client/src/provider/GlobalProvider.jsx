@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { priceWithDiscount } from "../utils/priceWithDiscount";
 import { setAddressList } from "../store/addressSlice";
 import { setAdminOrders, setOrders } from "../store/orderSlice";
+import { setUser } from "../store/userSlice";
 
 export const GlobalContext = createContext(null);
 
@@ -172,11 +173,21 @@ export const GlobalProvider = ({children}) => {
         }
     }
 
+    const fetchUser = async() => {
+        // const userData = await fetchUserDetails();
+        const userData = await fetchDetails({url: 'user_details'});
+    
+        if(userData){
+          dispatch(setUser(userData.data));
+        }
+    }
+
     useEffect(() => {
         calTotals();
     },[cartItem]);
 
     useEffect(() => {
+        fetchUser();
         fetchCartItems();
         fetchAddresses();
         fetchOrders();
