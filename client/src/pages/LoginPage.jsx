@@ -31,31 +31,7 @@ const LoginPage = () => {
     const userData = await fetchDetails({url: 'user_details'});
 
     if(userData){
-      toast.success("userData in login")
       dispatch(setUser(userData.data));
-    }
-    else{
-      toast.error("userData not found in login")
-    }
-  }
-
-  const fetchUser2 = async() => {
-    try{
-      const response = await Axios({
-        ...SummaryApi.user_details,
-      });
-
-      if(response?.data?.success){
-        toast.success("userData in login")
-        dispatch(setUser(response.data.data));
-      }
-      else{
-        toast.error("userData error")
-      }
-    }
-    catch(error){
-      //console.log(error);
-      toast.error(error);
     }
   }
 

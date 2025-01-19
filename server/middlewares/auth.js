@@ -2,9 +2,8 @@ import jwt from 'jsonwebtoken';
 
 const auth = (req, res, next) => {
     try{
-        const token = req.cookies?.accessToken || req.header?.authorization?.split(" ")[1]; // ["aaaa","token"]
-        console.log("header: ", req.header.authorization)
-        console.log("Token: " + token);
+        const token = req.cookies?.accessToken || req.headers?.authorization?.split(" ")[1]; // ["Bearer","token"]
+
         if(!token) {
             return res.status(401).json({
                 message: 'Provide token to access',
