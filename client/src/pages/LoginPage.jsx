@@ -56,13 +56,14 @@ const LoginPage = () => {
 
         setLogin(true);
         
-        const fetchUser = await fetchUserDetails();
-        dispatch(setUser(fetchUser.data));
-        
         setData({
           email: "",
           password: "",
         });
+        
+        const fetchUser = await fetchUserDetails();
+        dispatch(setUser(fetchUser.data));
+        
         
         navigate("/");
 
