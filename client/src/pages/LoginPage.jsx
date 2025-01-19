@@ -45,7 +45,7 @@ const LoginPage = () => {
         ...SummaryApi.user_details,
       });
 
-      if(response.data.success){
+      if(response?.data?.success){
         toast.success("userData in login")
         dispatch(setUser(response.data.data));
       }
