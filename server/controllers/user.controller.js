@@ -162,7 +162,8 @@ export const loginUserController = async(req, res) => {
         const cookieOption = {
             httpOnly: true,
             secure: true,
-            sameSite: "None"
+            //sameSite: "None"
+            sameSite: "Strict"
         };
 
         res.cookie('accessToken', accessToken, cookieOption);
