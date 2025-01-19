@@ -9,6 +9,7 @@ import fetchUserDetails from "../utils/fetchUserDetails";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/userSlice";
 import { useGlobalContext } from "../provider/GlobalProvider";
+import fetchDetails from "../utils/fetchDetails";
 
 const LoginPage = () => {
 
@@ -24,6 +25,15 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const fetchUser = async() => {
+    // const userData = await fetchUserDetails();
+    const userData = await fetchDetails({url: 'user_details'});
+
+    if(userData){
+      dispatch(setUser(userData.data));
+    }
+  }
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -61,14 +71,16 @@ const LoginPage = () => {
           password: "",
         });
         
+        fetchUser();
+
         // Store token in local storage
         localStorage.setItem('accessToken', res.data.data.accessToken);
         localStorage.setItem('refreshToken', res.data.data.refreshToken);
         
         navigate("/");
 
-        const fetchUser = await fetchUserDetails();
-        dispatch(setUser(fetchUser.data));
+        //const fetchUser = await fetchUserDetails();
+        //dispatch(setUser(fetchUser?.data));
         
       }
     }
