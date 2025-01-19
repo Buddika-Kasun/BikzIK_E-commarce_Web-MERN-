@@ -65,14 +65,15 @@ const LoginPage = () => {
         });
         
         navigate("/");
-        
+
         // Store token in local storage
         localStorage.setItem('accessToken', res.data.data.accessToken);
         localStorage.setItem('refreshToken', res.data.data.refreshToken);
       }
     }
     catch(err){
-      AxiosToastError(err);
+      toast.error(err)
+      //AxiosToastError(err);
     }
 
   };
