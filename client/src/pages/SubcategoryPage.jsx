@@ -147,7 +147,7 @@ const SubcategoryPage = () => {
             header: 'Action',
             cell: ({row}) => {
                 return (
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-3 p-1">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-3 py-1 md:px-1">
                         <button
                             className="p-1 bg-green-200 rounded-full text-green-500 hover:text-green-700"
                             onClick={() => handleEditClick(row.original)}

@@ -18,7 +18,7 @@ const DisplayTable = ({data, columns}) => {
     });
 
     return (
-        <div className="px-2 mt-2 relative">
+        <div className="md:px-2 mt-2 relative">
             <div className='bg-blue-50 w-full h-7 fixed top-40 lg:top-32 z-10'/>
             <table className='w-full relative'>
                 <thead className='bg-black text-white sticky top-[175px] lg:top-[142px] z-20'>
