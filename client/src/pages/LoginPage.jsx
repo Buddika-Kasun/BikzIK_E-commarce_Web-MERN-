@@ -39,6 +39,26 @@ const LoginPage = () => {
     }
   }
 
+  const fetchUser2 = async() => {
+    try{
+      const response = await Axios({
+        ...SummaryApi.user_details,
+      });
+
+      if(response.data.success){
+        toast.success("userData in login")
+        dispatch(setUser(response.data.data));
+      }
+      else{
+        toast.error("userData error")
+      }
+    }
+    catch(error){
+      //console.log(error);
+      toast.error(error);
+    }
+  }
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -75,7 +95,8 @@ const LoginPage = () => {
           password: "",
         });
         
-        fetchUser();
+        //fetchUser();
+        fetchUser2();
         
         //const fetchUser = await fetchUserDetails();
         //dispatch(setUser(fetchUser?.data));
