@@ -60,7 +60,7 @@ const LoginPage = () => {
           email: "",
           password: "",
         });
-        
+
         const fetchUser = await fetchUserDetails();
         dispatch(setUser(fetchUser.data));
         
@@ -73,8 +73,8 @@ const LoginPage = () => {
       }
     }
     catch(err){
-      toast.error(err)
-      //AxiosToastError(err);
+      //toast.error(err)
+      AxiosToastError(err);
     }
 
   };
