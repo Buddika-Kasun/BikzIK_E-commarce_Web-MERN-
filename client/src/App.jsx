@@ -29,6 +29,7 @@ function App() {
     const userData = await fetchDetails({url: 'user_details'});
 
     if(userData){
+      toast.success("user data in app")
       dispatch(setUser(userData.data));
     }
   }

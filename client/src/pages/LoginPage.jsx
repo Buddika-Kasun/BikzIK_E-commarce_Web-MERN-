@@ -31,7 +31,11 @@ const LoginPage = () => {
     const userData = await fetchDetails({url: 'user_details'});
 
     if(userData){
+      toast.success("userData in login")
       dispatch(setUser(userData.data));
+    }
+    else{
+      toast.error("userData not found in login")
     }
   }
 
@@ -71,9 +75,9 @@ const LoginPage = () => {
           password: "",
         });
         
-        //fetchUser();
+        fetchUser();
         
-        const fetchUser = await fetchUserDetails(); toast.success(fetchUser.data.email)
+        //const fetchUser = await fetchUserDetails();
         //dispatch(setUser(fetchUser?.data));
 
         // Store token in local storage

@@ -1,6 +1,5 @@
 import Axios from './Axios';
 import SummaryApi from '../common/SummaryApi';
-import toast from 'react-hot-toast';
 
 const fetchUserDetails = async() => {
     try {
@@ -13,7 +12,6 @@ const fetchUserDetails = async() => {
 
     } catch (error) {
         console.error(error);
-        toast.error(error)
     }
 };
 
