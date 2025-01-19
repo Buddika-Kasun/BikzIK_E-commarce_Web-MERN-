@@ -205,7 +205,7 @@ const UploadProductPage = () => {
 
         }
         catch(error){
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
 

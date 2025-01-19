@@ -209,7 +209,7 @@ const EditProductAdmin = ({product, close, fetchProducts}) => {
 
         }
         catch(error){
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
 

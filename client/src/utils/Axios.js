@@ -59,7 +59,7 @@ const refreshAccessToken = async(refreshToken) => {
                 'Authorization': `Bearer ${refreshToken}`,
             }
         });
-        console.log(response);
+        //console.log(response);
 
         const accessToken = response.data.data.accessToken;
 
@@ -69,7 +69,7 @@ const refreshAccessToken = async(refreshToken) => {
 
     }
     catch(error) {
-        console.error('Error refreshing access token:', error);
+        //console.error('Error refreshing access token:', error);
     }
 }
 

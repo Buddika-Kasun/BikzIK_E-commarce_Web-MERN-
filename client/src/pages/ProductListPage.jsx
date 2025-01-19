@@ -46,7 +46,7 @@ const ProductListPage = () => {
                 setTotalPage(response.data.totalNoPage);
                 setPage(response.data.page);
                 setCategoryName(response.data.categoryName);
-                setSubCategoryName(response.data.subCategoryName);console.log(response.data)
+                setSubCategoryName(response.data.subCategoryName);
 
                 if (response.data.page == 1) {
                     setData(response.data.data);
@@ -58,7 +58,7 @@ const ProductListPage = () => {
 
         }
         catch(error) {
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
         finally {

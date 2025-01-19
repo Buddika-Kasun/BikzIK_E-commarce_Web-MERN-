@@ -49,7 +49,7 @@ const SubcategoryPage = () => {
             
         }
         catch(error){
-            console.log(error);
+            //console.log(error);
         }
         finally{
             setLoading(false);
@@ -101,7 +101,7 @@ const SubcategoryPage = () => {
 
         }
         catch(error) {
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error)
         }
         finally {

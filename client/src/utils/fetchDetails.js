@@ -13,7 +13,7 @@ const fetchDetails = async({url}) => {
         }
     }
     catch(error){
-        console.log(error);
+        //console.log(error);
     }
   }
 

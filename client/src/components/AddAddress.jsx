@@ -81,7 +81,7 @@ const AddAddress = ({close, mode}) => {
 
         }
         catch(error){
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
 

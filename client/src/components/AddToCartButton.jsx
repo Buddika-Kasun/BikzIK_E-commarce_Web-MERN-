@@ -43,7 +43,7 @@ const AddToCartButton = ({data, setNotLogin}) => {
                 setNotLogin();
             }
             else {
-                console.log(error);
+                //console.log(error);
                 AxiosToastError(error);
             }
         }

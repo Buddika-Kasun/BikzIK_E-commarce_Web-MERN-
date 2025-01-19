@@ -90,7 +90,7 @@ export const GlobalProvider = ({children}) => {
             
         }
         catch(error){
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
     }
@@ -129,7 +129,7 @@ export const GlobalProvider = ({children}) => {
 
         }
         catch(error){
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
     }

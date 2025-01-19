@@ -108,7 +108,7 @@ const DisplayOrder = ({close, data, isAdmin}) => {
 
         }
         catch (error) {
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
     };
@@ -130,7 +130,7 @@ const DisplayOrder = ({close, data, isAdmin}) => {
             }
         }
         catch (error) {
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
     };
@@ -152,7 +152,7 @@ const DisplayOrder = ({close, data, isAdmin}) => {
             }
         }
         catch (error) {
-            console.log(error);
+            //console.log(error);
             AxiosToastError(error);
         }
     };

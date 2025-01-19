@@ -254,7 +254,7 @@ export const getProductByIdController = async(req, res) => {
 export const updateProductController = async(req, res) => {
     try {
 
-        const {_id} = req.body; console.log('Update Product: ', _id);
+        const {_id} = req.body;
 
         if(!_id) {
             return res.status(400).json({

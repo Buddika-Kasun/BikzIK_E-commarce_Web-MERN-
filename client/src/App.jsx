@@ -41,7 +41,7 @@ function App() {
       dispatch(setAllCategory(categoryData.data));
     }
     catch(error){
-      console.log(error);
+      //console.log(error);
     }
     finally{
       dispatch(setLoadingCategory(false));
