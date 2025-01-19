@@ -187,7 +187,7 @@ export const GlobalProvider = ({children}) => {
     },[cartItem]);
 
     useEffect(() => {
-        fetchUser();
+        //fetchUser();
         fetchCartItems();
         fetchAddresses();
         fetchOrders();
