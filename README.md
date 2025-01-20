@@ -1,4 +1,4 @@
-# BIKZIK E-Commerce Platform
+# BikzIK E-Commerce Platform
 
 **BIKZIK** is a modern, full-stack e-commerce platform that offers seamless shopping experiences. It is built using the latest technologies with features like user authentication, product management, and cloud image storage.
 
