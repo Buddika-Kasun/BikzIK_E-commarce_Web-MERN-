@@ -16,17 +16,17 @@
     - [User Profiles](#user-profiles)
     - [Shopping Cart](#shopping-cart)
     - [Checkout & Payments](#checkout--payments)
-- [💳 Development Status](#development-status)
+- [💳 Development Status](#-development-status)
   - [Future Enhancements](#future-enhancements)
-- [📂 Project Structure](#project-structure)
+- [📂 Project Structure](#-project-structure)
   - [Frontend (Client)](#frontend-client)
   - [Backend (Server)](#backend-server)
 - [🛠️ Tech Stack](#-tech-stack)
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Other Tools & Libraries](#other-tools--libraries)
-- [🚀 Deployment](#deployment)
-- [📧 Contact](#contact)
+- [🚀 Deployment](#-deployment)
+- [📧 Contact](#-contact)
 
 
 ---
