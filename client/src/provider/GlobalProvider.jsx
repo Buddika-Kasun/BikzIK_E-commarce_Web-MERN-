@@ -198,6 +198,8 @@ export const GlobalProvider = ({children}) => {
         const fetchInterval = setInterval(() => {
             fetchAdminOrders();
             fetchOrders();
+            fetchAdminOrders();
+            fetchCartItems();
         }, 5 * 60 * 1000); // 5 minutes in milliseconds
     
         // Cleanup function to clear the interval when the component unmounts

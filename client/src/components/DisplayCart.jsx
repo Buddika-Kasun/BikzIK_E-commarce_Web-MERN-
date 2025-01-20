@@ -70,15 +70,15 @@ const DisplayCart = ({close}) => {
                                                                     <p className="text-ellipsis line-clamp-2 text-sm">{item?.productId?.name}</p>
                                                                     <div className="flex gap-4 items-center">
                                                                         {
-                                                                            item?.productId?.unit && <p className="text-sm text-neutral-500">{item?.productId?.unit}</p>
+                                                                            Boolean(item?.productId?.unit) && <p className="text-sm text-neutral-500">{item?.productId?.unit}</p>
                                                                         }
                                                                         {
-                                                                            item?.productId?.discount && <p className="text-sm text-red-600 bg-red-200 rounded px-2">{item?.productId?.discount}% discount</p>
+                                                                            Boolean(item?.productId?.discount) && <p className="text-sm text-red-600 bg-red-200 rounded px-2">{item?.productId?.discount}% discount</p>
                                                                         }
                                                                     </div>
                                                                     <div className="flex flex-col lg:flex-row lg:items-end lg:gap-2">
                                                                         {
-                                                                             item?.productId?.discount && <p className="text-sm text-gray-400 line-through">{priceDisplay(item?.productId?.price)}</p>
+                                                                            Boolean(item?.productId?.discount) && <p className="text-sm text-gray-400 line-through">{priceDisplay(item?.productId?.price)}</p>
                                                                         }
                                                                         <p className="font-semibold">{priceDisplay(priceWithDiscount(item?.productId?.price, item?.productId?.discount))}</p>
                                                                     </div>
