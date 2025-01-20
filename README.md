@@ -21,7 +21,7 @@
 - [📂 Project Structure](#-project-structure)
   - [Frontend (Client)](#frontend-client)
   - [Backend (Server)](#backend-server)
-- [🛠️ Tech Stack](#-tech-stack)
+- [🛠️ Tech Stack](#%EF%B8%8F-tech-stack)
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Other Tools & Libraries](#other-tools--libraries)
